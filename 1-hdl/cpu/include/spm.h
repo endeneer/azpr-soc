@@ -30,11 +30,11 @@
  *	 SPM_ADDR_W¤Ïlog2(4096)¤Ç12¤È¤Ê¤ê¤Þ¤¹¡£
  */
 
-	`define SPM_SIZE   16384 // SPM¤Î¥µ¥¤¥º
-	`define SPM_DEPTH  4096	 // SPM¤ÎÉî¤µ
-	`define SPM_ADDR_W 12	 // ¥¢¥É¥ì¥¹·ù
-	`define SpmAddrBus 11:0	 // ¥¢¥É¥ì¥¹¥Ð¥¹
-	`define SpmAddrLoc 11:0	 // ¥¢¥É¥ì¥¹¤ÎÎ»ÖÃ
+	`define SPM_SIZE   4096 // SPMï¿½Î¥ï¿½ï¿½ï¿½ï¿½ï¿½
+	`define SPM_DEPTH  1024 // SPMï¿½ï¿½ï¿½î¤µ
+	`define SPM_ADDR_W 10	 // ï¿½ï¿½ï¿½É¥ì¥¹ï¿½ï¿½
+	`define SpmAddrBus 9:0	 // ï¿½ï¿½ï¿½É¥ì¥¹ï¿½Ð¥ï¿½
+	`define SpmAddrLoc 9:0	 // ï¿½ï¿½ï¿½É¥ì¥¹ï¿½ï¿½Î»ï¿½ï¿½
 
 `endif
 
