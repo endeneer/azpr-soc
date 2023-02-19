@@ -30,11 +30,11 @@
  *	 ROM_ADDR_W¤Ïlog2(2048)¤Ç11¤È¤Ê¤ê¤Þ¤¹¡£
  */
 
-	`define ROM_SIZE   8192	// ROM¤Î¥µ¥¤¥º
-	`define ROM_DEPTH  2048	// ROM¤ÎÉî¤µ
-	`define ROM_ADDR_W 11	// ¥¢¥É¥ì¥¹·ù
-	`define RomAddrBus 10:0 // ¥¢¥É¥ì¥¹¥Ð¥¹
-	`define RomAddrLoc 10:0 // ¥¢¥É¥ì¥¹¤ÎÎ»ÖÃ
+	`define ROM_SIZE   4096 // ROMï¿½Î¥ï¿½ï¿½ï¿½ï¿½ï¿½
+	`define ROM_DEPTH  1024 // ROMï¿½ï¿½ï¿½î¤µ
+	`define ROM_ADDR_W 10	// ï¿½ï¿½ï¿½É¥ì¥¹ï¿½ï¿½
+	`define RomAddrBus 9:0 // ï¿½ï¿½ï¿½É¥ì¥¹ï¿½Ð¥ï¿½
+	`define RomAddrLoc 9:0 // ï¿½ï¿½ï¿½É¥ì¥¹ï¿½ï¿½Î»ï¿½ï¿½
 
 `endif
 
