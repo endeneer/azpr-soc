@@ -7,12 +7,16 @@
 # Quartus
 *.bak
 *.qws
+*.ver
 4-synth/db
 4-synth/incremental_db
+4-synth/greybox_tmp
 4-synth/output_files
 !4-synth/*.pof
 !4-synth/*.sof
 4-synth/simulation
+## qip should be in 1-hdl folder, so let's just ignore qip in 4-synth folder, sometimes quartus makes ignorable backup .qip in 4-synth folder
+4-synth/*.qip
 
 # Intentionally ignored
 ignore/

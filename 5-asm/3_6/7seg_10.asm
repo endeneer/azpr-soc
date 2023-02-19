@@ -1,16 +1,23 @@
-;;; ƒƒP[ƒVƒ‡ƒ“ƒAƒhƒŒƒX‚ÌÝ’è
+;;; ï¿½ï¿½ï¿½Pï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½hï¿½ï¿½ï¿½Xï¿½ÌÝ’ï¿½
 	LOCATE	0x20000000
 
-;;; ƒVƒ“ƒ{ƒ‹‚Ì’è‹`
+;;; ï¿½Vï¿½ï¿½ï¿½{ï¿½ï¿½ï¿½Ì’ï¿½`
 GPIO_BASE_ADDR_H	EQU	0x8000			;GPIO Base Address High
 GPIO_OUT_OFFSET		EQU	0x4				;GPIO Data Register Offset
-GPIO_DATA_7SEG1_0	EQU	0x00C0
-GPIO_DATA_7SEG1_1	EQU	0x00F9
-GPIO_DATA_7SEG2_0	EQU	0xC000
 
-;;; 7ƒZƒO“_“”
+;;; Common-anode
+;;; GPIO_DATA_7SEG1_0	EQU	0x00C0
+;;; GPIO_DATA_7SEG1_1	EQU	0x00F9
+;;; GPIO_DATA_7SEG2_0	EQU	0xC000
+
+;;; Common-cathode
+GPIO_DATA_7SEG1_0	EQU	0x003F
+GPIO_DATA_7SEG1_1	EQU	0x0006
+GPIO_DATA_7SEG2_0	EQU	0x3F00
+
+;;; 7ï¿½Zï¿½Oï¿½_ï¿½ï¿½
 	XORR	r0,r0,r0
-	ORI		r0,r1,GPIO_BASE_ADDR_H		;GPIO Base AddressãˆÊ16ƒrƒbƒg‚ðr1‚ÉƒZƒbƒg
+	ORI		r0,r1,GPIO_BASE_ADDR_H		;GPIO Base Addressï¿½ï¿½ï¿½16ï¿½rï¿½bï¿½gï¿½ï¿½r1ï¿½ÉƒZï¿½bï¿½g
 	SHLLI	r1,r1,16
 
 	ORI		r0,r2,GPIO_DATA_7SEG1_1
@@ -18,7 +25,7 @@ GPIO_DATA_7SEG2_0	EQU	0xC000
 
 	STW		r1,r2,GPIO_OUT_OFFSET
 
-;; –³ŒÀƒ‹[ƒv
+;; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½v
 LOOP:
-	BE		r0,r0,LOOP					;–³ŒÀƒ‹[ƒv
+	BE		r0,r0,LOOP					;ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½v
 	ANDR	r0,r0,r0					;NOP

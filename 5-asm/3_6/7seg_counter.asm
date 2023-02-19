@@ -1,53 +1,66 @@
-;;; ƒƒP[ƒVƒ‡ƒ“ƒAƒhƒŒƒX‚ÌÝ’è
+;;; ï¿½ï¿½ï¿½Pï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½hï¿½ï¿½ï¿½Xï¿½ÌÝ’ï¿½
 	LOCATE	0x20000000
 
-;;; ƒVƒ“ƒ{ƒ‹‚Ì’è‹`
+;;; ï¿½Vï¿½ï¿½ï¿½{ï¿½ï¿½ï¿½Ì’ï¿½`
 GPIO_BASE_ADDR_H	EQU	0x8000			;GPIO Base Address High
 GPIO_IN_OFFSET		EQU	0x0				;GPIO Input Port Register Offset
 GPIO_OUT_OFFSET		EQU	0x4				;GPIO Output Port Register Offset
 
-7SEG_DATA_0			EQU	0xC0
-7SEG_DATA_1			EQU	0xF9
-7SEG_DATA_2			EQU	0xA4
-7SEG_DATA_3			EQU	0xB0
-7SEG_DATA_4			EQU	0x99
-7SEG_DATA_5			EQU	0x92
-7SEG_DATA_6			EQU	0x82
-7SEG_DATA_7			EQU	0xF8
-7SEG_DATA_8			EQU	0x80
-7SEG_DATA_9			EQU	0x90
+;;; Common-anode
+;;; 7SEG_DATA_0			EQU	0xC0
+;;; 7SEG_DATA_1			EQU	0xF9
+;;; 7SEG_DATA_2			EQU	0xA4
+;;; 7SEG_DATA_3			EQU	0xB0
+;;; 7SEG_DATA_4			EQU	0x99
+;;; 7SEG_DATA_5			EQU	0x92
+;;; 7SEG_DATA_6			EQU	0x82
+;;; 7SEG_DATA_7			EQU	0xF8
+;;; 7SEG_DATA_8			EQU	0x80
+;;; 7SEG_DATA_9			EQU	0x90
+
+;;; Common-cathode
+7SEG_DATA_0			EQU	0x3F
+7SEG_DATA_1			EQU	0x06
+7SEG_DATA_2			EQU	0x5B
+7SEG_DATA_3			EQU	0x4F
+7SEG_DATA_4			EQU	0x66
+7SEG_DATA_5			EQU	0x6D
+7SEG_DATA_6			EQU	0x7D
+7SEG_DATA_7			EQU	0x07
+7SEG_DATA_8			EQU	0x7F
+7SEG_DATA_9			EQU	0x5F
 
 
 	XORR	r0,r0,r0
 
-;;; ƒTƒuƒ‹[ƒ`ƒ“ƒR[ƒ‹‚ÌƒR[ƒ‹æ‚ðƒŒƒWƒXƒ^‚ÉƒZƒbƒg
-	ORI		r0,r1,high(CONV_NUM_TO_7SEG_DATA)	;ƒ‰ƒxƒ‹CONV_NUM_TO_7SEG_DATA‚ÌãˆÊ16ƒrƒbƒg‚ðr1‚ÉƒZƒbƒg
+;;; ï¿½Tï¿½uï¿½ï¿½ï¿½[ï¿½`ï¿½ï¿½ï¿½Rï¿½[ï¿½ï¿½ï¿½ÌƒRï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Wï¿½Xï¿½^ï¿½ÉƒZï¿½bï¿½g
+	ORI		r0,r1,high(CONV_NUM_TO_7SEG_DATA)	;ï¿½ï¿½ï¿½xï¿½ï¿½CONV_NUM_TO_7SEG_DATAï¿½Ìï¿½ï¿½16ï¿½rï¿½bï¿½gï¿½ï¿½r1ï¿½ÉƒZï¿½bï¿½g
 	SHLLI	r1,r1,16
-	ORI		r1,r1,low(CONV_NUM_TO_7SEG_DATA)	;ƒ‰ƒxƒ‹CONV_NUM_TO_7SEG_DATA‚Ì‰ºˆÊ16ƒrƒbƒg‚ðr1‚ÉƒZƒbƒg
+	ORI		r1,r1,low(CONV_NUM_TO_7SEG_DATA)	;ï¿½ï¿½ï¿½xï¿½ï¿½CONV_NUM_TO_7SEG_DATAï¿½Ì‰ï¿½ï¿½ï¿½16ï¿½rï¿½bï¿½gï¿½ï¿½r1ï¿½ÉƒZï¿½bï¿½g
 
-	ORI		r0,r2,high(SET_GPIO_OUT)			;ƒ‰ƒxƒ‹SET_GPIO_OUT‚ÌãˆÊ16ƒrƒbƒg‚ðr2‚ÉƒZƒbƒg
+	ORI		r0,r2,high(SET_GPIO_OUT)			;ï¿½ï¿½ï¿½xï¿½ï¿½SET_GPIO_OUTï¿½Ìï¿½ï¿½16ï¿½rï¿½bï¿½gï¿½ï¿½r2ï¿½ÉƒZï¿½bï¿½g
 	SHLLI	r2,r2,16
-	ORI		r2,r2,low(SET_GPIO_OUT)				;ƒ‰ƒxƒ‹SET_GPIO_OUT‚ÌãˆÊ16ƒrƒbƒg‚ðr2‚ÉƒZƒbƒg
+	ORI		r2,r2,low(SET_GPIO_OUT)				;ï¿½ï¿½ï¿½xï¿½ï¿½SET_GPIO_OUTï¿½Ìï¿½ï¿½16ï¿½rï¿½bï¿½gï¿½ï¿½r2ï¿½ÉƒZï¿½bï¿½g
 
-	ORI		r0,r3,high(WAIT_PUSH_SW)			;ƒ‰ƒxƒ‹WAIT_PUSH_SW‚ÌãˆÊ16ƒrƒbƒg‚ðr3‚ÉƒZƒbƒg
+	ORI		r0,r3,high(WAIT_PUSH_SW)			;ï¿½ï¿½ï¿½xï¿½ï¿½WAIT_PUSH_SWï¿½Ìï¿½ï¿½16ï¿½rï¿½bï¿½gï¿½ï¿½r3ï¿½ÉƒZï¿½bï¿½g
 	SHLLI	r3,r3,16
-	ORI		r3,r3,low(WAIT_PUSH_SW)				;ƒ‰ƒxƒ‹WAIT_PUSH_SW‚ÌãˆÊ16ƒrƒbƒg‚ðr3‚ÉƒZƒbƒg
+	ORI		r3,r3,low(WAIT_PUSH_SW)				;ï¿½ï¿½ï¿½xï¿½ï¿½WAIT_PUSH_SWï¿½Ìï¿½ï¿½16ï¿½rï¿½bï¿½gï¿½ï¿½r3ï¿½ÉƒZï¿½bï¿½g
 
-;;; ƒJƒEƒ“ƒ^[‚Ì’l‚ð‰Šú‰»
+;;; ï¿½Jï¿½Eï¿½ï¿½ï¿½^ï¿½[ï¿½Ì’lï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 _COUNTER_RESET:
 	ORI		r0,r4,0
 
 _7SEG_COUNTER_LOOP:
-;;; 7ƒZƒO“_“”
-	ORR		r0,r4,r16					;ƒJƒEƒ“ƒ^[‚Ì’l‚ðˆø”‚ÉƒZƒbƒg
-	CALL	r1							;CONV_NUM_TO_7SEG_DATAŒÄ‚Ño‚µ
+;;; 7ï¿½Zï¿½Oï¿½_ï¿½ï¿½
+	ORR		r0,r4,r16					;ï¿½Jï¿½Eï¿½ï¿½ï¿½^ï¿½[ï¿½Ì’lï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÉƒZï¿½bï¿½g
+	CALL	r1							;CONV_NUM_TO_7SEG_DATAï¿½Ä‚Ñoï¿½ï¿½
 	ANDR	r0,r0,r0					;NOP
 
-	ORR		r0,r17,r16					;o—Íƒf[ƒ^‚ðˆø”‚ÉƒZƒbƒg
-	CALL	r2							;SET_GPIO_OUTŒÄ‚Ño‚µ
+	ORR		r0,r17,r16					;ï¿½oï¿½Íƒfï¿½[ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÉƒZï¿½bï¿½g
+	CALL	r2							;SET_GPIO_OUTï¿½Ä‚Ñoï¿½ï¿½
 	ANDR	r0,r0,r0					;NOP
 
-	CALL	r3							;WAIT_PUSH_SWŒÄ‚Ño‚µ
+	CALL	r3							;WAIT_PUSH_SWï¿½Ä‚Ñoï¿½ï¿½
 	ANDR	r0,r0,r0					;NOP
 
 _COUNT_UP:
@@ -60,19 +73,19 @@ _COUNT_UP:
 
 
 CONV_NUM_TO_7SEG_DATA:
-	;; ‰ºˆÊ‚ÌŒ…‚©‚ç”Žš‚ð’Šo
-	ORR		r0,r16,r18					;r16‚ðr18‚ÉƒRƒs[
-	XORR	r17,r17,r17					;Return Value‚ÌƒNƒŠƒA
-	XORR	r19,r19,r19					;0:1Œ…–Ú(7SEG2), 1:2Œ…–Ú(7SEG1)
-	XORR	r20,r20,r20					;2Œ…–Ú‚Ì’l
-	;; 10‚ÌˆÊ‚Ì’l‚ð‹‚ß‚é
-	ORI		r0,r21,10					;r21‚É10‚ð‚¢‚ê‚é
+	;; ï¿½ï¿½ï¿½Ê‚ÌŒï¿½ï¿½ï¿½ï¿½ç”ï¿½ï¿½ï¿½ð’Šo
+	ORR		r0,r16,r18					;r16ï¿½ï¿½r18ï¿½ÉƒRï¿½sï¿½[
+	XORR	r17,r17,r17					;Return Valueï¿½ÌƒNï¿½ï¿½ï¿½A
+	XORR	r19,r19,r19					;0:1ï¿½ï¿½ï¿½ï¿½(7SEG2), 1:2ï¿½ï¿½ï¿½ï¿½(7SEG1)
+	XORR	r20,r20,r20					;2ï¿½ï¿½ï¿½Ú‚Ì’l
+	;; 10ï¿½ÌˆÊ‚Ì’lï¿½ï¿½ï¿½ï¿½ï¿½ß‚ï¿½
+	ORI		r0,r21,10					;r21ï¿½ï¿½10ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 _SUB10:
-	BUGT	r18,r21,_CHECK_0			;r18<r21(r18<10)‚È‚ç‚Î_CHECK_0‚É‚Æ‚Ô
+	BUGT	r18,r21,_CHECK_0			;r18<r21(r18<10)ï¿½È‚ï¿½ï¿½_CHECK_0ï¿½É‚Æ‚ï¿½
 	ANDR	r0,r0,r0					;NOP
 	ADDUI	r18,r18,-10
 	ADDUI	r20,r20,1
-	BE		r0,r0,_SUB10				;r21<r18‚È‚ç‚ÎSUB10‚É‚Æ‚Ô
+	BE		r0,r0,_SUB10				;r21<r18ï¿½È‚ï¿½ï¿½SUB10ï¿½É‚Æ‚ï¿½
 	ANDR	r0,r0,r0					;NOP
 
 _CHECK_0:
@@ -82,7 +95,7 @@ _CHECK_0:
 	ORI		r0,r22,7SEG_DATA_0
 	BNE		r0,r19,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0					;NOP
-	SHLLI	r22,r22,8					;7SEG2—p‚Ì8ƒrƒbƒgƒVƒtƒg
+	SHLLI	r22,r22,8					;7SEG2ï¿½pï¿½ï¿½8ï¿½rï¿½bï¿½gï¿½Vï¿½tï¿½g
 	BE		r0,r0,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0					;NOP
 
@@ -93,7 +106,7 @@ _CHECK_1:
 	ORI		r0,r22,7SEG_DATA_1
 	BNE		r0,r19,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0					;NOP
-	SHLLI	r22,r22,8					;7SEG2—p‚Ì8ƒrƒbƒgƒVƒtƒg
+	SHLLI	r22,r22,8					;7SEG2ï¿½pï¿½ï¿½8ï¿½rï¿½bï¿½gï¿½Vï¿½tï¿½g
 	BE		r0,r0,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0					;NOP
 
@@ -104,7 +117,7 @@ _CHECK_2:
 	ORI		r0,r22,7SEG_DATA_2
 	BNE		r0,r19,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0					;NOP
-	SHLLI	r22,r22,8					;7SEG2—p‚Ì8ƒrƒbƒgƒVƒtƒg
+	SHLLI	r22,r22,8					;7SEG2ï¿½pï¿½ï¿½8ï¿½rï¿½bï¿½gï¿½Vï¿½tï¿½g
 	BE		r0,r0,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0					;NOP
 
@@ -115,7 +128,7 @@ _CHECK_3:
 	ORI		r0,r22,7SEG_DATA_3
 	BNE		r0,r19,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0					;NOP
-	SHLLI	r22,r22,8					;7SEG2—p‚Ì8ƒrƒbƒgƒVƒtƒg
+	SHLLI	r22,r22,8					;7SEG2ï¿½pï¿½ï¿½8ï¿½rï¿½bï¿½gï¿½Vï¿½tï¿½g
 	BE		r0,r0,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0					;NOP
 
@@ -126,7 +139,7 @@ _CHECK_4:
 	ORI		r0,r22,7SEG_DATA_4
 	BNE		r0,r19,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0					;NOP
-	SHLLI	r22,r22,8					;7SEG2—p‚Ì8ƒrƒbƒgƒVƒtƒg
+	SHLLI	r22,r22,8					;7SEG2ï¿½pï¿½ï¿½8ï¿½rï¿½bï¿½gï¿½Vï¿½tï¿½g
 	BE		r0,r0,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0					;NOP
 
@@ -137,7 +150,7 @@ _CHECK_5:
 	ORI		r0,r22,7SEG_DATA_5
 	BNE		r0,r19,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0					;NOP
-	SHLLI	r22,r22,8					;7SEG2—p‚Ì8ƒrƒbƒgƒVƒtƒg
+	SHLLI	r22,r22,8					;7SEG2ï¿½pï¿½ï¿½8ï¿½rï¿½bï¿½gï¿½Vï¿½tï¿½g
 	BE		r0,r0,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0					;NOP
 
@@ -148,7 +161,7 @@ _CHECK_6:
 	ORI		r0,r22,7SEG_DATA_6
 	BNE		r0,r19,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0					;NOP
-	SHLLI	r22,r22,8					;7SEG2—p‚Ì8ƒrƒbƒgƒVƒtƒg
+	SHLLI	r22,r22,8					;7SEG2ï¿½pï¿½ï¿½8ï¿½rï¿½bï¿½gï¿½Vï¿½tï¿½g
 	BE		r0,r0,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0					;NOP
 
@@ -159,7 +172,7 @@ _CHECK_7:
 	ORI		r0,r22,7SEG_DATA_7
 	BNE		r0,r19,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0					;NOP
-	SHLLI	r22,r22,8					;7SEG2—p‚Ì8ƒrƒbƒgƒVƒtƒg
+	SHLLI	r22,r22,8					;7SEG2ï¿½pï¿½ï¿½8ï¿½rï¿½bï¿½gï¿½Vï¿½tï¿½g
 	BE		r0,r0,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0					;NOP
 
@@ -170,7 +183,7 @@ _CHECK_8:
 	ORI		r0,r22,7SEG_DATA_8
 	BNE		r0,r19,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0					;NOP
-	SHLLI	r22,r22,8					;7SEG2—p‚Ì8ƒrƒbƒgƒVƒtƒg
+	SHLLI	r22,r22,8					;7SEG2ï¿½pï¿½ï¿½8ï¿½rï¿½bï¿½gï¿½Vï¿½tï¿½g
 	BE		r0,r0,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0					;NOP
 
@@ -178,7 +191,7 @@ _CHECK_9:
 	ORI		r0,r22,7SEG_DATA_9
 	BNE		r0,r19,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0					;NOP
-	SHLLI	r22,r22,8					;7SEG2—p‚Ì8ƒrƒbƒgƒVƒtƒg
+	SHLLI	r22,r22,8					;7SEG2ï¿½pï¿½ï¿½8ï¿½rï¿½bï¿½gï¿½Vï¿½tï¿½g
 
 _SET_RETURN_VALUE:
 	ORR		r17,r22,r17
@@ -186,7 +199,7 @@ _SET_RETURN_VALUE:
 	ANDR	r0,r0,r0					;NOP
 _NEXT_DIGIT:
 	ORR		r0,r20,r18
-	ORI		r19,r19,1					;0:1Œ…–Ú(7SEG2), 1:2Œ…–Ú(7SEG1)
+	ORI		r19,r19,1					;0:1ï¿½ï¿½ï¿½ï¿½(7SEG2), 1:2ï¿½ï¿½ï¿½ï¿½(7SEG1)
 	BE		r0,r0,_CHECK_0
 	ANDR	r0,r0,r0					;NOP
 _CONV_NUM_TO_7SEG_DATA_RETURN:
