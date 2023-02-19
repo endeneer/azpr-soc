@@ -73,7 +73,9 @@ module gpio (
 `endif
 `ifdef GPIO_IO_CH	 // ������ݩ`�ȤΥꥻ�å�
 			io_out	 <=  {`GPIO_IO_CH{`LOW}};
-			io_dir	 <=  {`GPIO_IO_CH{`GPIO_DIR_IN}};
+			// io_dir	 <=  {`GPIO_IO_CH{`GPIO_DIR_IN}};
+			// changed to GPIO_DIR_OUT (simplify wiring because leaving unused output floating is ok, but not for input)
+			io_dir	 <=  {`GPIO_IO_CH{`GPIO_DIR_OUT}};
 `endif
 		end else begin
 			/* ��ǥ������� */
