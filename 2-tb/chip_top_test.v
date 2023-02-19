@@ -1,4 +1,4 @@
-﻿/* 
+/* 
  -- ============================================================================
  -- FILE NAME	: chip_top_test.v
  -- DESCRIPTION : 测试台
@@ -53,7 +53,8 @@ module chip_top_test;
 `endif
 
 	/********** シミュレーションサイクル **********/
-	parameter				 STEP = 100.0000; // 10 M
+	// parameter				 STEP = 100.0000; // 10 M
+	parameter				 STEP = 20.0000; // 10 M
 
 	/********** クロック生成 **********/
 	always #( STEP / 2 ) begin
@@ -107,7 +108,7 @@ module chip_top_test;
 `ifdef IMPLEMENT_UART // UART実装
 	/********** 受信信号 **********/  
 	assign uart_rx = `HIGH;		// アイドル
-//	  assign uart_rx = uart_tx; // ループバック
+	  assign uart_rx = uart_tx; // ループバック
 
 	/********** UARTモデル **********/	
 	uart_rx uart_model (
@@ -137,13 +138,15 @@ module chip_top_test;
 			reset_sw <= `RESET_ENABLE;
 		end
 		# ( STEP / 2 )
-		# ( STEP / 4 ) begin		  // メモリイメージの読み込み
-			$readmemh(`ROM_PRG, chip_top.chip.rom.x_s3e_sprom.mem);
-			$readmemh(`SPM_PRG, chip_top.chip.cpu.spm.x_s3e_dpram.mem);
-		end
+		// commented out readmemh since in quartus we already embedded .mif in sprom
+		// # ( STEP / 4 ) begin		  // メモリイメージの読み込み
+		// 	$readmemh(`ROM_PRG, chip_top.chip.rom.x_s3e_sprom.mem);
+		// 	$readmemh(`SPM_PRG, chip_top.chip.cpu.spm.x_s3e_dpram.mem);
+		// end
 		# ( STEP * 20 ) begin		  // リセットの解除
 			reset_sw <= `RESET_DISABLE;
 		end
+		`define SIM_CYCLE 200000 
 		# ( STEP * `SIM_CYCLE ) begin // シミュレーションの実行
 			$finish;
 		end
@@ -152,7 +155,11 @@ module chip_top_test;
 	/********** 波形の出力 **********/	
 	initial begin
 		$dumpfile("chip_top.vcd");
-		$dumpvars(0, chip_top);
+		$dumpvars(0, chip_top.chip.rom);
+		// this is to demonstrate not only can we capture by module, but also down to single signal
+		$dumpvars(0, chip_top.clk_gen.x_s3e_dcm.locked);
+		// note: dumpvars chip_top directly may produce few GB of .vcd (e.g. if I set SIM_CYCLE 200000, chip_top.vcd is around 5.05GB)
+		// $dumpvars(0, chip_top);
 	end
   
 endmodule	
