@@ -1,118 +1,118 @@
 /*
  -- ============================================================================
  -- FILE NAME	: ex_reg.v
- -- DESCRIPTION : EX¥¹¥Æ©`¥¸¥Ñ¥¤¥×¥é¥¤¥ó¥ì¥¸¥¹¥¿
+ -- DESCRIPTION : EXï¿½ï¿½ï¿½Æ©`ï¿½ï¿½ï¿½Ñ¥ï¿½ï¿½×¥é¥¤ï¿½ï¿½ì¥¸ï¿½ï¿½ï¿½ï¿½
  -- ----------------------------------------------------------------------------
  -- Revision  Date		  Coding_by	 Comment
- -- 1.0.0	  2011/06/27  suito		 ÐÂÒŽ×÷³É
+ -- 1.0.0	  2011/06/27  suito		 ï¿½ï¿½ÒŽï¿½ï¿½ï¿½ï¿½
  -- ============================================================================
 */
 
-/********** ¹²Í¨¥Ø¥Ã¥À¥Õ¥¡¥¤¥ë **********/
+/********** ï¿½ï¿½Í¨ï¿½Ø¥Ã¥ï¿½ï¿½Õ¥ï¿½ï¿½ï¿½ï¿½ï¿½ **********/
 `include "nettype.h"
 `include "global_config.h"
 `include "stddef.h"
 
-/********** ‚€„e¥Ø¥Ã¥À¥Õ¥¡¥¤¥ë **********/
+/********** ï¿½ï¿½ï¿½eï¿½Ø¥Ã¥ï¿½ï¿½Õ¥ï¿½ï¿½ï¿½ï¿½ï¿½ **********/
 `include "isa.h"
 `include "cpu.h"
 
-/********** ¥â¥¸¥å©`¥ë **********/
+/********** ï¿½â¥¸ï¿½ï¿½`ï¿½ï¿½ **********/
 module ex_reg (
-	/********** ¥¯¥í¥Ã¥¯ & ¥ê¥»¥Ã¥È **********/
-	input  wire				   clk,			   // ¥¯¥í¥Ã¥¯
-	input  wire				   reset,		   // ·ÇÍ¬ÆÚ¥ê¥»¥Ã¥È
-	/********** ALU¤Î³öÁ¦ **********/
-	input  wire [`WordDataBus] alu_out,		   // ÑÝËã½Y¹û
-	input  wire				   alu_of,		   // ¥ª©`¥Ð¥Õ¥í©`
-	/********** ¥Ñ¥¤¥×¥é¥¤¥óÖÆÓùÐÅºÅ **********/
-	input  wire				   stall,		   // ¥¹¥È©`¥ë
-	input  wire				   flush,		   // ¥Õ¥é¥Ã¥·¥å
-	input  wire				   int_detect,	   // ¸î¤êÞz¤ß—Ê³ö
-	/********** ID/EX¥Ñ¥¤¥×¥é¥¤¥ó¥ì¥¸¥¹¥¿ **********/
-	input  wire [`WordAddrBus] id_pc,		   // ¥×¥í¥°¥é¥à¥«¥¦¥ó¥¿
-	input  wire				   id_en,		   // ¥Ñ¥¤¥×¥é¥¤¥ó¥Ç©`¥¿¤ÎÓÐ„¿
-	input  wire				   id_br_flag,	   // ·Öáª¥Õ¥é¥°
-	input  wire [`MemOpBus]	   id_mem_op,	   // ¥á¥â¥ê¥ª¥Ú¥ì©`¥·¥ç¥ó
-	input  wire [`WordDataBus] id_mem_wr_data, // ¥á¥â¥ê•ø¤­Þz¤ß¥Ç©`¥¿
-	input  wire [`CtrlOpBus]   id_ctrl_op,	   // ÖÆÓù¥ì¥¸¥¹¥¿¥ª¥Ú¥ì©`¥·¥ç¥ó
-	input  wire [`RegAddrBus]  id_dst_addr,	   // šøÓÃ¥ì¥¸¥¹¥¿•ø¤­Þz¤ß¥¢¥É¥ì¥¹
-	input  wire				   id_gpr_we_,	   // šøÓÃ¥ì¥¸¥¹¥¿•ø¤­Þz¤ßÓÐ„¿
-	input  wire [`IsaExpBus]   id_exp_code,	   // ÀýÍâ¥³©`¥É
-	/********** EX/MEM¥Ñ¥¤¥×¥é¥¤¥ó¥ì¥¸¥¹¥¿ **********/
-	output reg	[`WordAddrBus] ex_pc,		   // ¥×¥í¥°¥é¥à¥«¥¦¥ó¥¿
-	output reg				   ex_en,		   // ¥Ñ¥¤¥×¥é¥¤¥ó¥Ç©`¥¿¤ÎÓÐ„¿
-	output reg				   ex_br_flag,	   // ·Öáª¥Õ¥é¥°
-	output reg	[`MemOpBus]	   ex_mem_op,	   // ¥á¥â¥ê¥ª¥Ú¥ì©`¥·¥ç¥ó
-	output reg	[`WordDataBus] ex_mem_wr_data, // ¥á¥â¥ê•ø¤­Þz¤ß¥Ç©`¥¿
-	output reg	[`CtrlOpBus]   ex_ctrl_op,	   // ÖÆÓù¥ì¥¸¥¹¥¿¥ª¥Ú¥ì©`¥·¥ç¥ó
-	output reg	[`RegAddrBus]  ex_dst_addr,	   // šøÓÃ¥ì¥¸¥¹¥¿•ø¤­Þz¤ß¥¢¥É¥ì¥¹
-	output reg				   ex_gpr_we_,	   // šøÓÃ¥ì¥¸¥¹¥¿•ø¤­Þz¤ßÓÐ„¿
-	output reg	[`IsaExpBus]   ex_exp_code,	   // ÀýÍâ¥³©`¥É
-	output reg	[`WordDataBus] ex_out		   // „IÀí½Y¹û
+	/********** ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ & ï¿½ê¥»ï¿½Ã¥ï¿½ **********/
+	input  wire				   clk,			   // ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½
+	input  wire				   reset,		   // ï¿½ï¿½Í¬ï¿½Ú¥ê¥»ï¿½Ã¥ï¿½
+	/********** ALUï¿½Î³ï¿½ï¿½ï¿½ **********/
+	input  wire [`WordDataBus] alu_out,		   // ï¿½ï¿½ï¿½ï¿½Yï¿½ï¿½
+	input  wire				   alu_of,		   // ï¿½ï¿½ï¿½`ï¿½Ð¥Õ¥ï¿½ï¿½`
+	/********** ï¿½Ñ¥ï¿½ï¿½×¥é¥¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½ **********/
+	input  wire				   stall,		   // ï¿½ï¿½ï¿½È©`ï¿½ï¿½
+	input  wire				   flush,		   // ï¿½Õ¥ï¿½Ã¥ï¿½ï¿½ï¿½
+	input  wire				   int_detect,	   // ï¿½ï¿½ï¿½ï¿½zï¿½ß—Ê³ï¿½
+	/********** ID/EXï¿½Ñ¥ï¿½ï¿½×¥é¥¤ï¿½ï¿½ì¥¸ï¿½ï¿½ï¿½ï¿½ **********/
+	input  wire [`WordAddrBus] id_pc,		   // ï¿½×¥ï¿½ï¿½ï¿½ï¿½ï¿½à¥«ï¿½ï¿½ï¿½ï¿½
+	input  wire				   id_en,		   // ï¿½Ñ¥ï¿½ï¿½×¥é¥¤ï¿½ï¿½Ç©`ï¿½ï¿½ï¿½ï¿½ï¿½Ð„ï¿½
+	input  wire				   id_br_flag,	   // ï¿½ï¿½áª¥Õ¥é¥°
+	input  wire [`MemOpBus]	   id_mem_op,	   // ï¿½ï¿½ï¿½ê¥ªï¿½Ú¥ï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½
+	input  wire [`WordDataBus] id_mem_wr_data, // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½zï¿½ß¥Ç©`ï¿½ï¿½
+	input  wire [`CtrlOpBus]   id_ctrl_op,	   // ï¿½ï¿½ï¿½ï¿½ï¿½ì¥¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¥ï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½
+	input  wire [`RegAddrBus]  id_dst_addr,	   // ï¿½ï¿½ï¿½Ã¥ì¥¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½zï¿½ß¥ï¿½ï¿½É¥ì¥¹
+	input  wire				   id_gpr_we_,	   // ï¿½ï¿½ï¿½Ã¥ì¥¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½zï¿½ï¿½ï¿½Ð„ï¿½
+	input  wire [`IsaExpBus]   id_exp_code,	   // ï¿½ï¿½ï¿½â¥³ï¿½`ï¿½ï¿½
+	/********** EX/MEMï¿½Ñ¥ï¿½ï¿½×¥é¥¤ï¿½ï¿½ì¥¸ï¿½ï¿½ï¿½ï¿½ **********/
+	output reg	[`WordAddrBus] ex_pc,		   // ï¿½×¥ï¿½ï¿½ï¿½ï¿½ï¿½à¥«ï¿½ï¿½ï¿½ï¿½
+	output reg				   ex_en,		   // ï¿½Ñ¥ï¿½ï¿½×¥é¥¤ï¿½ï¿½Ç©`ï¿½ï¿½ï¿½ï¿½ï¿½Ð„ï¿½
+	output reg				   ex_br_flag,	   // ï¿½ï¿½áª¥Õ¥é¥°
+	output reg	[`MemOpBus]	   ex_mem_op,	   // ï¿½ï¿½ï¿½ê¥ªï¿½Ú¥ï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½
+	output reg	[`WordDataBus] ex_mem_wr_data, // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½zï¿½ß¥Ç©`ï¿½ï¿½
+	output reg	[`CtrlOpBus]   ex_ctrl_op,	   // ï¿½ï¿½ï¿½ï¿½ï¿½ì¥¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¥ï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½
+	output reg	[`RegAddrBus]  ex_dst_addr,	   // ï¿½ï¿½ï¿½Ã¥ì¥¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½zï¿½ß¥ï¿½ï¿½É¥ì¥¹
+	output reg				   ex_gpr_we_,	   // ï¿½ï¿½ï¿½Ã¥ì¥¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½zï¿½ï¿½ï¿½Ð„ï¿½
+	output reg	[`IsaExpBus]   ex_exp_code,	   // ï¿½ï¿½ï¿½â¥³ï¿½`ï¿½ï¿½
+	output reg	[`WordDataBus] ex_out		   // ï¿½Iï¿½ï¿½ï¿½Yï¿½ï¿½
 );
 
-	/********** ¥Ñ¥¤¥×¥é¥¤¥ó¥ì¥¸¥¹¥¿ **********/
+	/********** ï¿½Ñ¥ï¿½ï¿½×¥é¥¤ï¿½ï¿½ì¥¸ï¿½ï¿½ï¿½ï¿½ **********/
 	always @(posedge clk or `RESET_EDGE reset) begin
-		/* ·ÇÍ¬ÆÚ¥ê¥»¥Ã¥È */
+		/* ï¿½ï¿½Í¬ï¿½Ú¥ê¥»ï¿½Ã¥ï¿½ */
 		if (reset == `RESET_ENABLE) begin 
-			ex_pc		   <= #1 `WORD_ADDR_W'h0;
-			ex_en		   <= #1 `DISABLE;
-			ex_br_flag	   <= #1 `DISABLE;
-			ex_mem_op	   <= #1 `MEM_OP_NOP;
-			ex_mem_wr_data <= #1 `WORD_DATA_W'h0;
-			ex_ctrl_op	   <= #1 `CTRL_OP_NOP;
-			ex_dst_addr	   <= #1 `REG_ADDR_W'd0;
-			ex_gpr_we_	   <= #1 `DISABLE_;
-			ex_exp_code	   <= #1 `ISA_EXP_NO_EXP;
-			ex_out		   <= #1 `WORD_DATA_W'h0;
+			ex_pc		   <=  `WORD_ADDR_W'h0;
+			ex_en		   <=  `DISABLE;
+			ex_br_flag	   <=  `DISABLE;
+			ex_mem_op	   <=  `MEM_OP_NOP;
+			ex_mem_wr_data <=  `WORD_DATA_W'h0;
+			ex_ctrl_op	   <=  `CTRL_OP_NOP;
+			ex_dst_addr	   <=  `REG_ADDR_W'd0;
+			ex_gpr_we_	   <=  `DISABLE_;
+			ex_exp_code	   <=  `ISA_EXP_NO_EXP;
+			ex_out		   <=  `WORD_DATA_W'h0;
 		end else begin
-			/* ¥Ñ¥¤¥×¥é¥¤¥ó¥ì¥¸¥¹¥¿¤Î¸üÐÂ */
+			/* ï¿½Ñ¥ï¿½ï¿½×¥é¥¤ï¿½ï¿½ì¥¸ï¿½ï¿½ï¿½ï¿½ï¿½Î¸ï¿½ï¿½ï¿½ */
 			if (stall == `DISABLE) begin 
-				if (flush == `ENABLE) begin				  // ¥Õ¥é¥Ã¥·¥å
-					ex_pc		   <= #1 `WORD_ADDR_W'h0;
-					ex_en		   <= #1 `DISABLE;
-					ex_br_flag	   <= #1 `DISABLE;
-					ex_mem_op	   <= #1 `MEM_OP_NOP;
-					ex_mem_wr_data <= #1 `WORD_DATA_W'h0;
-					ex_ctrl_op	   <= #1 `CTRL_OP_NOP;
-					ex_dst_addr	   <= #1 `REG_ADDR_W'd0;
-					ex_gpr_we_	   <= #1 `DISABLE_;
-					ex_exp_code	   <= #1 `ISA_EXP_NO_EXP;
-					ex_out		   <= #1 `WORD_DATA_W'h0;
-				end else if (int_detect == `ENABLE) begin // ¸î¤êÞz¤ß¤Î—Ê³ö
-					ex_pc		   <= #1 id_pc;
-					ex_en		   <= #1 id_en;
-					ex_br_flag	   <= #1 id_br_flag;
-					ex_mem_op	   <= #1 `MEM_OP_NOP;
-					ex_mem_wr_data <= #1 `WORD_DATA_W'h0;
-					ex_ctrl_op	   <= #1 `CTRL_OP_NOP;
-					ex_dst_addr	   <= #1 `REG_ADDR_W'd0;
-					ex_gpr_we_	   <= #1 `DISABLE_;
-					ex_exp_code	   <= #1 `ISA_EXP_EXT_INT;
-					ex_out		   <= #1 `WORD_DATA_W'h0;
-				end else if (alu_of == `ENABLE) begin	  // ËãÐg¥ª©`¥Ð¥Õ¥í©`
-					ex_pc		   <= #1 id_pc;
-					ex_en		   <= #1 id_en;
-					ex_br_flag	   <= #1 id_br_flag;
-					ex_mem_op	   <= #1 `MEM_OP_NOP;
-					ex_mem_wr_data <= #1 `WORD_DATA_W'h0;
-					ex_ctrl_op	   <= #1 `CTRL_OP_NOP;
-					ex_dst_addr	   <= #1 `REG_ADDR_W'd0;
-					ex_gpr_we_	   <= #1 `DISABLE_;
-					ex_exp_code	   <= #1 `ISA_EXP_OVERFLOW;
-					ex_out		   <= #1 `WORD_DATA_W'h0;
-				end else begin							  // ´Î¤Î¥Ç©`¥¿
-					ex_pc		   <= #1 id_pc;
-					ex_en		   <= #1 id_en;
-					ex_br_flag	   <= #1 id_br_flag;
-					ex_mem_op	   <= #1 id_mem_op;
-					ex_mem_wr_data <= #1 id_mem_wr_data;
-					ex_ctrl_op	   <= #1 id_ctrl_op;
-					ex_dst_addr	   <= #1 id_dst_addr;
-					ex_gpr_we_	   <= #1 id_gpr_we_;
-					ex_exp_code	   <= #1 id_exp_code;
-					ex_out		   <= #1 alu_out;
+				if (flush == `ENABLE) begin				  // ï¿½Õ¥ï¿½Ã¥ï¿½ï¿½ï¿½
+					ex_pc		   <=  `WORD_ADDR_W'h0;
+					ex_en		   <=  `DISABLE;
+					ex_br_flag	   <=  `DISABLE;
+					ex_mem_op	   <=  `MEM_OP_NOP;
+					ex_mem_wr_data <=  `WORD_DATA_W'h0;
+					ex_ctrl_op	   <=  `CTRL_OP_NOP;
+					ex_dst_addr	   <=  `REG_ADDR_W'd0;
+					ex_gpr_we_	   <=  `DISABLE_;
+					ex_exp_code	   <=  `ISA_EXP_NO_EXP;
+					ex_out		   <=  `WORD_DATA_W'h0;
+				end else if (int_detect == `ENABLE) begin // ï¿½ï¿½ï¿½ï¿½zï¿½ß¤Î—Ê³ï¿½
+					ex_pc		   <=  id_pc;
+					ex_en		   <=  id_en;
+					ex_br_flag	   <=  id_br_flag;
+					ex_mem_op	   <=  `MEM_OP_NOP;
+					ex_mem_wr_data <=  `WORD_DATA_W'h0;
+					ex_ctrl_op	   <=  `CTRL_OP_NOP;
+					ex_dst_addr	   <=  `REG_ADDR_W'd0;
+					ex_gpr_we_	   <=  `DISABLE_;
+					ex_exp_code	   <=  `ISA_EXP_EXT_INT;
+					ex_out		   <=  `WORD_DATA_W'h0;
+				end else if (alu_of == `ENABLE) begin	  // ï¿½ï¿½ï¿½gï¿½ï¿½ï¿½`ï¿½Ð¥Õ¥ï¿½ï¿½`
+					ex_pc		   <=  id_pc;
+					ex_en		   <=  id_en;
+					ex_br_flag	   <=  id_br_flag;
+					ex_mem_op	   <=  `MEM_OP_NOP;
+					ex_mem_wr_data <=  `WORD_DATA_W'h0;
+					ex_ctrl_op	   <=  `CTRL_OP_NOP;
+					ex_dst_addr	   <=  `REG_ADDR_W'd0;
+					ex_gpr_we_	   <=  `DISABLE_;
+					ex_exp_code	   <=  `ISA_EXP_OVERFLOW;
+					ex_out		   <=  `WORD_DATA_W'h0;
+				end else begin							  // ï¿½Î¤Î¥Ç©`ï¿½ï¿½
+					ex_pc		   <=  id_pc;
+					ex_en		   <=  id_en;
+					ex_br_flag	   <=  id_br_flag;
+					ex_mem_op	   <=  id_mem_op;
+					ex_mem_wr_data <=  id_mem_wr_data;
+					ex_ctrl_op	   <=  id_ctrl_op;
+					ex_dst_addr	   <=  id_dst_addr;
+					ex_gpr_we_	   <=  id_gpr_we_;
+					ex_exp_code	   <=  id_exp_code;
+					ex_out		   <=  alu_out;
 				end
 			end
 		end

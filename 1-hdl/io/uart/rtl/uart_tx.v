@@ -1,88 +1,88 @@
 /*
  -- ============================================================================
  -- FILE NAME	: uart_tx.v
- -- DESCRIPTION : UARTËÍÐÅ¥â¥¸¥å©`¥ë
+ -- DESCRIPTION : UARTï¿½ï¿½ï¿½Å¥â¥¸ï¿½ï¿½`ï¿½ï¿½
  -- ----------------------------------------------------------------------------
  -- Revision  Date		  Coding_by	 Comment
- -- 1.0.0	  2011/06/27  suito		 ÐÂÒŽ×÷³É
+ -- 1.0.0	  2011/06/27  suito		 ï¿½ï¿½ÒŽï¿½ï¿½ï¿½ï¿½
  -- ============================================================================
 */
 
-/********** ¹²Í¨¥Ø¥Ã¥À¥Õ¥¡¥¤¥ë **********/
+/********** ï¿½ï¿½Í¨ï¿½Ø¥Ã¥ï¿½ï¿½Õ¥ï¿½ï¿½ï¿½ï¿½ï¿½ **********/
 `include "nettype.h"
 `include "stddef.h"
 `include "global_config.h"
 
-/********** ‚€„e¥Ø¥Ã¥À¥Õ¥¡¥¤¥ë **********/
+/********** ï¿½ï¿½ï¿½eï¿½Ø¥Ã¥ï¿½ï¿½Õ¥ï¿½ï¿½ï¿½ï¿½ï¿½ **********/
 `include "uart.h"
 
-/********** ¥â¥¸¥å©`¥ë **********/
+/********** ï¿½â¥¸ï¿½ï¿½`ï¿½ï¿½ **********/
 module uart_tx (
-	/********** ¥¯¥í¥Ã¥¯ & ¥ê¥»¥Ã¥È **********/
-	input  wire				   clk,		 // ¥¯¥í¥Ã¥¯
-	input  wire				   reset,	 // ·ÇÍ¬ÆÚ¥ê¥»¥Ã¥È
-	/********** ÖÆÓùÐÅºÅ **********/
-	input  wire				   tx_start, // ËÍÐÅé_Ê¼ÐÅºÅ
-	input  wire [`ByteDataBus] tx_data,	 // ËÍÐÅ¥Ç©`¥¿
-	output wire				   tx_busy,	 // ËÍÐÅÖÐ¥Õ¥é¥°
-	output reg				   tx_end,	 // ËÍÐÅÍêÁËÐÅºÅ
-	/********** UARTËÍÐÅÐÅºÅ **********/
-	output reg				   tx		 // UARTËÍÐÅÐÅºÅ
+	/********** ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ & ï¿½ê¥»ï¿½Ã¥ï¿½ **********/
+	input  wire				   clk,		 // ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½
+	input  wire				   reset,	 // ï¿½ï¿½Í¬ï¿½Ú¥ê¥»ï¿½Ã¥ï¿½
+	/********** ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½ **********/
+	input  wire				   tx_start, // ï¿½ï¿½ï¿½ï¿½ï¿½_Ê¼ï¿½Åºï¿½
+	input  wire [`ByteDataBus] tx_data,	 // ï¿½ï¿½ï¿½Å¥Ç©`ï¿½ï¿½
+	output wire				   tx_busy,	 // ï¿½ï¿½ï¿½ï¿½ï¿½Ð¥Õ¥é¥°
+	output reg				   tx_end,	 // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
+	/********** UARTï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½ **********/
+	output reg				   tx		 // UARTï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
 );
 
-	/********** ÄÚ²¿ÐÅºÅ **********/
-	reg [`UartStateBus]		   state;	 // ¥¹¥Æ©`¥È
-	reg [`UartDivCntBus]	   div_cnt;	 // ·ÖÖÜ¥«¥¦¥ó¥¿
-	reg [`UartBitCntBus]	   bit_cnt;	 // ¥Ó¥Ã¥È¥«¥¦¥ó¥¿
-	reg [`ByteDataBus]		   sh_reg;	 // ËÍÐÅÓÃ¥·¥Õ¥È¥ì¥¸¥¹¥¿
+	/********** ï¿½Ú²ï¿½ï¿½Åºï¿½ **********/
+	reg [`UartStateBus]		   state;	 // ï¿½ï¿½ï¿½Æ©`ï¿½ï¿½
+	reg [`UartDivCntBus]	   div_cnt;	 // ï¿½ï¿½ï¿½Ü¥ï¿½ï¿½ï¿½ï¿½ï¿½
+	reg [`UartBitCntBus]	   bit_cnt;	 // ï¿½Ó¥Ã¥È¥ï¿½ï¿½ï¿½ï¿½ï¿½
+	reg [`ByteDataBus]		   sh_reg;	 // ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½Õ¥È¥ì¥¸ï¿½ï¿½ï¿½ï¿½
 
-	/********** ËÍÐÅÖÐ¥Õ¥é¥°¤ÎÉú³É **********/
+	/********** ï¿½ï¿½ï¿½ï¿½ï¿½Ð¥Õ¥é¥°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ **********/
 	assign tx_busy = (state == `UART_STATE_TX) ? `ENABLE : `DISABLE;
 
-	/********** ËÍÐÅÕ“Àí **********/
+	/********** ï¿½ï¿½ï¿½ï¿½Õ“ï¿½ï¿½ **********/
 	always @(posedge clk or `RESET_EDGE reset) begin
 		if (reset == `RESET_ENABLE) begin
-			/* ·ÇÍ¬ÆÚ¥ê¥»¥Ã¥È */
-			state	<= #1 `UART_STATE_IDLE;
-			div_cnt <= #1 `UART_DIV_RATE;
-			bit_cnt <= #1 `UART_BIT_CNT_START;
-			sh_reg	<= #1 `BYTE_DATA_W'h0;
-			tx_end	<= #1 `DISABLE;
-			tx		<= #1 `UART_STOP_BIT;
+			/* ï¿½ï¿½Í¬ï¿½Ú¥ê¥»ï¿½Ã¥ï¿½ */
+			state	<=  `UART_STATE_IDLE;
+			div_cnt <=  `UART_DIV_RATE;
+			bit_cnt <=  `UART_BIT_CNT_START;
+			sh_reg	<=  `BYTE_DATA_W'h0;
+			tx_end	<=  `DISABLE;
+			tx		<=  `UART_STOP_BIT;
 		end else begin
-			/* ËÍÐÅ¥¹¥Æ©`¥È */
+			/* ï¿½ï¿½ï¿½Å¥ï¿½ï¿½Æ©`ï¿½ï¿½ */
 			case (state)
-				`UART_STATE_IDLE : begin // ¥¢¥¤¥É¥ë×´‘B
-					if (tx_start == `ENABLE) begin // ËÍÐÅé_Ê¼
-						state	<= #1 `UART_STATE_TX;
-						sh_reg	<= #1 tx_data;
-						tx		<= #1 `UART_START_BIT;
+				`UART_STATE_IDLE : begin // ï¿½ï¿½ï¿½ï¿½ï¿½É¥ï¿½×´ï¿½B
+					if (tx_start == `ENABLE) begin // ï¿½ï¿½ï¿½ï¿½ï¿½_Ê¼
+						state	<=  `UART_STATE_TX;
+						sh_reg	<=  tx_data;
+						tx		<=  `UART_START_BIT;
 					end
-					tx_end	<= #1 `DISABLE;
+					tx_end	<=  `DISABLE;
 				end
-				`UART_STATE_TX	 : begin // ËÍÐÅÖÐ
-					/* ¥¯¥í¥Ã¥¯·ÖÖÜ¤Ë¤è¤ë¥Ü©`¥ì©`¥ÈÕ{Õû */
-					if (div_cnt == {`UART_DIV_CNT_W{1'b0}}) begin // œºÁË
-						/* ´Î¥Ç©`¥¿¤ÎËÍÐÅ */
+				`UART_STATE_TX	 : begin // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+					/* ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½ï¿½Ü¤Ë¤ï¿½ï¿½Ü©`ï¿½ï¿½`ï¿½ï¿½ï¿½{ï¿½ï¿½ */
+					if (div_cnt == {`UART_DIV_CNT_W{1'b0}}) begin // ï¿½ï¿½ï¿½ï¿½
+						/* ï¿½Î¥Ç©`ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 						case (bit_cnt)
-							`UART_BIT_CNT_MSB  : begin // ¥¹¥È¥Ã¥×¥Ó¥Ã¥È¤ÎËÍÐÅ
-								bit_cnt <= #1 `UART_BIT_CNT_STOP;
-								tx		<= #1 `UART_STOP_BIT;
+							`UART_BIT_CNT_MSB  : begin // ï¿½ï¿½ï¿½È¥Ã¥×¥Ó¥Ã¥È¤ï¿½ï¿½ï¿½ï¿½ï¿½
+								bit_cnt <=  `UART_BIT_CNT_STOP;
+								tx		<=  `UART_STOP_BIT;
 							end
-							`UART_BIT_CNT_STOP : begin // ËÍÐÅÍêÁË
-								state	<= #1 `UART_STATE_IDLE;
-								bit_cnt <= #1 `UART_BIT_CNT_START;
-								tx_end	<= #1 `ENABLE;
+							`UART_BIT_CNT_STOP : begin // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+								state	<=  `UART_STATE_IDLE;
+								bit_cnt <=  `UART_BIT_CNT_START;
+								tx_end	<=  `ENABLE;
 							end
-							default			   : begin // ¥Ç©`¥¿¤ÎËÍÐÅ
-								bit_cnt <= #1 bit_cnt + 1'b1;
-								sh_reg	<= #1 sh_reg >> 1'b1;
-								tx		<= #1 sh_reg[`LSB];
+							default			   : begin // ï¿½Ç©`ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+								bit_cnt <=  bit_cnt + 1'b1;
+								sh_reg	<=  sh_reg >> 1'b1;
+								tx		<=  sh_reg[`LSB];
 							end
 						endcase
-						div_cnt <= #1 `UART_DIV_RATE;
-					end else begin // ¥«¥¦¥ó¥È¥À¥¦¥ó
-						div_cnt <= #1 div_cnt - 1'b1 ;
+						div_cnt <=  `UART_DIV_RATE;
+					end else begin // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ï¿½
+						div_cnt <=  div_cnt - 1'b1 ;
 					end
 				end
 			endcase

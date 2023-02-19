@@ -1,119 +1,119 @@
 /*
  -- ============================================================================
  -- FILE NAME	: timer.v
- -- DESCRIPTION : ¶¨Ê±Æ÷
+ -- DESCRIPTION : ï¿½ï¿½Ê±ï¿½ï¿½
  -- ----------------------------------------------------------------------------
  -- Revision  Date		  Coding_by	 Comment
- -- 1.0.0	  2011/06/27  suito		 ÐÂÒŽ×÷³É
+ -- 1.0.0	  2011/06/27  suito		 ï¿½ï¿½ÒŽï¿½ï¿½ï¿½ï¿½
  -- 1.0.1	  2014/06/27  zhangly
  -- ============================================================================
 */
 
-/********** Í¨ÓÃÍ·ÎÄ¼þ **********/
+/********** Í¨ï¿½ï¿½Í·ï¿½Ä¼ï¿½ **********/
 `include "nettype.h"
 `include "stddef.h"
 `include "global_config.h"
 
-/********** Ä£¿éÍ·ÎÄ¼þ **********/
+/********** Ä£ï¿½ï¿½Í·ï¿½Ä¼ï¿½ **********/
 `include "timer.h"
 
-/********** Ä£¿é **********/
+/********** Ä£ï¿½ï¿½ **********/
 module timer (
-	/********** Ê±ÖÓÓë¸´Î» **********/
-	input  wire					clk,	   // Ê±ÖÓ
-	input  wire					reset,	   // Òì²½¸´Î»
-	/********** ×ÜÏß½Ó¿Ú **********/
-	input  wire					cs_,	   // Æ¬ÏÈ
-	input  wire					as_,	   // µØÖ·Ñ¡Í¨
+	/********** Ê±ï¿½ï¿½ï¿½ë¸´Î» **********/
+	input  wire					clk,	   // Ê±ï¿½ï¿½
+	input  wire					reset,	   // ï¿½ì²½ï¿½ï¿½Î»
+	/********** ï¿½ï¿½ï¿½ß½Ó¿ï¿½ **********/
+	input  wire					cs_,	   // Æ¬ï¿½ï¿½
+	input  wire					as_,	   // ï¿½ï¿½Ö·Ñ¡Í¨
 	input  wire					rw,		   // Read / Write
-	input  wire [`TimerAddrBus] addr,	   // µØÖ·
-	input  wire [`WordDataBus]	wr_data,   // Ð´Êý¾Ý
-	output reg	[`WordDataBus]	rd_data,   // ¶ÁÈ¡Êý¾Ý
-	output reg					rdy_,	   // ¥ì¥Ç¥£
-	/********** ÖÐ¶ÏÊä³ö **********/
-	output reg					irq		   // ÖÐ¶ÏÇëÇó£¨¿ØÖÆ¼Ä´æÆ÷ 1£©
+	input  wire [`TimerAddrBus] addr,	   // ï¿½ï¿½Ö·
+	input  wire [`WordDataBus]	wr_data,   // Ð´ï¿½ï¿½ï¿½ï¿½
+	output reg	[`WordDataBus]	rd_data,   // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
+	output reg					rdy_,	   // ï¿½ï¿½Ç¥ï¿½
+	/********** ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ **********/
+	output reg					irq		   // ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ó£¨¿ï¿½ï¿½Æ¼Ä´ï¿½ï¿½ï¿½ 1ï¿½ï¿½
 );
 
-	/********** ¿ØÖÆ¼Ä´æÆ÷ **********/
-	// ¿ØÖÆ¼Ä´æÆ÷ 0 : ¿ØÖÆ
+	/********** ï¿½ï¿½ï¿½Æ¼Ä´ï¿½ï¿½ï¿½ **********/
+	// ï¿½ï¿½ï¿½Æ¼Ä´ï¿½ï¿½ï¿½ 0 : ï¿½ï¿½ï¿½ï¿½
 	reg							mode;	   //Ä£Ê½
-	reg							start;	   // ÆðÊ¼Î»
-	// ¿ØÖÆ¼Ä´æÆ÷ 2 : µ½ÆÚÖµ
-	reg [`WordDataBus]			expr_val;  // µ½ÆÚÖµ
-	// ¿ØÖÆ¼Ä´æÆ÷ 3 : ¼ÆÊýÆ÷
-	reg [`WordDataBus]			counter;   // ¼ÆÊýÆ÷
+	reg							start;	   // ï¿½ï¿½Ê¼Î»
+	// ï¿½ï¿½ï¿½Æ¼Ä´ï¿½ï¿½ï¿½ 2 : ï¿½ï¿½ï¿½ï¿½Öµ
+	reg [`WordDataBus]			expr_val;  // ï¿½ï¿½ï¿½ï¿½Öµ
+	// ï¿½ï¿½ï¿½Æ¼Ä´ï¿½ï¿½ï¿½ 3 : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	reg [`WordDataBus]			counter;   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	/********** µ½ÆÚ±êÖ¾ **********/
+	/********** ï¿½ï¿½ï¿½Ú±ï¿½Ö¾ **********/
 	wire expr_flag = ((start == `ENABLE) && (counter == expr_val)) ?
 					 `ENABLE : `DISABLE;
 
-	/********** ¶¨Ê±Æ÷¿ØÖÆ **********/
+	/********** ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ **********/
 	always @(posedge clk or `RESET_EDGE reset) begin
 		if (reset == `RESET_ENABLE) begin
-			/* Òì²½¸´Î» */
-			rd_data	 <= #1 `WORD_DATA_W'h0;
-			rdy_	 <= #1 `DISABLE_;
-			start	 <= #1 `DISABLE;
-			mode	 <= #1 `TIMER_MODE_ONE_SHOT;
-			irq		 <= #1 `DISABLE;
-			expr_val <= #1 `WORD_DATA_W'h0;
-			counter	 <= #1 `WORD_DATA_W'h0;
+			/* ï¿½ì²½ï¿½ï¿½Î» */
+			rd_data	 <=  `WORD_DATA_W'h0;
+			rdy_	 <=  `DISABLE_;
+			start	 <=  `DISABLE;
+			mode	 <=  `TIMER_MODE_ONE_SHOT;
+			irq		 <=  `DISABLE;
+			expr_val <=  `WORD_DATA_W'h0;
+			counter	 <=  `WORD_DATA_W'h0;
 		end else begin
-			/* ×¼±¸¾ÍÐøÐ÷ */
+			/* ×¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 			if ((cs_ == `ENABLE_) && (as_ == `ENABLE_)) begin
-				rdy_	 <= #1 `ENABLE_;
+				rdy_	 <=  `ENABLE_;
 			end else begin
-				rdy_	 <= #1 `DISABLE_;
+				rdy_	 <=  `DISABLE_;
 			end
-			/* ¶Á·ÃÎÊ */
+			/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 			if ((cs_ == `ENABLE_) && (as_ == `ENABLE_) && (rw == `READ)) begin
 				case (addr)
-					`TIMER_ADDR_CTRL	: begin // ¿ØÖÆ¼Ä´æÆ÷ 0
-						rd_data	 <= #1 {{`WORD_DATA_W-2{1'b0}}, mode, start};
+					`TIMER_ADDR_CTRL	: begin // ï¿½ï¿½ï¿½Æ¼Ä´ï¿½ï¿½ï¿½ 0
+						rd_data	 <=  {{`WORD_DATA_W-2{1'b0}}, mode, start};
 					end
-					`TIMER_ADDR_INTR	: begin // ¿ØÖÆ¼Ä´æÆ÷ 1
-						rd_data	 <= #1 {{`WORD_DATA_W-1{1'b0}}, irq};
+					`TIMER_ADDR_INTR	: begin // ï¿½ï¿½ï¿½Æ¼Ä´ï¿½ï¿½ï¿½ 1
+						rd_data	 <=  {{`WORD_DATA_W-1{1'b0}}, irq};
 					end
-					`TIMER_ADDR_EXPR	: begin // ¿ØÖÆ¼Ä´æÆ÷ 2
-						rd_data	 <= #1 expr_val;
+					`TIMER_ADDR_EXPR	: begin // ï¿½ï¿½ï¿½Æ¼Ä´ï¿½ï¿½ï¿½ 2
+						rd_data	 <=  expr_val;
 					end
-					`TIMER_ADDR_COUNTER : begin // ¿ØÖÆ¼Ä´æÆ÷ 3
-						rd_data	 <= #1 counter;
+					`TIMER_ADDR_COUNTER : begin // ï¿½ï¿½ï¿½Æ¼Ä´ï¿½ï¿½ï¿½ 3
+						rd_data	 <=  counter;
 					end
 				endcase
 			end else begin
-				rd_data	 <= #1 `WORD_DATA_W'h0;
+				rd_data	 <=  `WORD_DATA_W'h0;
 			end
-			/* Ð´·ÃÎÊ */
-			// ¿ØÖÆ¼Ä´æÆ÷ 0
+			/* Ð´ï¿½ï¿½ï¿½ï¿½ */
+			// ï¿½ï¿½ï¿½Æ¼Ä´ï¿½ï¿½ï¿½ 0
 			if ((cs_ == `ENABLE_) && (as_ == `ENABLE_) && 
 				(rw == `WRITE) && (addr == `TIMER_ADDR_CTRL)) begin
-				start	 <= #1 wr_data[`TimerStartLoc];
-				mode	 <= #1 wr_data[`TimerModeLoc];
+				start	 <=  wr_data[`TimerStartLoc];
+				mode	 <=  wr_data[`TimerModeLoc];
 			end else if ((expr_flag == `ENABLE)	 &&
 						 (mode == `TIMER_MODE_ONE_SHOT)) begin
-				start	 <= #1 `DISABLE;
+				start	 <=  `DISABLE;
 			end
-			// ¿ØÖÆ¼Ä´æÆ÷ 1
+			// ï¿½ï¿½ï¿½Æ¼Ä´ï¿½ï¿½ï¿½ 1
 			if (expr_flag == `ENABLE) begin
-				irq		 <= #1 `ENABLE;
+				irq		 <=  `ENABLE;
 			end else if ((cs_ == `ENABLE_) && (as_ == `ENABLE_) && 
 						 (rw == `WRITE) && (addr ==	 `TIMER_ADDR_INTR)) begin
-				irq		 <= #1 wr_data[`TimerIrqLoc];
+				irq		 <=  wr_data[`TimerIrqLoc];
 			end
-			// ¿ØÖÆ¼Ä´æÆ÷ 2
+			// ï¿½ï¿½ï¿½Æ¼Ä´ï¿½ï¿½ï¿½ 2
 			if ((cs_ == `ENABLE_) && (as_ == `ENABLE_) && 
 				(rw == `WRITE) && (addr == `TIMER_ADDR_EXPR)) begin
-				expr_val <= #1 wr_data;
+				expr_val <=  wr_data;
 			end
-			// ¿ØÖÆ¼Ä´æÆ÷ 3
+			// ï¿½ï¿½ï¿½Æ¼Ä´ï¿½ï¿½ï¿½ 3
 			if ((cs_ == `ENABLE_) && (as_ == `ENABLE_) && 
 				(rw == `WRITE) && (addr == `TIMER_ADDR_COUNTER)) begin
-				counter	 <= #1 wr_data;
+				counter	 <=  wr_data;
 			end else if (expr_flag == `ENABLE) begin
-				counter	 <= #1 `WORD_DATA_W'h0;
+				counter	 <=  `WORD_DATA_W'h0;
 			end else if (start == `ENABLE) begin
-				counter	 <= #1 counter + 1'd1;
+				counter	 <=  counter + 1'd1;
 			end
 		end
 	end

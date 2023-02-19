@@ -1,32 +1,32 @@
 /*
  -- ============================================================================
  -- FILE NAME	: spm.v
- -- DESCRIPTION : spm RAMÄ£¿é
+ -- DESCRIPTION : spm RAMÄ£ï¿½ï¿½
  -- ----------------------------------------------------------------------------
  -- Revision  Date		  Coding_by	 Comment
  -- 1.0.0	  2011/06/27  suito		 ??????? 
  -- ============================================================================
 */
 
-/********** Í¨ÓÃÍ·ÎÄ¼þ **********/
+/********** Í¨ï¿½ï¿½Í·ï¿½Ä¼ï¿½ **********/
 `include "nettype.h"
 `include "global_config.h"
 `include "stddef.h"
 
-/********** Ä£¿éÍ·ÎÄ¼þ**********/
+/********** Ä£ï¿½ï¿½Í·ï¿½Ä¼ï¿½**********/
 `include "spm.h"
 
-/********** Ä£¿é **********/
+/********** Ä£ï¿½ï¿½ **********/
 module spm (
-	/********** ÊäÈëÊä³ö²ÎÊý **********/
-	input  wire				   clk,				// Ê±ÖÓ
-	/********** ¶Ë¿ÚA : IF½×¶Î **********/
+	/********** ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ **********/
+	input  wire				   clk,				// Ê±ï¿½ï¿½
+	/********** ï¿½Ë¿ï¿½A : IFï¿½×¶ï¿½ **********/
 	input  wire [`SpmAddrBus]  if_spm_addr,		// ?????
 	input  wire				   if_spm_as_,		// ??????????`??
 	input  wire				   if_spm_rw,		// ?i???????
 	input  wire [`WordDataBus] if_spm_wr_data,	// ?????z???`??
 	output wire [`WordDataBus] if_spm_rd_data,	// ?i???????`??
-	/********** ¶Ë¿ÚB : MEM½×¶Î **********/
+	/********** ï¿½Ë¿ï¿½B : MEMï¿½×¶ï¿½ **********/
 	input  wire [`SpmAddrBus]  mem_spm_addr,	// ?????
 	input  wire				   mem_spm_as_,		// ??????????`??
 	input  wire				   mem_spm_rw,		// ?i???????
@@ -40,13 +40,13 @@ module spm (
 
 	/********** ?????z????????????? **********/
 	always @(*) begin
-		/* ¶Ë¿ÚA */
+		/* ï¿½Ë¿ï¿½A */
 		if ((if_spm_as_ == `ENABLE_) && (if_spm_rw == `WRITE)) begin   
 			wea = `MEM_ENABLE;	// ?????z?????
 		end else begin
 			wea = `MEM_DISABLE; // ?????z??o??
 		end
-		/* ¶Ë¿ÚB */
+		/* ï¿½Ë¿ï¿½B */
 		if ((mem_spm_as_ == `ENABLE_) && (mem_spm_rw == `WRITE)) begin
 			web = `MEM_ENABLE;	// ?????z?????
 		end else begin
@@ -56,13 +56,13 @@ module spm (
 
 	/********** Xilinx FPGA Block RAM :->altera_dpram **********/
 	altera_dpram x_s3e_dpram (
-		/********** ¶Ë¿ÚA : IF????`?? **********/
+		/********** ï¿½Ë¿ï¿½A : IF????`?? **********/
 		.clock_a  (clk),			  // ????a?
 		.address_a (if_spm_addr),	  // ?????
 		.data_a  (if_spm_wr_data),  // ?????z???`????????A??
 		.wren_a   (wea),			  // ?????z???????????`???
 		.q_a (if_spm_rd_data),  // ?i???????`??
-		/********** ¶Ë¿ÚB : MEM????`?? **********/
+		/********** ï¿½Ë¿ï¿½B : MEM????`?? **********/
 		.clock_b  (clk),			  // ????a?
 		.address_b (mem_spm_addr),	  // ?????
 		.data_b  (mem_spm_wr_data), // ?????z???`??

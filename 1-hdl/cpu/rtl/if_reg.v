@@ -1,63 +1,63 @@
 /*
  -- ============================================================================
  -- FILE NAME	: if_reg.v
- -- DESCRIPTION : IF¥¹¥Æ©`¥¸¥Ñ¥¤¥×¥é¥¤¥ó¥ì¥¸¥¹¥¿
+ -- DESCRIPTION : IFï¿½ï¿½ï¿½Æ©`ï¿½ï¿½ï¿½Ñ¥ï¿½ï¿½×¥é¥¤ï¿½ï¿½ì¥¸ï¿½ï¿½ï¿½ï¿½
  -- ----------------------------------------------------------------------------
  -- Revision  Date		  Coding_by	 Comment
- -- 1.0.0	  2011/06/27  suito		 ÐÂÒŽ×÷³É
+ -- 1.0.0	  2011/06/27  suito		 ï¿½ï¿½ÒŽï¿½ï¿½ï¿½ï¿½
  -- ============================================================================
 */
 
-/********** ¹²Í¨¥Ø¥Ã¥À¥Õ¥¡¥¤¥ë **********/
+/********** ï¿½ï¿½Í¨ï¿½Ø¥Ã¥ï¿½ï¿½Õ¥ï¿½ï¿½ï¿½ï¿½ï¿½ **********/
 `include "nettype.h"
 `include "global_config.h"
 `include "stddef.h"
 
-/********** ‚€„e¥Ø¥Ã¥À¥Õ¥¡¥¤¥ë **********/
+/********** ï¿½ï¿½ï¿½eï¿½Ø¥Ã¥ï¿½ï¿½Õ¥ï¿½ï¿½ï¿½ï¿½ï¿½ **********/
 `include "isa.h"
 `include "cpu.h"
 
-/********** ¥â¥¸¥å©`¥ë **********/
+/********** ï¿½â¥¸ï¿½ï¿½`ï¿½ï¿½ **********/
 module if_reg (
-	/********** ¥¯¥í¥Ã¥¯ & ¥ê¥»¥Ã¥È **********/
-	input  wire				   clk,		   // ¥¯¥í¥Ã¥¯
-	input  wire				   reset,	   // ·ÇÍ¬ÆÚ¥ê¥»¥Ã¥È
-	/********** ¥Õ¥§¥Ã¥Á¥Ç©`¥¿ **********/
-	input  wire [`WordDataBus] insn,	   // ¥Õ¥§¥Ã¥Á¤·¤¿ÃüÁî
-	/********** ¥Ñ¥¤¥×¥é¥¤¥óÖÆÓùÐÅºÅ **********/
-	input  wire				   stall,	   // ¥¹¥È©`¥ë
-	input  wire				   flush,	   // ¥Õ¥é¥Ã¥·¥å
-	input  wire [`WordAddrBus] new_pc,	   // ÐÂ¤·¤¤¥×¥í¥°¥é¥à¥«¥¦¥ó¥¿
-	input  wire				   br_taken,   // ·Öáª¤Î³ÉÁ¢
-	input  wire [`WordAddrBus] br_addr,	   // ·ÖáªÏÈ¥¢¥É¥ì¥¹
-	/********** IF/ID¥Ñ¥¤¥×¥é¥¤¥ó¥ì¥¸¥¹¥¿ **********/
-	output reg	[`WordAddrBus] if_pc,	   // ¥×¥í¥°¥é¥à¥«¥¦¥ó¥¿
-	output reg	[`WordDataBus] if_insn,	   // ÃüÁî
-	output reg				   if_en	   // ¥Ñ¥¤¥×¥é¥¤¥ó¥Ç©`¥¿¤ÎÓÐ„¿
+	/********** ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ & ï¿½ê¥»ï¿½Ã¥ï¿½ **********/
+	input  wire				   clk,		   // ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½
+	input  wire				   reset,	   // ï¿½ï¿½Í¬ï¿½Ú¥ê¥»ï¿½Ã¥ï¿½
+	/********** ï¿½Õ¥ï¿½ï¿½Ã¥ï¿½ï¿½Ç©`ï¿½ï¿½ **********/
+	input  wire [`WordDataBus] insn,	   // ï¿½Õ¥ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	/********** ï¿½Ñ¥ï¿½ï¿½×¥é¥¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½ **********/
+	input  wire				   stall,	   // ï¿½ï¿½ï¿½È©`ï¿½ï¿½
+	input  wire				   flush,	   // ï¿½Õ¥ï¿½Ã¥ï¿½ï¿½ï¿½
+	input  wire [`WordAddrBus] new_pc,	   // ï¿½Â¤ï¿½ï¿½ï¿½ï¿½×¥ï¿½ï¿½ï¿½ï¿½ï¿½à¥«ï¿½ï¿½ï¿½ï¿½
+	input  wire				   br_taken,   // ï¿½ï¿½áª¤Î³ï¿½ï¿½ï¿½
+	input  wire [`WordAddrBus] br_addr,	   // ï¿½ï¿½ï¿½ï¿½È¥ï¿½ï¿½É¥ì¥¹
+	/********** IF/IDï¿½Ñ¥ï¿½ï¿½×¥é¥¤ï¿½ï¿½ì¥¸ï¿½ï¿½ï¿½ï¿½ **********/
+	output reg	[`WordAddrBus] if_pc,	   // ï¿½×¥ï¿½ï¿½ï¿½ï¿½ï¿½à¥«ï¿½ï¿½ï¿½ï¿½
+	output reg	[`WordDataBus] if_insn,	   // ï¿½ï¿½ï¿½ï¿½
+	output reg				   if_en	   // ï¿½Ñ¥ï¿½ï¿½×¥é¥¤ï¿½ï¿½Ç©`ï¿½ï¿½ï¿½ï¿½ï¿½Ð„ï¿½
 );
 
-	/********** ¥Ñ¥¤¥×¥é¥¤¥ó¥ì¥¸¥¹¥¿ **********/
+	/********** ï¿½Ñ¥ï¿½ï¿½×¥é¥¤ï¿½ï¿½ì¥¸ï¿½ï¿½ï¿½ï¿½ **********/
 	always @(posedge clk or `RESET_EDGE reset) begin
 		if (reset == `RESET_ENABLE) begin 
-			/* ·ÇÍ¬ÆÚ¥ê¥»¥Ã¥È */
-			if_pc	<= #1 `RESET_VECTOR;
-			if_insn <= #1 `ISA_NOP;
-			if_en	<= #1 `DISABLE;
+			/* ï¿½ï¿½Í¬ï¿½Ú¥ê¥»ï¿½Ã¥ï¿½ */
+			if_pc	<=  `RESET_VECTOR;
+			if_insn <=  `ISA_NOP;
+			if_en	<=  `DISABLE;
 		end else begin
-			/* ¥Ñ¥¤¥×¥é¥¤¥ó¥ì¥¸¥¹¥¿¤Î¸üÐÂ */
+			/* ï¿½Ñ¥ï¿½ï¿½×¥é¥¤ï¿½ï¿½ì¥¸ï¿½ï¿½ï¿½ï¿½ï¿½Î¸ï¿½ï¿½ï¿½ */
 			if (stall == `DISABLE) begin 
-				if (flush == `ENABLE) begin				// ¥Õ¥é¥Ã¥·¥å
-					if_pc	<= #1 new_pc;
-					if_insn <= #1 `ISA_NOP;
-					if_en	<= #1 `DISABLE;
-				end else if (br_taken == `ENABLE) begin // ·Öáª¤Î³ÉÁ¢
-					if_pc	<= #1 br_addr;
-					if_insn <= #1 insn;
-					if_en	<= #1 `ENABLE;
-				end else begin							// ´Î¤Î¥¢¥É¥ì¥¹
-					if_pc	<= #1 if_pc + 1'd1;
-					if_insn <= #1 insn;
-					if_en	<= #1 `ENABLE;
+				if (flush == `ENABLE) begin				// ï¿½Õ¥ï¿½Ã¥ï¿½ï¿½ï¿½
+					if_pc	<=  new_pc;
+					if_insn <=  `ISA_NOP;
+					if_en	<=  `DISABLE;
+				end else if (br_taken == `ENABLE) begin // ï¿½ï¿½áª¤Î³ï¿½ï¿½ï¿½
+					if_pc	<=  br_addr;
+					if_insn <=  insn;
+					if_en	<=  `ENABLE;
+				end else begin							// ï¿½Î¤Î¥ï¿½ï¿½É¥ì¥¹
+					if_pc	<=  if_pc + 1'd1;
+					if_insn <=  insn;
+					if_en	<=  `ENABLE;
 				end
 			end
 		end

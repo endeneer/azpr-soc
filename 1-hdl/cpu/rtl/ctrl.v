@@ -1,113 +1,113 @@
 /*
  -- ============================================================================
  -- FILE NAME	: ctrl.v
- -- DESCRIPTION : ÖÆÓù¥æ¥Ë¥Ã¥È
+ -- DESCRIPTION : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¥Ã¥ï¿½
  -- ----------------------------------------------------------------------------
  -- Revision  Date		  Coding_by	 Comment
- -- 1.0.0	  2011/06/27  suito		 ÐÂÒŽ×÷³É
+ -- 1.0.0	  2011/06/27  suito		 ï¿½ï¿½ÒŽï¿½ï¿½ï¿½ï¿½
  -- ============================================================================
 */
 
-/********** ¹²Í¨¥Ø¥Ã¥À¥Õ¥¡¥¤¥ë **********/
+/********** ï¿½ï¿½Í¨ï¿½Ø¥Ã¥ï¿½ï¿½Õ¥ï¿½ï¿½ï¿½ï¿½ï¿½ **********/
 `include "nettype.h"
 `include "global_config.h"
 `include "stddef.h"
 
-/********** ‚€„e¥Ø¥Ã¥À¥Õ¥¡¥¤¥ë **********/
+/********** ï¿½ï¿½ï¿½eï¿½Ø¥Ã¥ï¿½ï¿½Õ¥ï¿½ï¿½ï¿½ï¿½ï¿½ **********/
 `include "isa.h"
 `include "cpu.h"
 `include "rom.h"
 `include "spm.h"
 
-/********** ¥â¥¸¥å©`¥ë **********/
+/********** ï¿½â¥¸ï¿½ï¿½`ï¿½ï¿½ **********/
 module ctrl (
-	/********** ¥¯¥í¥Ã¥¯ & ¥ê¥»¥Ã¥È **********/
-	input  wire					  clk,			// ¥¯¥í¥Ã¥¯
-	input  wire					  reset,		// ·ÇÍ¬ÆÚ¥ê¥»¥Ã¥È
-	/********** ÖÆÓù¥ì¥¸¥¹¥¿¥¤¥ó¥¿¥Õ¥§©`¥¹ **********/
-	input  wire [`RegAddrBus]	  creg_rd_addr, // Õi¤ß³ö¤·¥¢¥É¥ì¥¹
-	output reg	[`WordDataBus]	  creg_rd_data, // Õi¤ß³ö¤·¥Ç©`¥¿
-	output reg	[`CpuExeModeBus]  exe_mode,		// ŒgÐÐ¥â©`¥É
-	/********** ¸î¤êÞz¤ß **********/
-	input  wire [`CPU_IRQ_CH-1:0] irq,			// ¸î¤êÞz¤ßÒªÇó
-	output reg					  int_detect,	// ¸î¤êÞz¤ß—Ê³ö
-	/********** ID/EX¥Ñ¥¤¥×¥é¥¤¥ó¥ì¥¸¥¹¥¿ **********/
-	input  wire [`WordAddrBus]	  id_pc,		// ¥×¥í¥°¥é¥à¥«¥¦¥ó¥¿
-	/********** MEM/WB¥Ñ¥¤¥×¥é¥¤¥ó¥ì¥¸¥¹¥¿ **********/
-	input  wire [`WordAddrBus]	  mem_pc,		// ¥×¥í¥°¥é¥ó¥«¥¦¥ó¥¿
-	input  wire					  mem_en,		// ¥Ñ¥¤¥×¥é¥¤¥ó¥Ç©`¥¿¤ÎÓÐ„¿
-	input  wire					  mem_br_flag,	// ·Öáª¥Õ¥é¥°
-	input  wire [`CtrlOpBus]	  mem_ctrl_op,	// ÖÆÓù¥ì¥¸¥¹¥¿¥ª¥Ú¥ì©`¥·¥ç¥ó
-	input  wire [`RegAddrBus]	  mem_dst_addr, // •ø¤­Þz¤ß¥¢¥É¥ì¥¹
-	input  wire [`IsaExpBus]	  mem_exp_code, // ÀýÍâ¥³©`¥É
-	input  wire [`WordDataBus]	  mem_out,		// „IÀí½Y¹û
-	/********** ¥Ñ¥¤¥×¥é¥¤¥óÖÆÓùÐÅºÅ **********/
-	// ¥Ñ¥¤¥×¥é¥¤¥ó¤Î×´‘B
-	input  wire					  if_busy,		// IF¥¹¥Æ©`¥¸¥Ó¥¸©`
-	input  wire					  ld_hazard,	// ¥í©`¥É¥Ï¥¶©`¥É
-	input  wire					  mem_busy,		// MEM¥¹¥Æ©`¥¸¥Ó¥¸©`
-	// ¥¹¥È©`¥ëÐÅºÅ
-	output wire					  if_stall,		// IF¥¹¥Æ©`¥¸¥¹¥È©`¥ë
-	output wire					  id_stall,		// ID¥¹¥Æ©`¥¸¥¹¥È©`¥ë
-	output wire					  ex_stall,		// EX¥¹¥Æ©`¥¸¥¹¥È©`¥ë
-	output wire					  mem_stall,	// MEM¥¹¥Æ©`¥¸¥¹¥È©`¥ë
-	// ¥Õ¥é¥Ã¥·¥åÐÅºÅ
-	output wire					  if_flush,		// IF¥¹¥Æ©`¥¸¥Õ¥é¥Ã¥·¥å
-	output wire					  id_flush,		// ID¥¹¥Æ©`¥¸¥Õ¥é¥Ã¥·¥å
-	output wire					  ex_flush,		// EX¥¹¥Æ©`¥¸¥Õ¥é¥Ã¥·¥å
-	output wire					  mem_flush,	// MEM¥¹¥Æ©`¥¸¥Õ¥é¥Ã¥·¥å
-	output reg	[`WordAddrBus]	  new_pc		// ÐÂ¤·¤¤¥×¥í¥°¥é¥à¥«¥¦¥ó¥¿
+	/********** ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ & ï¿½ê¥»ï¿½Ã¥ï¿½ **********/
+	input  wire					  clk,			// ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½
+	input  wire					  reset,		// ï¿½ï¿½Í¬ï¿½Ú¥ê¥»ï¿½Ã¥ï¿½
+	/********** ï¿½ï¿½ï¿½ï¿½ï¿½ì¥¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó¥¿¥Õ¥ï¿½ï¿½`ï¿½ï¿½ **********/
+	input  wire [`RegAddrBus]	  creg_rd_addr, // ï¿½iï¿½ß³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¥ì¥¹
+	output reg	[`WordDataBus]	  creg_rd_data, // ï¿½iï¿½ß³ï¿½ï¿½ï¿½ï¿½Ç©`ï¿½ï¿½
+	output reg	[`CpuExeModeBus]  exe_mode,		// ï¿½gï¿½Ð¥ï¿½`ï¿½ï¿½
+	/********** ï¿½ï¿½ï¿½ï¿½zï¿½ï¿½ **********/
+	input  wire [`CPU_IRQ_CH-1:0] irq,			// ï¿½ï¿½ï¿½ï¿½zï¿½ï¿½Òªï¿½ï¿½
+	output reg					  int_detect,	// ï¿½ï¿½ï¿½ï¿½zï¿½ß—Ê³ï¿½
+	/********** ID/EXï¿½Ñ¥ï¿½ï¿½×¥é¥¤ï¿½ï¿½ì¥¸ï¿½ï¿½ï¿½ï¿½ **********/
+	input  wire [`WordAddrBus]	  id_pc,		// ï¿½×¥ï¿½ï¿½ï¿½ï¿½ï¿½à¥«ï¿½ï¿½ï¿½ï¿½
+	/********** MEM/WBï¿½Ñ¥ï¿½ï¿½×¥é¥¤ï¿½ï¿½ì¥¸ï¿½ï¿½ï¿½ï¿½ **********/
+	input  wire [`WordAddrBus]	  mem_pc,		// ï¿½×¥ï¿½ï¿½ï¿½ï¿½ï¿½ó¥«¥ï¿½ï¿½ï¿½
+	input  wire					  mem_en,		// ï¿½Ñ¥ï¿½ï¿½×¥é¥¤ï¿½ï¿½Ç©`ï¿½ï¿½ï¿½ï¿½ï¿½Ð„ï¿½
+	input  wire					  mem_br_flag,	// ï¿½ï¿½áª¥Õ¥é¥°
+	input  wire [`CtrlOpBus]	  mem_ctrl_op,	// ï¿½ï¿½ï¿½ï¿½ï¿½ì¥¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¥ï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½
+	input  wire [`RegAddrBus]	  mem_dst_addr, // ï¿½ï¿½ï¿½ï¿½ï¿½zï¿½ß¥ï¿½ï¿½É¥ì¥¹
+	input  wire [`IsaExpBus]	  mem_exp_code, // ï¿½ï¿½ï¿½â¥³ï¿½`ï¿½ï¿½
+	input  wire [`WordDataBus]	  mem_out,		// ï¿½Iï¿½ï¿½ï¿½Yï¿½ï¿½
+	/********** ï¿½Ñ¥ï¿½ï¿½×¥é¥¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½ **********/
+	// ï¿½Ñ¥ï¿½ï¿½×¥é¥¤ï¿½ï¿½ï¿½×´ï¿½B
+	input  wire					  if_busy,		// IFï¿½ï¿½ï¿½Æ©`ï¿½ï¿½ï¿½Ó¥ï¿½ï¿½`
+	input  wire					  ld_hazard,	// ï¿½ï¿½ï¿½`ï¿½É¥Ï¥ï¿½ï¿½`ï¿½ï¿½
+	input  wire					  mem_busy,		// MEMï¿½ï¿½ï¿½Æ©`ï¿½ï¿½ï¿½Ó¥ï¿½ï¿½`
+	// ï¿½ï¿½ï¿½È©`ï¿½ï¿½ï¿½Åºï¿½
+	output wire					  if_stall,		// IFï¿½ï¿½ï¿½Æ©`ï¿½ï¿½ï¿½ï¿½ï¿½È©`ï¿½ï¿½
+	output wire					  id_stall,		// IDï¿½ï¿½ï¿½Æ©`ï¿½ï¿½ï¿½ï¿½ï¿½È©`ï¿½ï¿½
+	output wire					  ex_stall,		// EXï¿½ï¿½ï¿½Æ©`ï¿½ï¿½ï¿½ï¿½ï¿½È©`ï¿½ï¿½
+	output wire					  mem_stall,	// MEMï¿½ï¿½ï¿½Æ©`ï¿½ï¿½ï¿½ï¿½ï¿½È©`ï¿½ï¿½
+	// ï¿½Õ¥ï¿½Ã¥ï¿½ï¿½ï¿½ï¿½Åºï¿½
+	output wire					  if_flush,		// IFï¿½ï¿½ï¿½Æ©`ï¿½ï¿½ï¿½Õ¥ï¿½Ã¥ï¿½ï¿½ï¿½
+	output wire					  id_flush,		// IDï¿½ï¿½ï¿½Æ©`ï¿½ï¿½ï¿½Õ¥ï¿½Ã¥ï¿½ï¿½ï¿½
+	output wire					  ex_flush,		// EXï¿½ï¿½ï¿½Æ©`ï¿½ï¿½ï¿½Õ¥ï¿½Ã¥ï¿½ï¿½ï¿½
+	output wire					  mem_flush,	// MEMï¿½ï¿½ï¿½Æ©`ï¿½ï¿½ï¿½Õ¥ï¿½Ã¥ï¿½ï¿½ï¿½
+	output reg	[`WordAddrBus]	  new_pc		// ï¿½Â¤ï¿½ï¿½ï¿½ï¿½×¥ï¿½ï¿½ï¿½ï¿½ï¿½à¥«ï¿½ï¿½ï¿½ï¿½
 );
 
-	/********** ÖÆÓù¥ì¥¸¥¹¥¿ **********/
-	reg							 int_en;		// 0·¬ : ¸î¤êÞz¤ßÓÐ„¿
-	reg	 [`CpuExeModeBus]		 pre_exe_mode;	// 1·¬ : ŒgÐÐ¥â©`¥É
-	reg							 pre_int_en;	// 1·¬ : ¸î¤êÞz¤ßÓÐ„¿
-	reg	 [`WordAddrBus]			 epc;			// 3·¬ : ÀýÍâ¥×¥í¥°¥é¥à¥«¥¦¥ó¥¿
-	reg	 [`WordAddrBus]			 exp_vector;	// 4·¬ : ÀýÍâ¥Ù¥¯¥¿
-	reg	 [`IsaExpBus]			 exp_code;		// 5·¬ : ÀýÍâ¥³©`¥É
-	reg							 dly_flag;		// 6·¬ : ¥Ç¥£¥ì¥¤¥¹¥í¥Ã¥È¥Õ¥é¥°
-	reg	 [`CPU_IRQ_CH-1:0]		 mask;			// 7·¬ : ¸î¤êÞz¤ß¥Þ¥¹¥¯
+	/********** ï¿½ï¿½ï¿½ï¿½ï¿½ì¥¸ï¿½ï¿½ï¿½ï¿½ **********/
+	reg							 int_en;		// 0ï¿½ï¿½ : ï¿½ï¿½ï¿½ï¿½zï¿½ï¿½ï¿½Ð„ï¿½
+	reg	 [`CpuExeModeBus]		 pre_exe_mode;	// 1ï¿½ï¿½ : ï¿½gï¿½Ð¥ï¿½`ï¿½ï¿½
+	reg							 pre_int_en;	// 1ï¿½ï¿½ : ï¿½ï¿½ï¿½ï¿½zï¿½ï¿½ï¿½Ð„ï¿½
+	reg	 [`WordAddrBus]			 epc;			// 3ï¿½ï¿½ : ï¿½ï¿½ï¿½ï¿½×¥ï¿½ï¿½ï¿½ï¿½ï¿½à¥«ï¿½ï¿½ï¿½ï¿½
+	reg	 [`WordAddrBus]			 exp_vector;	// 4ï¿½ï¿½ : ï¿½ï¿½ï¿½ï¿½Ù¥ï¿½ï¿½ï¿½
+	reg	 [`IsaExpBus]			 exp_code;		// 5ï¿½ï¿½ : ï¿½ï¿½ï¿½â¥³ï¿½`ï¿½ï¿½
+	reg							 dly_flag;		// 6ï¿½ï¿½ : ï¿½Ç¥ï¿½ï¿½ì¥¤ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥È¥Õ¥é¥°
+	reg	 [`CPU_IRQ_CH-1:0]		 mask;			// 7ï¿½ï¿½ : ï¿½ï¿½ï¿½ï¿½zï¿½ß¥Þ¥ï¿½ï¿½ï¿½
 
-	/********** ÄÚ²¿ÐÅºÅ **********/
-	reg [`WordAddrBus]		  pre_pc;			// Ç°¤Î¥×¥í¥°¥é¥à¥«¥¦¥ó¥¿
-	reg						  br_flag;			// ·Öáª¥Õ¥é¥°
+	/********** ï¿½Ú²ï¿½ï¿½Åºï¿½ **********/
+	reg [`WordAddrBus]		  pre_pc;			// Ç°ï¿½Î¥×¥ï¿½ï¿½ï¿½ï¿½ï¿½à¥«ï¿½ï¿½ï¿½ï¿½
+	reg						  br_flag;			// ï¿½ï¿½áª¥Õ¥é¥°
 
-	/********** ¥Ñ¥¤¥×¥é¥¤¥óÖÆÓùÐÅºÅ **********/
-	// ¥¹¥È©`¥ëÐÅºÅ
+	/********** ï¿½Ñ¥ï¿½ï¿½×¥é¥¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½ **********/
+	// ï¿½ï¿½ï¿½È©`ï¿½ï¿½ï¿½Åºï¿½
 	wire   stall	 = if_busy | mem_busy;
 	assign if_stall	 = stall | ld_hazard;
 	assign id_stall	 = stall;
 	assign ex_stall	 = stall;
 	assign mem_stall = stall;
-	// ¥Õ¥é¥Ã¥·¥åÐÅºÅ
+	// ï¿½Õ¥ï¿½Ã¥ï¿½ï¿½ï¿½ï¿½Åºï¿½
 	reg	   flush;
 	assign if_flush	 = flush;
 	assign id_flush	 = flush | ld_hazard;
 	assign ex_flush	 = flush;
 	assign mem_flush = flush;
 
-	/********** ¥Ñ¥¤¥×¥é¥¤¥ó¥Õ¥é¥Ã¥·¥åÖÆÓù **********/
+	/********** ï¿½Ñ¥ï¿½ï¿½×¥é¥¤ï¿½ï¿½Õ¥ï¿½Ã¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ **********/
 	always @(*) begin
-		/* ¥Ç¥Õ¥©¥ë¥È‚Ž */
+		/* ï¿½Ç¥Õ¥ï¿½ï¿½ï¿½È‚ï¿½ */
 		new_pc = `WORD_ADDR_W'h0;
 		flush  = `DISABLE;
-		/* ¥Ñ¥¤¥×¥é¥¤¥ó¥Õ¥é¥Ã¥·¥å */
-		if (mem_en == `ENABLE) begin // ¥Ñ¥¤¥×¥é¥¤¥ó¤Î¥Ç©`¥¿¤¬ÓÐ„¿
-			if (mem_exp_code != `ISA_EXP_NO_EXP) begin		 // ÀýÍâ°kÉú
+		/* ï¿½Ñ¥ï¿½ï¿½×¥é¥¤ï¿½ï¿½Õ¥ï¿½Ã¥ï¿½ï¿½ï¿½ */
+		if (mem_en == `ENABLE) begin // ï¿½Ñ¥ï¿½ï¿½×¥é¥¤ï¿½ï¿½Î¥Ç©`ï¿½ï¿½ï¿½ï¿½ï¿½Ð„ï¿½
+			if (mem_exp_code != `ISA_EXP_NO_EXP) begin		 // ï¿½ï¿½ï¿½ï¿½kï¿½ï¿½
 				new_pc = exp_vector;
 				flush  = `ENABLE;
-			end else if (mem_ctrl_op == `CTRL_OP_EXRT) begin // EXRTÃüÁî
+			end else if (mem_ctrl_op == `CTRL_OP_EXRT) begin // EXRTï¿½ï¿½ï¿½ï¿½
 				new_pc = epc;
 				flush  = `ENABLE;
-			end else if (mem_ctrl_op == `CTRL_OP_WRCR) begin // WRCRÃüÁî
+			end else if (mem_ctrl_op == `CTRL_OP_WRCR) begin // WRCRï¿½ï¿½ï¿½ï¿½
 				new_pc = mem_pc;
 				flush  = `ENABLE;
 			end
 		end
 	end
 
-	/********** ¸î¤êÞz¤ß¤Î—Ê³ö **********/
+	/********** ï¿½ï¿½ï¿½ï¿½zï¿½ß¤Î—Ê³ï¿½ **********/
 	always @(*) begin
 		if ((int_en == `ENABLE) && ((|((~mask) & irq)) == `ENABLE)) begin
 			int_detect = `ENABLE;
@@ -116,107 +116,107 @@ module ctrl (
 		end
 	end
    
-	/********** Õi¤ß³ö¤·¥¢¥¯¥»¥¹ **********/
+	/********** ï¿½iï¿½ß³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ **********/
 	always @(*) begin
 		case (creg_rd_addr)
-		   `CREG_ADDR_STATUS	 : begin // 0·¬:¥¹¥Æ©`¥¿¥¹
+		   `CREG_ADDR_STATUS	 : begin // 0ï¿½ï¿½:ï¿½ï¿½ï¿½Æ©`ï¿½ï¿½ï¿½ï¿½
 			   creg_rd_data = {{`WORD_DATA_W-2{1'b0}}, int_en, exe_mode};
 		   end
-		   `CREG_ADDR_PRE_STATUS : begin // 1·¬:ÀýÍâ°kÉúÇ°¤Î¥¹¥Æ©`¥¿¥¹
+		   `CREG_ADDR_PRE_STATUS : begin // 1ï¿½ï¿½:ï¿½ï¿½ï¿½ï¿½kï¿½ï¿½Ç°ï¿½Î¥ï¿½ï¿½Æ©`ï¿½ï¿½ï¿½ï¿½
 			   creg_rd_data = {{`WORD_DATA_W-2{1'b0}}, 
 							   pre_int_en, pre_exe_mode};
 		   end
-		   `CREG_ADDR_PC		 : begin // 2·¬:¥×¥í¥°¥é¥à¥«¥¦¥ó¥¿
+		   `CREG_ADDR_PC		 : begin // 2ï¿½ï¿½:ï¿½×¥ï¿½ï¿½ï¿½ï¿½ï¿½à¥«ï¿½ï¿½ï¿½ï¿½
 			   creg_rd_data = {id_pc, `BYTE_OFFSET_W'h0};
 		   end
-		   `CREG_ADDR_EPC		 : begin // 3·¬:ÀýÍâ¥×¥í¥°¥é¥à¥«¥¦¥ó¥¿
+		   `CREG_ADDR_EPC		 : begin // 3ï¿½ï¿½:ï¿½ï¿½ï¿½ï¿½×¥ï¿½ï¿½ï¿½ï¿½ï¿½à¥«ï¿½ï¿½ï¿½ï¿½
 			   creg_rd_data = {epc, `BYTE_OFFSET_W'h0};
 		   end
-		   `CREG_ADDR_EXP_VECTOR : begin // 4·¬:ÀýÍâ¥Ù¥¯¥¿
+		   `CREG_ADDR_EXP_VECTOR : begin // 4ï¿½ï¿½:ï¿½ï¿½ï¿½ï¿½Ù¥ï¿½ï¿½ï¿½
 			   creg_rd_data = {exp_vector, `BYTE_OFFSET_W'h0};
 		   end
-		   `CREG_ADDR_CAUSE		 : begin // 5·¬:ÀýÍâÔ­Òò
+		   `CREG_ADDR_CAUSE		 : begin // 5ï¿½ï¿½:ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½
 			   creg_rd_data = {{`WORD_DATA_W-1-`ISA_EXP_W{1'b0}}, 
 							   dly_flag, exp_code};
 		   end
-		   `CREG_ADDR_INT_MASK	 : begin // 6·¬:¸î¤êÞz¤ß¥Þ¥¹¥¯
+		   `CREG_ADDR_INT_MASK	 : begin // 6ï¿½ï¿½:ï¿½ï¿½ï¿½ï¿½zï¿½ß¥Þ¥ï¿½ï¿½ï¿½
 			   creg_rd_data = {{`WORD_DATA_W-`CPU_IRQ_CH{1'b0}}, mask};
 		   end
-		   `CREG_ADDR_IRQ		 : begin // 6·¬:¸î¤êÞz¤ßÔ­Òò
+		   `CREG_ADDR_IRQ		 : begin // 6ï¿½ï¿½:ï¿½ï¿½ï¿½ï¿½zï¿½ï¿½Ô­ï¿½ï¿½
 			   creg_rd_data = {{`WORD_DATA_W-`CPU_IRQ_CH{1'b0}}, irq};
 		   end
-		   `CREG_ADDR_ROM_SIZE	 : begin // 7·¬:ROM¤Î¥µ¥¤¥º
+		   `CREG_ADDR_ROM_SIZE	 : begin // 7ï¿½ï¿½:ROMï¿½Î¥ï¿½ï¿½ï¿½ï¿½ï¿½
 			   creg_rd_data = $unsigned(`ROM_SIZE);
 		   end
-		   `CREG_ADDR_SPM_SIZE	 : begin // 8·¬:SPM¤Î¥µ¥¤¥º
+		   `CREG_ADDR_SPM_SIZE	 : begin // 8ï¿½ï¿½:SPMï¿½Î¥ï¿½ï¿½ï¿½ï¿½ï¿½
 			   creg_rd_data = $unsigned(`SPM_SIZE);
 		   end
-		   `CREG_ADDR_CPU_INFO	 : begin // 9·¬:CPU¤ÎÇéˆó
+		   `CREG_ADDR_CPU_INFO	 : begin // 9ï¿½ï¿½:CPUï¿½ï¿½ï¿½ï¿½ï¿½
 			   creg_rd_data = {`RELEASE_YEAR, `RELEASE_MONTH, 
 							   `RELEASE_VERSION, `RELEASE_REVISION};
 		   end
-		   default				 : begin // ¥Ç¥Õ¥©¥ë¥È‚Ž
+		   default				 : begin // ï¿½Ç¥Õ¥ï¿½ï¿½ï¿½È‚ï¿½
 			   creg_rd_data = `WORD_DATA_W'h0;
 		   end
 		endcase
 	end
 
-	/********** CPU¤ÎÖÆÓù **********/
+	/********** CPUï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ **********/
 	always @(posedge clk or `RESET_EDGE reset) begin
 		if (reset == `RESET_ENABLE) begin
-			/* ·ÇÍ¬ÆÚ¥ê¥»¥Ã¥È */
-			exe_mode	 <= #1 `CPU_KERNEL_MODE;
-			int_en		 <= #1 `DISABLE;
-			pre_exe_mode <= #1 `CPU_KERNEL_MODE;
-			pre_int_en	 <= #1 `DISABLE;
-			exp_code	 <= #1 `ISA_EXP_NO_EXP;
-			mask		 <= #1 {`CPU_IRQ_CH{`ENABLE}};
-			dly_flag	 <= #1 `DISABLE;
-			epc			 <= #1 `WORD_ADDR_W'h0;
-			exp_vector	 <= #1 `WORD_ADDR_W'h0;
-			pre_pc		 <= #1 `WORD_ADDR_W'h0;
-			br_flag		 <= #1 `DISABLE;
+			/* ï¿½ï¿½Í¬ï¿½Ú¥ê¥»ï¿½Ã¥ï¿½ */
+			exe_mode	 <=  `CPU_KERNEL_MODE;
+			int_en		 <=  `DISABLE;
+			pre_exe_mode <=  `CPU_KERNEL_MODE;
+			pre_int_en	 <=  `DISABLE;
+			exp_code	 <=  `ISA_EXP_NO_EXP;
+			mask		 <=  {`CPU_IRQ_CH{`ENABLE}};
+			dly_flag	 <=  `DISABLE;
+			epc			 <=  `WORD_ADDR_W'h0;
+			exp_vector	 <=  `WORD_ADDR_W'h0;
+			pre_pc		 <=  `WORD_ADDR_W'h0;
+			br_flag		 <=  `DISABLE;
 		end else begin
-			/* CPU¤Î×´‘B¤ò¸üÐÂ */
+			/* CPUï¿½ï¿½×´ï¿½Bï¿½ï¿½ï¿½ï¿½ï¿½ */
 			if ((mem_en == `ENABLE) && (stall == `DISABLE)) begin
-				/* PC¤È·Öáª¥Õ¥é¥°¤Î±£´æ */
-				pre_pc		 <= #1 mem_pc;
-				br_flag		 <= #1 mem_br_flag;
-				/* CPU¤Î¥¹¥Æ©`¥¿¥¹ÖÆÓù */
-				if (mem_exp_code != `ISA_EXP_NO_EXP) begin		 // ÀýÍâ°kÉú
-					exe_mode	 <= #1 `CPU_KERNEL_MODE;
-					int_en		 <= #1 `DISABLE;
-					pre_exe_mode <= #1 exe_mode;
-					pre_int_en	 <= #1 int_en;
-					exp_code	 <= #1 mem_exp_code;
-					dly_flag	 <= #1 br_flag;
-					epc			 <= #1 pre_pc;
-				end else if (mem_ctrl_op == `CTRL_OP_EXRT) begin // EXRTÃüÁî
-					exe_mode	 <= #1 pre_exe_mode;
-					int_en		 <= #1 pre_int_en;
-				end else if (mem_ctrl_op == `CTRL_OP_WRCR) begin // WRCRÃüÁî
-				   /* ÖÆÓù¥ì¥¸¥¹¥¿¤Ø¤Î•ø¤­Þz¤ß */
+				/* PCï¿½È·ï¿½áª¥Õ¥é¥°ï¿½Î±ï¿½ï¿½ï¿½ */
+				pre_pc		 <=  mem_pc;
+				br_flag		 <=  mem_br_flag;
+				/* CPUï¿½Î¥ï¿½ï¿½Æ©`ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+				if (mem_exp_code != `ISA_EXP_NO_EXP) begin		 // ï¿½ï¿½ï¿½ï¿½kï¿½ï¿½
+					exe_mode	 <=  `CPU_KERNEL_MODE;
+					int_en		 <=  `DISABLE;
+					pre_exe_mode <=  exe_mode;
+					pre_int_en	 <=  int_en;
+					exp_code	 <=  mem_exp_code;
+					dly_flag	 <=  br_flag;
+					epc			 <=  pre_pc;
+				end else if (mem_ctrl_op == `CTRL_OP_EXRT) begin // EXRTï¿½ï¿½ï¿½ï¿½
+					exe_mode	 <=  pre_exe_mode;
+					int_en		 <=  pre_int_en;
+				end else if (mem_ctrl_op == `CTRL_OP_WRCR) begin // WRCRï¿½ï¿½ï¿½ï¿½
+				   /* ï¿½ï¿½ï¿½ï¿½ï¿½ì¥¸ï¿½ï¿½ï¿½ï¿½ï¿½Ø¤Î•ï¿½ï¿½ï¿½ï¿½zï¿½ï¿½ */
 					case (mem_dst_addr)
-						`CREG_ADDR_STATUS	  : begin // ¥¹¥Æ©`¥¿¥¹
-							exe_mode	 <= #1 mem_out[`CregExeModeLoc];
-							int_en		 <= #1 mem_out[`CregIntEnableLoc];
+						`CREG_ADDR_STATUS	  : begin // ï¿½ï¿½ï¿½Æ©`ï¿½ï¿½ï¿½ï¿½
+							exe_mode	 <=  mem_out[`CregExeModeLoc];
+							int_en		 <=  mem_out[`CregIntEnableLoc];
 						end
-						`CREG_ADDR_PRE_STATUS : begin // ÀýÍâ°kÉúÇ°¤Î¥¹¥Æ©`¥¿¥¹
-							pre_exe_mode <= #1 mem_out[`CregExeModeLoc];
-							pre_int_en	 <= #1 mem_out[`CregIntEnableLoc];
+						`CREG_ADDR_PRE_STATUS : begin // ï¿½ï¿½ï¿½ï¿½kï¿½ï¿½Ç°ï¿½Î¥ï¿½ï¿½Æ©`ï¿½ï¿½ï¿½ï¿½
+							pre_exe_mode <=  mem_out[`CregExeModeLoc];
+							pre_int_en	 <=  mem_out[`CregIntEnableLoc];
 						end
-						`CREG_ADDR_EPC		  : begin // ÀýÍâ¥×¥í¥°¥é¥à¥«¥¦¥ó¥¿
-							epc			 <= #1 mem_out[`WordAddrLoc];
+						`CREG_ADDR_EPC		  : begin // ï¿½ï¿½ï¿½ï¿½×¥ï¿½ï¿½ï¿½ï¿½ï¿½à¥«ï¿½ï¿½ï¿½ï¿½
+							epc			 <=  mem_out[`WordAddrLoc];
 						end
-						`CREG_ADDR_EXP_VECTOR : begin // ÀýÍâ¥Ù¥¯¥¿
-							exp_vector	 <= #1 mem_out[`WordAddrLoc];
+						`CREG_ADDR_EXP_VECTOR : begin // ï¿½ï¿½ï¿½ï¿½Ù¥ï¿½ï¿½ï¿½
+							exp_vector	 <=  mem_out[`WordAddrLoc];
 						end
-						`CREG_ADDR_CAUSE	  : begin // ÀýÍâÔ­Òò
-							dly_flag	 <= #1 mem_out[`CregDlyFlagLoc];
-							exp_code	 <= #1 mem_out[`CregExpCodeLoc];
+						`CREG_ADDR_CAUSE	  : begin // ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½
+							dly_flag	 <=  mem_out[`CregDlyFlagLoc];
+							exp_code	 <=  mem_out[`CregExpCodeLoc];
 						end
-						`CREG_ADDR_INT_MASK	  : begin // ¸î¤êÞz¤ß¥Þ¥¹¥¯
-							mask		 <= #1 mem_out[`CPU_IRQ_CH-1:0];
+						`CREG_ADDR_INT_MASK	  : begin // ï¿½ï¿½ï¿½ï¿½zï¿½ß¥Þ¥ï¿½ï¿½ï¿½
+							mask		 <=  mem_out[`CPU_IRQ_CH-1:0];
 						end
 					endcase
 				end

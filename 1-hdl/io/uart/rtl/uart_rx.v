@@ -1,40 +1,40 @@
 /*
  -- ============================================================================
  -- FILE NAME	: uart_rx.v
- -- DESCRIPTION : UARTÊÜÐÅ¥â¥¸¥å©`¥ë
+ -- DESCRIPTION : UARTï¿½ï¿½ï¿½Å¥â¥¸ï¿½ï¿½`ï¿½ï¿½
  -- ----------------------------------------------------------------------------
  -- Revision  Date		  Coding_by	 Comment
- -- 1.0.0	  2011/06/27  suito		 ÐÂÒŽ×÷³É
+ -- 1.0.0	  2011/06/27  suito		 ï¿½ï¿½ÒŽï¿½ï¿½ï¿½ï¿½
  -- ============================================================================
 */
 
-/********** ¹²Í¨¥Ø¥Ã¥À¥Õ¥¡¥¤¥ë **********/
+/********** ï¿½ï¿½Í¨ï¿½Ø¥Ã¥ï¿½ï¿½Õ¥ï¿½ï¿½ï¿½ï¿½ï¿½ **********/
 `include "nettype.h"
 `include "stddef.h"
 `include "global_config.h"
 
-/********** ‚€„e¥Ø¥Ã¥À¥Õ¥¡¥¤¥ë **********/
+/********** ï¿½ï¿½ï¿½eï¿½Ø¥Ã¥ï¿½ï¿½Õ¥ï¿½ï¿½ï¿½ï¿½ï¿½ **********/
 `include "uart.h"
 
-/********** ¥â¥¸¥å©`¥ë **********/
+/********** ï¿½â¥¸ï¿½ï¿½`ï¿½ï¿½ **********/
 module uart_rx (
-	/********** ¥¯¥í¥Ã¥¯ & ¥ê¥»¥Ã¥È **********/
-	input  wire				   clk,		// ¥¯¥í¥Ã¥¯
-	input  wire				   reset,	// ·ÇÍ¬ÆÚ¥ê¥»¥Ã¥È
-	/********** ÖÆÓùÐÅºÅ **********/
-	output wire				   rx_busy, // ÊÜÐÅÖÐ¥Õ¥é¥°
-	output reg				   rx_end,	// ÊÜÐÅÍêÁËÐÅºÅ
-	output reg	[`ByteDataBus] rx_data, // ÊÜÐÅ¥Ç©`¥¿
-	/********** UARTÊÜÐÅÐÅºÅ **********/
-	input  wire				   rx		// UARTÊÜÐÅÐÅºÅ
+	/********** ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ & ï¿½ê¥»ï¿½Ã¥ï¿½ **********/
+	input  wire				   clk,		// ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½
+	input  wire				   reset,	// ï¿½ï¿½Í¬ï¿½Ú¥ê¥»ï¿½Ã¥ï¿½
+	/********** ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½ **********/
+	output wire				   rx_busy, // ï¿½ï¿½ï¿½ï¿½ï¿½Ð¥Õ¥é¥°
+	output reg				   rx_end,	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
+	output reg	[`ByteDataBus] rx_data, // ï¿½ï¿½ï¿½Å¥Ç©`ï¿½ï¿½
+	/********** UARTï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½ **********/
+	input  wire				   rx		// UARTï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
 );
 
-	/********** ÄÚ²¿¥ì¥¸¥¹¥¿ **********/
-	reg [`UartStateBus]		   state;	 // ¥¹¥Æ©`¥È
-	reg [`UartDivCntBus]	   div_cnt;	 // ·ÖÖÜ¥«¥¦¥ó¥¿
-	reg [`UartBitCntBus]	   bit_cnt;	 // ¥Ó¥Ã¥È¥«¥¦¥ó¥¿
+	/********** ï¿½Ú²ï¿½ï¿½ì¥¸ï¿½ï¿½ï¿½ï¿½ **********/
+	reg [`UartStateBus]		   state;	 // ï¿½ï¿½ï¿½Æ©`ï¿½ï¿½
+	reg [`UartDivCntBus]	   div_cnt;	 // ï¿½ï¿½ï¿½Ü¥ï¿½ï¿½ï¿½ï¿½ï¿½
+	reg [`UartBitCntBus]	   bit_cnt;	 // ï¿½Ó¥Ã¥È¥ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	/********** ÊÜÐÅÖÐ¥Õ¥é¥°¤ÎÉú³É **********/
+	/********** ï¿½ï¿½ï¿½ï¿½ï¿½Ð¥Õ¥é¥°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ **********/
 	assign rx_busy = (state != `UART_STATE_IDLE) ? `ENABLE : `DISABLE;
 
 	/********** avoid quartus warning about truncated value with size 32 to match size of target (9) **********/
@@ -51,36 +51,36 @@ module uart_rx (
 			div_cnt <=  UART_DIV_RATE_HALVED[`UartDivCntBus];
 			bit_cnt <=  `UART_BIT_CNT_W'h0;
 		end else begin
-			/* ÊÜÐÅ¥¹¥Æ©`¥È */
+			/* ï¿½ï¿½ï¿½Å¥ï¿½ï¿½Æ©`ï¿½ï¿½ */
 			case (state)
-				`UART_STATE_IDLE : begin // ¥¢¥¤¥É¥ë×´‘B
-					if (rx == `UART_START_BIT) begin // ÊÜÐÅé_Ê¼
-						state	<= #1 `UART_STATE_RX;
+				`UART_STATE_IDLE : begin // ï¿½ï¿½ï¿½ï¿½ï¿½É¥ï¿½×´ï¿½B
+					if (rx == `UART_START_BIT) begin // ï¿½ï¿½ï¿½ï¿½ï¿½_Ê¼
+						state	<=  `UART_STATE_RX;
 					end
-					rx_end	<= #1 `DISABLE;
+					rx_end	<=  `DISABLE;
 				end
-				`UART_STATE_RX	 : begin // ÊÜÐÅÖÐ
-					/* ¥¯¥í¥Ã¥¯·ÖÖÜ¤Ë¤è¤ë¥Ü©`¥ì©`¥ÈÕ{Õû */
-					if (div_cnt == {`UART_DIV_CNT_W{1'b0}}) begin // œºÁË
-						/* ´Î¥Ç©`¥¿¤ÎÊÜÐÅ */
+				`UART_STATE_RX	 : begin // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+					/* ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½ï¿½Ü¤Ë¤ï¿½ï¿½Ü©`ï¿½ï¿½`ï¿½ï¿½ï¿½{ï¿½ï¿½ */
+					if (div_cnt == {`UART_DIV_CNT_W{1'b0}}) begin // ï¿½ï¿½ï¿½ï¿½
+						/* ï¿½Î¥Ç©`ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 						case (bit_cnt)
-							`UART_BIT_CNT_STOP	: begin // ¥¹¥È¥Ã¥×¥Ó¥Ã¥È¤ÎÊÜÐÅ
-								state	<= #1 `UART_STATE_IDLE;
-								bit_cnt <= #1 `UART_BIT_CNT_START;
-								div_cnt <= #1 `UART_DIV_RATE / 2;
-								/* ¥Õ¥ì©`¥ß¥ó¥°¥¨¥é©`¤Î¥Á¥§¥Ã¥¯ */
+							`UART_BIT_CNT_STOP	: begin // ï¿½ï¿½ï¿½È¥Ã¥×¥Ó¥Ã¥È¤ï¿½ï¿½ï¿½ï¿½ï¿½
+								state	<=  `UART_STATE_IDLE;
+								bit_cnt <=  `UART_BIT_CNT_START;
+								div_cnt <=  UART_DIV_RATE_HALVED[`UartDivCntBus];
+								/* ï¿½Õ¥ï¿½`ï¿½ß¥ó¥°¥ï¿½ï¿½ï¿½`ï¿½Î¥ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ */
 								if (rx == `UART_STOP_BIT) begin
-									rx_end	<= #1 `ENABLE;
+									rx_end	<=  `ENABLE;
 								end
 							end
-							default				: begin // ¥Ç©`¥¿¤ÎÊÜÐÅ
-								rx_data <= #1 {rx, rx_data[`BYTE_MSB:`LSB+1]};
-								bit_cnt <= #1 bit_cnt + 1'b1;
-								div_cnt <= #1 `UART_DIV_RATE;
+							default				: begin // ï¿½Ç©`ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+								rx_data <=  {rx, rx_data[`BYTE_MSB:`LSB+1]};
+								bit_cnt <=  bit_cnt + 1'b1;
+								div_cnt <=  `UART_DIV_RATE;
 							end
 						endcase
-					end else begin // ¥«¥¦¥ó¥È¥À¥¦¥ó
-						div_cnt <= #1 div_cnt - 1'b1;
+					end else begin // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ï¿½
+						div_cnt <=  div_cnt - 1'b1;
 					end
 				end
 			endcase
