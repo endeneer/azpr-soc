@@ -1,0 +1,21 @@
+# ModelSim
+## ignore everything
+3-sim/*
+## except .do file
+!3-sim/*.do
+
+# Quartus
+*.bak
+*.qws
+4-synth/db
+4-synth/incremental_db
+4-synth/output_files
+!4-synth/*.pof
+!4-synth/*.sof
+4-synth/simulation
+
+# Intentionally ignored
+ignore/
+0-doc/
+downloaded/
+git_cloned/
