@@ -37,15 +37,19 @@ module uart_rx (
 	/********** 受信中フラグの生成 **********/
 	assign rx_busy = (state != `UART_STATE_IDLE) ? `ENABLE : `DISABLE;
 
-	/********** 受信論理 **********/
+	/********** avoid quartus warning about truncated value with size 32 to match size of target (9) **********/
+	// uart_tx.v doesn't need this trick because it doesn't do any operation to `UART_DIV_RATE
+	localparam UART_DIV_RATE_HALVED = `UART_DIV_RATE/2;
+	
+	/********** 锟斤拷锟斤拷論锟斤拷 **********/
 	always @(posedge clk or `RESET_EDGE reset) begin
 		if (reset == `RESET_ENABLE) begin
-			/* 非同期リセット */
-			rx_end	<= #1 `DISABLE;
-			rx_data <= #1 `BYTE_DATA_W'h0;
-			state	<= #1 `UART_STATE_IDLE;
-			div_cnt <= #1 `UART_DIV_RATE / 2;
-			bit_cnt <= #1 `UART_BIT_CNT_W'h0;
+			/* 锟斤拷同锟节リセ锟矫ワ拷 */
+			rx_end	<=  `DISABLE;
+			rx_data <=  `BYTE_DATA_W'h0;
+			state	<=  `UART_STATE_IDLE;
+			div_cnt <=  UART_DIV_RATE_HALVED[`UartDivCntBus];
+			bit_cnt <=  `UART_BIT_CNT_W'h0;
 		end else begin
 			/* 受信ステート */
 			case (state)
