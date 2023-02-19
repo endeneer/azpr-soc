@@ -47,6 +47,7 @@ module gpr (
    
 	/********** •ø¤­Þz¤ß¥¢¥¯¥»¥¹ **********/
 	always @ (posedge clk or `RESET_EDGE reset) begin
+		i = 0;
 		if (reset == `RESET_ENABLE) begin 
 			/* ·ÇÍ¬ÆÚ¥ê¥»¥Ã¥È */
 			for (i = 0; i < `REG_NUM; i = i + 1) begin
