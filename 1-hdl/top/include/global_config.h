@@ -23,9 +23,9 @@
 //	`define POSITIVE_RESET				// Active High
 	`define NEGATIVE_RESET				// Active Low
 
-	/********** ÄÚ´æ¿ØÖÆÐÅºÅ¼«ÐÔÑ¡Ôñ **********/
-	`define POSITIVE_MEMORY				// Active High
-//	`define NEGATIVE_MEMORY				// Active Low
+	/********** ï¿½Ú´ï¿½ï¿½ï¿½ï¿½ï¿½ÅºÅ¼ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ **********/
+//  `define POSITIVE_MEMORY				// Active High
+	`define NEGATIVE_MEMORY				// Active Low
 
 	/********** I/O Éè±¸Ñ¡Ôñ**********/
 	`define IMPLEMENT_TIMER				// ¶¨Ê±Æ÷
