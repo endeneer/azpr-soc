@@ -135,7 +135,7 @@ module chip_top_test;
 	initial begin
 		# 0 begin
 			clk_ref	 <= `HIGH;
-			reset_sw <= `RESET_ENABLE;
+			reset_sw <= `RESET_SW_ENABLE;
 		end
 		# ( STEP / 2 )
 		// commented out readmemh since in quartus we already embedded .mif in sprom
@@ -144,7 +144,7 @@ module chip_top_test;
 		// 	$readmemh(`SPM_PRG, chip_top.chip.cpu.spm.x_s3e_dpram.mem);
 		// end
 		# ( STEP * 20 ) begin		  // リセットの解除
-			reset_sw <= `RESET_DISABLE;
+			reset_sw <= `RESET_SW_DISABLE;
 		end
 		`define SIM_CYCLE 200000 
 		# ( STEP * `SIM_CYCLE ) begin // シミュレーションの実行

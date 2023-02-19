@@ -1,7 +1,12 @@
 # Example script to autuomate adding waveform and run the simulation until $finish;
+## NOTE: Since we are using .h files, and ModelSim doesn't track the changes of .h file, if a .h file changes, remember to compile all .v that uses that .h again
 
 # since we are using verilog, use -L altera_mf_ver, and no need -L altera_mf (which is for vhdl)
 vsim -onfinish stop -L altera_mf_ver -wlf chip_top_test.wlf -voptargs=+acc work.chip_top_test 
+
+add wave -position end  sim:/chip_top_test/chip_top/clk_gen/reset_sw
+add wave -position end  sim:/chip_top_test/chip_top/clk_gen/dcm_reset
+add wave -position end  sim:/chip_top_test/chip_top/clk_gen/chip_reset
 
 add wave -position end  sim:/chip_top_test/chip_top/clk_gen/x_s3e_dcm/areset
 add wave -position end  sim:/chip_top_test/chip_top/clk_gen/x_s3e_dcm/inclk0

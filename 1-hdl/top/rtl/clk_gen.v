@@ -1,58 +1,58 @@
 /*
  -- ============================================================================
  -- FILE NAME	: clk_gen.v
- -- DESCRIPTION : Ê±ÖÓÉú³ÉÄ£¿é
+ -- DESCRIPTION : Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½
  -- ----------------------------------------------------------------------------
  -- Revision  Date		  Coding_by	 Comment
- -- 1.0.0	  2011/06/27  suito		 ´´½¨
+ -- 1.0.0	  2011/06/27  suito		 ï¿½ï¿½ï¿½ï¿½
  -- 1.0.1	  2014/06/27  zhangly
  -- ============================================================================
 */
  
-/********** Í¨ÓÃÍ·ÎÄ¼þ **********/
+/********** Í¨ï¿½ï¿½Í·ï¿½Ä¼ï¿½ **********/
 `include "nettype.h"
 `include "stddef.h"
 `include "global_config.h"
 
-/********** Ä£¿é **********/
+/********** Ä£ï¿½ï¿½ **********/
 module clk_gen (
-	/********** Ê±ÖÓÓë¸´Î» **********/
-	input wire	clk_ref,   // »ù±¾Ê±ÖÓ
-	input wire	reset_sw,  // È«¾Ö¸´Î»
-	/********** Éú³ÉÊ±ÖÓ **********/
-	output wire clk,	   // Ê±ÖÓ
-	output wire clk_,	   // ·´ÏàÊ±ÖÓ
-	/********** Ð¾Æ¬¸´Î» **********/
-	output wire chip_reset // Ð¾Æ¬¸´Î»
+	/********** Ê±ï¿½ï¿½ï¿½ë¸´Î» **********/
+	input wire	clk_ref,   // ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+	input wire	reset_sw,  // È«ï¿½Ö¸ï¿½Î»
+	/********** ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ **********/
+	output wire clk,	   // Ê±ï¿½ï¿½
+	output wire clk_,	   // ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+	/********** Ð¾Æ¬ï¿½ï¿½Î» **********/
+	output wire chip_reset // Ð¾Æ¬ï¿½ï¿½Î»
 );
 
-	/********** ÄÚ²¿ÐÅºÅ **********/
-	wire		locked;	   // Ëø¶¨ÐÅºÅ
-	wire		dcm_reset; // dcm ¸´Î»
+	/********** ï¿½Ú²ï¿½ï¿½Åºï¿½ **********/
+	wire		locked;	   // ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
+	wire		dcm_reset; // dcm ï¿½ï¿½Î»
 
-	/********** ²úÉú¸´Î» **********/
-	// DCM¸´Î»
-	assign dcm_reset  = (reset_sw == `RESET_ENABLE) ? `ENABLE : `DISABLE;
-	// Ð¾Æ¬¸´Î»
-	assign chip_reset = ((reset_sw == `RESET_ENABLE) || (locked == `DISABLE)) ?
+	/********** ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î» **********/
+	// DCMï¿½ï¿½Î»
+	assign dcm_reset  = (reset_sw == `RESET_SW_ENABLE) ? `ENABLE : `DISABLE;
+	// Ð¾Æ¬ï¿½ï¿½Î»
+	assign chip_reset = ((reset_sw == `RESET_SW_ENABLE) || (locked == `DISABLE)) ?
 							`RESET_ENABLE : `RESET_DISABLE;
 
 	/********** Xilinx DCM (Digitl Clock Manager) -> altera pll**********/
 	/* x_s3e_dcm x_s3e_dcm (
-		.CLKIN_IN		 (clk_ref),	  // »ù±¾Ê±ÖÓ
-		.RST_IN			 (dcm_reset), // DCM¸´Î»
-		.CLK0_OUT		 (clk),		  // Ê±ÖÓ
-		.CLK180_OUT		 (clk_),	  // ·´ÏàÊ±ÖÓ
-		.LOCKED_OUT		 (locked)	  // Ëø¶¨
+		.CLKIN_IN		 (clk_ref),	  // ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+		.RST_IN			 (dcm_reset), // DCMï¿½ï¿½Î»
+		.CLK0_OUT		 (clk),		  // Ê±ï¿½ï¿½
+		.CLK180_OUT		 (clk_),	  // ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+		.LOCKED_OUT		 (locked)	  // ï¿½ï¿½ï¿½ï¿½
    );
 	*/
 	
 	altera_dcm x_s3e_dcm (
-		.inclk0		 (clk_ref),	  // »ù±¾Ê±ÖÓ
-		.areset			 (dcm_reset), // DCM¸´Î»
-		.c0		 (clk),		  // Ê±ÖÓ
-		.c1		 (clk_),	  // ·´ÏàÊ±ÖÓ
-		.locked		 (locked)	  // Ëø¶¨
+		.inclk0		 (clk_ref),	  // ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+		.areset			 (dcm_reset), // DCMï¿½ï¿½Î»
+		.c0		 (clk),		  // Ê±ï¿½ï¿½
+		.c1		 (clk_),	  // ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+		.locked		 (locked)	  // ï¿½ï¿½ï¿½ï¿½
    );
 	
 
