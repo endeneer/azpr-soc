@@ -1,7 +1,7 @@
-;;; ƒƒP[ƒVƒ‡ƒ“ƒAƒhƒŒƒX‚ÌÝ’è
+;;; ï¿½ï¿½ï¿½Pï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½hï¿½ï¿½ï¿½Xï¿½ÌÝ’ï¿½
 	LOCATE	0x20000000
 
-;;; ƒVƒ“ƒ{ƒ‹‚Ì’è‹`
+;;; ï¿½Vï¿½ï¿½ï¿½{ï¿½ï¿½ï¿½Ì’ï¿½`
 TIMER_BASE_ADDR_H	EQU	0x4000			;Timer Base Address High
 TIMER_CTRL_OFFSET	EQU	0x0				;Timer Control Register Offset
 TIMER_INTR_OFFSET	EQU	0x4				;Timer Interrupt Register Offset
@@ -10,16 +10,29 @@ GPIO_BASE_ADDR_H	EQU	0x8000			;GPIO Base Address High
 GPIO_IN_OFFSET		EQU	0x0				;GPIO Input Port Register Offset
 GPIO_OUT_OFFSET		EQU	0x4				;GPIO Data Register Offset
 
-7SEG_DATA_0			EQU	0xC0
-7SEG_DATA_1			EQU	0xF9
-7SEG_DATA_2			EQU	0xA4
-7SEG_DATA_3			EQU	0xB0
-7SEG_DATA_4			EQU	0x99
-7SEG_DATA_5			EQU	0x92
-7SEG_DATA_6			EQU	0x82
-7SEG_DATA_7			EQU	0xF8
-7SEG_DATA_8			EQU	0x80
-7SEG_DATA_9			EQU	0x90
+;;; Common-anode
+;;; 7SEG_DATA_0			EQU	0xC0
+;;; 7SEG_DATA_1			EQU	0xF9
+;;; 7SEG_DATA_2			EQU	0xA4
+;;; 7SEG_DATA_3			EQU	0xB0
+;;; 7SEG_DATA_4			EQU	0x99
+;;; 7SEG_DATA_5			EQU	0x92
+;;; 7SEG_DATA_6			EQU	0x82
+;;; 7SEG_DATA_7			EQU	0xF8
+;;; 7SEG_DATA_8			EQU	0x80
+;;; 7SEG_DATA_9			EQU	0x90
+
+;;; Common-cathode
+7SEG_DATA_0			EQU	0x3F
+7SEG_DATA_1			EQU	0x06
+7SEG_DATA_2			EQU	0x5B
+7SEG_DATA_3			EQU	0x4F
+7SEG_DATA_4			EQU	0x66
+7SEG_DATA_5			EQU	0x6D
+7SEG_DATA_6			EQU	0x7D
+7SEG_DATA_7			EQU	0x07
+7SEG_DATA_8			EQU	0x7F
+7SEG_DATA_9			EQU	0x6F
 
 PUSH_SW_DATA_1		EQU	0x1
 PUSH_SW_DATA_2		EQU	0x2
@@ -29,53 +42,53 @@ PUSH_SW_DATA_4		EQU	0x8
 
 	XORR	r0,r0,r0
 
-;;; ƒTƒuƒ‹[ƒ`ƒ“ƒR[ƒ‹‚ÌƒR[ƒ‹æ‚ðƒŒƒWƒXƒ^‚ÉƒZƒbƒg
-	ORI		r0,r1,high(CONV_NUM_TO_7SEG_DATA)	;ƒ‰ƒxƒ‹CONV_NUM_TO_7SEG_DATA‚ÌãˆÊ16ƒrƒbƒg‚ðr1‚ÉƒZƒbƒg
+;;; ï¿½Tï¿½uï¿½ï¿½ï¿½[ï¿½`ï¿½ï¿½ï¿½Rï¿½[ï¿½ï¿½ï¿½ÌƒRï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Wï¿½Xï¿½^ï¿½ÉƒZï¿½bï¿½g
+	ORI		r0,r1,high(CONV_NUM_TO_7SEG_DATA)	;ï¿½ï¿½ï¿½xï¿½ï¿½CONV_NUM_TO_7SEG_DATAï¿½Ìï¿½ï¿½16ï¿½rï¿½bï¿½gï¿½ï¿½r1ï¿½ÉƒZï¿½bï¿½g
 	SHLLI	r1,r1,16
-	ORI		r1,r1,low(CONV_NUM_TO_7SEG_DATA)	;ƒ‰ƒxƒ‹CONV_NUM_TO_7SEG_DATA‚Ì‰ºˆÊ16ƒrƒbƒg‚ðr1‚ÉƒZƒbƒg
+	ORI		r1,r1,low(CONV_NUM_TO_7SEG_DATA)	;ï¿½ï¿½ï¿½xï¿½ï¿½CONV_NUM_TO_7SEG_DATAï¿½Ì‰ï¿½ï¿½ï¿½16ï¿½rï¿½bï¿½gï¿½ï¿½r1ï¿½ÉƒZï¿½bï¿½g
 
-	ORI		r0,r2,high(SET_GPIO_OUT)			;ƒ‰ƒxƒ‹SET_GPIO_OUT‚ÌãˆÊ16ƒrƒbƒg‚ðr2‚ÉƒZƒbƒg
+	ORI		r0,r2,high(SET_GPIO_OUT)			;ï¿½ï¿½ï¿½xï¿½ï¿½SET_GPIO_OUTï¿½Ìï¿½ï¿½16ï¿½rï¿½bï¿½gï¿½ï¿½r2ï¿½ÉƒZï¿½bï¿½g
 	SHLLI	r2,r2,16
-	ORI		r2,r2,low(SET_GPIO_OUT)				;ƒ‰ƒxƒ‹SET_GPIO_OUT‚Ì‰ºˆÊ16ƒrƒbƒg‚ðr2‚ÉƒZƒbƒg
+	ORI		r2,r2,low(SET_GPIO_OUT)				;ï¿½ï¿½ï¿½xï¿½ï¿½SET_GPIO_OUTï¿½Ì‰ï¿½ï¿½ï¿½16ï¿½rï¿½bï¿½gï¿½ï¿½r2ï¿½ÉƒZï¿½bï¿½g
 
-	ORI		r0,r3,high(DETECT_PUSH_SW_NUM)		;ƒ‰ƒxƒ‹DETECT_PUSH_SW_NUM‚ÌãˆÊ16ƒrƒbƒg‚ðr3‚ÉƒZƒbƒg
+	ORI		r0,r3,high(DETECT_PUSH_SW_NUM)		;ï¿½ï¿½ï¿½xï¿½ï¿½DETECT_PUSH_SW_NUMï¿½Ìï¿½ï¿½16ï¿½rï¿½bï¿½gï¿½ï¿½r3ï¿½ÉƒZï¿½bï¿½g
 	SHLLI	r3,r3,16
-	ORI		r3,r3,low(DETECT_PUSH_SW_NUM)		;ƒ‰ƒxƒ‹DETECT_PUSH_SW_NUM‚Ì‰ºˆÊ16ƒrƒbƒg‚ðr3‚ÉƒZƒbƒg
+	ORI		r3,r3,low(DETECT_PUSH_SW_NUM)		;ï¿½ï¿½ï¿½xï¿½ï¿½DETECT_PUSH_SW_NUMï¿½Ì‰ï¿½ï¿½ï¿½16ï¿½rï¿½bï¿½gï¿½ï¿½r3ï¿½ÉƒZï¿½bï¿½g
 
-	ORI		r0,r4,high(GET_GPIO_OUT)			;ƒ‰ƒxƒ‹GET_GPIO_OUT‚ÌãˆÊ16ƒrƒbƒg‚ðr4‚ÉƒZƒbƒg
+	ORI		r0,r4,high(GET_GPIO_OUT)			;ï¿½ï¿½ï¿½xï¿½ï¿½GET_GPIO_OUTï¿½Ìï¿½ï¿½16ï¿½rï¿½bï¿½gï¿½ï¿½r4ï¿½ÉƒZï¿½bï¿½g
 	SHLLI	r4,r4,16
-	ORI		r4,r4,low(GET_GPIO_OUT)				;ƒ‰ƒxƒ‹GET_GPIO_OUT‚Ì‰ºˆÊ16ƒrƒbƒg‚ðr4‚ÉƒZƒbƒg
+	ORI		r4,r4,low(GET_GPIO_OUT)				;ï¿½ï¿½ï¿½xï¿½ï¿½GET_GPIO_OUTï¿½Ì‰ï¿½ï¿½ï¿½16ï¿½rï¿½bï¿½gï¿½ï¿½r4ï¿½ÉƒZï¿½bï¿½g
 
-;;; —áŠOƒxƒNƒ^‚ÌÝ’è
+;;; ï¿½ï¿½Oï¿½xï¿½Nï¿½^ï¿½ÌÝ’ï¿½
 	ORI		r0,r7,high(EXCEPT_HANDLER)
 	SHLLI	r7,r7,16
 	ORI		r7,r7,low(EXCEPT_HANDLER)
 	WRCR	r7,c4
 
-;;; Š„‚èž‚Ý‚Ì‰ŠúÝ’è
+;;; ï¿½ï¿½ï¿½èžï¿½Ý‚Ìï¿½ï¿½ï¿½ï¿½Ý’ï¿½
 	;; Mask
-	ORI		r0,r7,0xFE						;Interrupt Mask‚ÉƒZƒbƒg‚·‚é’l‚ðr7‚É“ü‚ê‚é
+	ORI		r0,r7,0xFE						;Interrupt Maskï¿½ÉƒZï¿½bï¿½gï¿½ï¿½ï¿½ï¿½lï¿½ï¿½r7ï¿½É“ï¿½ï¿½ï¿½ï¿½
 	WRCR	r7,c6
 	;; Status
-	ORI		r0,r7,0x2						;Status‚ÉƒZƒbƒg‚·‚é’l‚ðr1‚É“ü‚ê‚é(IE:1,EM0)
+	ORI		r0,r7,0x2						;Statusï¿½ÉƒZï¿½bï¿½gï¿½ï¿½ï¿½ï¿½lï¿½ï¿½r1ï¿½É“ï¿½ï¿½ï¿½ï¿½(IE:1,EM0)
 	WRCR	r7,c0
 
 _RESET_TIMER:
-	;; •ª‚Æ•b‚ð0‚ÉÝ’è
-	ORI		r0,r5,0							;r5(•ª)‚ðƒNƒŠƒA
-	ORI		r0,r6,0							;r6(•b)‚ðƒNƒŠƒA
-	;; •ª‚ð•\Ž¦(7ƒZƒO“_“”)
-	ORR		r0,r5,r16						;r16‚É•\Ž¦‚·‚é’l‚ðƒZƒbƒg
-	CALL	r1								;CONV_NUM_TO_7SEG_DATAŒÄ‚Ño‚µ
+	;; ï¿½ï¿½ï¿½Æ•bï¿½ï¿½0ï¿½ÉÝ’ï¿½
+	ORI		r0,r5,0							;r5(ï¿½ï¿½)ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½A
+	ORI		r0,r6,0							;r6(ï¿½b)ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½A
+	;; ï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½(7ï¿½Zï¿½Oï¿½_ï¿½ï¿½)
+	ORR		r0,r5,r16						;r16ï¿½É•\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½lï¿½ï¿½ï¿½Zï¿½bï¿½g
+	CALL	r1								;CONV_NUM_TO_7SEG_DATAï¿½Ä‚Ñoï¿½ï¿½
 	ANDR	r0,r0,r0						;NOP
 	ORI		r0,r7,2							;LED1
 	SHLLI	r7,r7,16
 	ORR		r7,r17,r16
 	CALL	r2
 	ANDR	r0,r0,r0						;NOP
-	XORR	r13,r13,r13						;•ªor•b‚ðƒNƒŠƒA(0:•ª, 1:•b)
+	XORR	r13,r13,r13						;ï¿½ï¿½orï¿½bï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½A(0:ï¿½ï¿½, 1:ï¿½b)
 
-;;; ƒvƒbƒVƒ…ƒ{ƒ^ƒ“‚ðŒŸo
+;;; ï¿½vï¿½bï¿½Vï¿½ï¿½ï¿½{ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½o
 _TIMER_SETTING_LOOP:
 	CALL	r3
 	ANDR	r0,r0,r0
@@ -93,54 +106,54 @@ _TIMER_SETTING_LOOP:
 	BE		r7,r8,_HANDLE_PUSH_SW_4
 	ANDR	r0,r0,r0						;NOP
 
-;;; ƒ{ƒ^ƒ“1
-;;; •ª‚Æ•b‚Ì•\Ž¦‚ÌØ‚è‘Ö‚¦
+;;; ï¿½{ï¿½^ï¿½ï¿½1
+;;; ï¿½ï¿½ï¿½Æ•bï¿½Ì•\ï¿½ï¿½ï¿½ÌØ‚ï¿½Ö‚ï¿½
 _HANDLE_PUSH_SW_1:
-	BNE		r0,r13,_SECOND_TO_MINUTE		;•ªor•bH(0:•ª, 1:•b)
+	BNE		r0,r13,_SECOND_TO_MINUTE		;ï¿½ï¿½orï¿½bï¿½H(0:ï¿½ï¿½, 1:ï¿½b)
 	ANDR	r0,r0,r0						;NOP
 
 _MINUTE_TO_SECOND:
-	ORR		r0,r6,r16						;•b‚ðƒZƒbƒg
-	CALL	r1								;CONV_NUM_TO_7SEG_DATAŒÄ‚Ño‚µ
+	ORR		r0,r6,r16						;ï¿½bï¿½ï¿½ï¿½Zï¿½bï¿½g
+	CALL	r1								;CONV_NUM_TO_7SEG_DATAï¿½Ä‚Ñoï¿½ï¿½
 	ANDR	r0,r0,r0						;NOP
 	ORI		r0,r7,1							;LED2
 	SHLLI	r7,r7,16
 	ORR		r7,r17,r16
 	CALL	r2
 	ANDR	r0,r0,r0						;NOP
-	XORI	r13,r13,1						;•ªor•b‚ðØ‚è‘Ö‚¦
+	XORI	r13,r13,1						;ï¿½ï¿½orï¿½bï¿½ï¿½Ø‚ï¿½Ö‚ï¿½
 	BE		r0,r0,_TIMER_SETTING_LOOP
 	ANDR	r0,r0,r0						;NOP
 
 _SECOND_TO_MINUTE:
-	ORR		r0,r5,r16						;•ª‚ðƒZƒbƒg
-	CALL	r1								;CONV_NUM_TO_7SEG_DATAŒÄ‚Ño‚µ
+	ORR		r0,r5,r16						;ï¿½ï¿½ï¿½ï¿½ï¿½Zï¿½bï¿½g
+	CALL	r1								;CONV_NUM_TO_7SEG_DATAï¿½Ä‚Ñoï¿½ï¿½
 	ANDR	r0,r0,r0						;NOP
 	ORI		r0,r7,2							;LED1
 	SHLLI	r7,r7,16
 	ORR		r7,r17,r16
 	CALL	r2
 	ANDR	r0,r0,r0						;NOP
-	XORI	r13,r13,1						;•ªor•b‚ðØ‚è‘Ö‚¦
+	XORI	r13,r13,1						;ï¿½ï¿½orï¿½bï¿½ï¿½Ø‚ï¿½Ö‚ï¿½
 	BE		r0,r0,_TIMER_SETTING_LOOP
 	ANDR	r0,r0,r0						;NOP
 
-;;; ƒ{ƒ^ƒ“2
-;;; •\Ž¦‚³‚ê‚Ä‚¢‚é’l‚ð1‘‚â‚·
+;;; ï¿½{ï¿½^ï¿½ï¿½2
+;;; ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½lï¿½ï¿½1ï¿½ï¿½ï¿½â‚·
 _HANDLE_PUSH_SW_2:
-	BNE		r0,r13,_INC_SECOND				;•ªor•bH(0:•ª, 1:•b)
+	BNE		r0,r13,_INC_SECOND				;ï¿½ï¿½orï¿½bï¿½H(0:ï¿½ï¿½, 1:ï¿½b)
 	ANDR	r0,r0,r0						;NOP
 
 _INC_MINUTE:
-	ADDUI	r5,r5,1							;•ª‚ð1‘‚â‚·
-	ORI		r0,r7,100						;100‚É‚È‚Á‚½‚ç•ª‚ðƒNƒŠƒA‚·‚é
+	ADDUI	r5,r5,1							;ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½â‚·
+	ORI		r0,r7,100						;100ï¿½É‚È‚ï¿½ï¿½ï¿½ï¿½ç•ªï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½
 	BNE		r7,r5,_DISPLAY_MINUTE_1
 	ANDR	r0,r0,r0
 	ORI		r0,r5,0
 
 _DISPLAY_MINUTE_1:
-	ORR		r0,r5,r16						;•ª‚ðƒZƒbƒg
-	CALL	r1								;CONV_NUM_TO_7SEG_DATAŒÄ‚Ño‚µ
+	ORR		r0,r5,r16						;ï¿½ï¿½ï¿½ï¿½ï¿½Zï¿½bï¿½g
+	CALL	r1								;CONV_NUM_TO_7SEG_DATAï¿½Ä‚Ñoï¿½ï¿½
 	ANDR	r0,r0,r0						;NOP
 	ORI		r0,r7,2							;LED1
 	SHLLI	r7,r7,16
@@ -151,15 +164,15 @@ _DISPLAY_MINUTE_1:
 	ANDR	r0,r0,r0						;NOP
 
 _INC_SECOND:
-	ADDUI	r6,r6,1							;•b‚ð1‘‚â‚·
-	ORI		r0,r7,60						;60‚É‚È‚Á‚½‚ç•b‚ðƒNƒŠƒA‚·‚é
+	ADDUI	r6,r6,1							;ï¿½bï¿½ï¿½1ï¿½ï¿½ï¿½â‚·
+	ORI		r0,r7,60						;60ï¿½É‚È‚ï¿½ï¿½ï¿½ï¿½ï¿½bï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½
 	BNE		r7,r6,_DISPLAY_SECOND_1
 	ANDR	r0,r0,r0
 	ORI		r0,r6,0
 
 _DISPLAY_SECOND_1:
-	ORR		r0,r6,r16						;•b‚ðƒZƒbƒg
-	CALL	r1								;CONV_NUM_TO_7SEG_DATAŒÄ‚Ño‚µ
+	ORR		r0,r6,r16						;ï¿½bï¿½ï¿½ï¿½Zï¿½bï¿½g
+	CALL	r1								;CONV_NUM_TO_7SEG_DATAï¿½Ä‚Ñoï¿½ï¿½
 	ANDR	r0,r0,r0						;NOP
 	ORI		r0,r7,1							;LED2
 	SHLLI	r7,r7,16
@@ -169,22 +182,22 @@ _DISPLAY_SECOND_1:
 	BE		r0,r0,_TIMER_SETTING_LOOP
 	ANDR	r0,r0,r0						;NOP
 
-;;; ƒ{ƒ^ƒ“3
-;;; •\Ž¦‚³‚ê‚Ä‚¢‚é’l‚ð1Œ¸‚ç‚·
+;;; ï¿½{ï¿½^ï¿½ï¿½3
+;;; ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½lï¿½ï¿½1ï¿½ï¿½ï¿½ç‚·
 _HANDLE_PUSH_SW_3:
-	BNE		r0,r13,_DEC_SECOND				;•ªor•bH(0:•ª, 1:•b)
+	BNE		r0,r13,_DEC_SECOND				;ï¿½ï¿½orï¿½bï¿½H(0:ï¿½ï¿½, 1:ï¿½b)
 	ANDR	r0,r0,r0						;NOP
 
 _DEC_MINUTE:
-	ADDUI	r5,r5,-1						;•ª‚ð1Œ¸‚ç‚·
+	ADDUI	r5,r5,-1						;ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½ç‚·
 	ADDUI	r0,r7,-1
 	BNE		r5,r7,_DISPLAY_MINUTE_2
 	ANDR	r0,r0,r0
 	ORI		r0,r5,99
 
 _DISPLAY_MINUTE_2:
-	ORR		r0,r5,r16						;•ª‚ðƒZƒbƒg
-	CALL	r1								;CONV_NUM_TO_7SEG_DATAŒÄ‚Ño‚µ
+	ORR		r0,r5,r16						;ï¿½ï¿½ï¿½ï¿½ï¿½Zï¿½bï¿½g
+	CALL	r1								;CONV_NUM_TO_7SEG_DATAï¿½Ä‚Ñoï¿½ï¿½
 	ANDR	r0,r0,r0						;NOP
 	ORI		r0,r7,2							;LED1
 	SHLLI	r7,r7,16
@@ -195,15 +208,15 @@ _DISPLAY_MINUTE_2:
 	ANDR	r0,r0,r0						;NOP
 
 _DEC_SECOND:
-	ADDUI	r6,r6,-1						;•b‚ð1Œ¸‚ç‚·
+	ADDUI	r6,r6,-1						;ï¿½bï¿½ï¿½1ï¿½ï¿½ï¿½ç‚·
 	ADDUI	r0,r7,-1
 	BNE		r6,r7,_DISPLAY_SECOND_2
 	ANDR	r0,r0,r0
 	ORI		r0,r6,59
 
 _DISPLAY_SECOND_2:
-	ORR		r0,r6,r16						;•b‚ðƒZƒbƒg
-	CALL	r1								;CONV_NUM_TO_7SEG_DATAŒÄ‚Ño‚µ
+	ORR		r0,r6,r16						;ï¿½bï¿½ï¿½ï¿½Zï¿½bï¿½g
+	CALL	r1								;CONV_NUM_TO_7SEG_DATAï¿½Ä‚Ñoï¿½ï¿½
 	ANDR	r0,r0,r0						;NOP
 	ORI		r0,r7,1							;LED2
 	SHLLI	r7,r7,16
@@ -213,16 +226,16 @@ _DISPLAY_SECOND_2:
 	BE		r0,r0,_TIMER_SETTING_LOOP
 	ANDR	r0,r0,r0						;NOP
 
-;;; ƒ{ƒ^ƒ“4
-;;; ƒ^ƒCƒ}ŠJŽn
+;;; ï¿½{ï¿½^ï¿½ï¿½4
+;;; ï¿½^ï¿½Cï¿½}ï¿½Jï¿½n
 _HANDLE_PUSH_SW_4:
-	;; •ª‚Æ•b‚Ì’l‚ª0‚È‚ç‚Î_RESET_TIMER‚É–ß‚é
+	;; ï¿½ï¿½ï¿½Æ•bï¿½Ì’lï¿½ï¿½0ï¿½È‚ï¿½ï¿½_RESET_TIMERï¿½É–ß‚ï¿½
 	ADDUR	r5,r6,r12
 	BE		r0,r12,_RESET_TIMER
 	ANDR	r0,r0,r0
-	;; •b‚Ì’l‚ð–ž—¹’l‚É•ÏŠ·
-	ORI		r0,r9,0							;–ž—¹’l
-	ORR		r0,r6,r11						;•b‚ðƒRƒs[
+	;; ï¿½bï¿½Ì’lï¿½ð–ž—ï¿½ï¿½lï¿½É•ÏŠï¿½
+	ORI		r0,r9,0							;ï¿½ï¿½ï¿½ï¿½ï¿½l
+	ORR		r0,r6,r11						;ï¿½bï¿½ï¿½ï¿½Rï¿½sï¿½[
 	ORI		r0,r7,0x98
 	SHLLI	r7,r7,16
 	ORI		r7,r7,0x9680
@@ -234,40 +247,40 @@ _HANDLE_PUSH_SW_4:
 
 _SECONDS:
 	ADDUR	r9,r7,r9
-	ADDUI	r11,r11,-1						;•b‚ð1Œ¸‚ç‚·
+	ADDUI	r11,r11,-1						;ï¿½bï¿½ï¿½1ï¿½ï¿½ï¿½ç‚·
 	BE		r0,r11,_SET_TIMER
 	ANDR	r0,r0,r0
 	BE		r0,r0,_SECONDS
 	ANDR	r0,r0,r0
 
-	;; 1•ª‚Ì’l‚Åƒ^ƒCƒ}‚ðÝ’è
+	;; 1ï¿½ï¿½ï¿½Ì’lï¿½Åƒ^ï¿½Cï¿½}ï¿½ï¿½Ý’ï¿½
 _ONE_MINUTE:
 	ADDUR	r9,r8,r9
-	ADDUI	r5,r5,-1						;•ª‚ð1Œ¸‚ç‚·
+	ADDUI	r5,r5,-1						;ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½ç‚·
 
 _SET_TIMER:
-;;; •ª‚ð•\Ž¦
+;;; ï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½
 	ORR		r0,r5,r16
-	CALL	r1								;ŒÄ‚Ño‚µ
+	CALL	r1								;ï¿½Ä‚Ñoï¿½ï¿½
 	ANDR	r0,r0,r0						;NOP
-	ORI		r0,r7,3
+	ORI		r0,r7,0
 	SHLLI	r7,r7,16
 	ORR		r7,r17,r16
 	CALL	r2
 	ANDR	r0,r0,r0						;NOP
 
-	;; ƒ^ƒCƒ}‚ÌÝ’è
+	;; ï¿½^ï¿½Cï¿½}ï¿½ÌÝ’ï¿½
 	;; Expiration Register
-	ORI		r0,r7,TIMER_BASE_ADDR_H			;Timer Base AddressãˆÊ16ƒrƒbƒg‚ðr7‚ÉƒZƒbƒg
+	ORI		r0,r7,TIMER_BASE_ADDR_H			;Timer Base Addressï¿½ï¿½ï¿½16ï¿½rï¿½bï¿½gï¿½ï¿½r7ï¿½ÉƒZï¿½bï¿½g
 	SHLLI	r7,r7,16
-	STW		r7,r9,TIMER_EXPIRE_OFFSET		;–ž—¹’l‚ðÝ’è
+	STW		r7,r9,TIMER_EXPIRE_OFFSET		;ï¿½ï¿½ï¿½ï¿½ï¿½lï¿½ï¿½Ý’ï¿½
 
 	;; Control Register
-	;; ƒ^ƒCƒ}‚ðƒXƒ^[ƒg
+	;; ï¿½^ï¿½Cï¿½}ï¿½ï¿½ï¿½Xï¿½^ï¿½[ï¿½g
 	ORI		r0,r8,0x1						;Periodic:0, Start:1
-	STW		r7,r8,TIMER_CTRL_OFFSET			;Timer Control Register‚ðÝ’è
+	STW		r7,r8,TIMER_CTRL_OFFSET			;Timer Control Registerï¿½ï¿½Ý’ï¿½
 
-;;; .‚ð“_–Å
+;;; .ï¿½ï¿½_ï¿½ï¿½
 	ORI		r0,r7,0x10
 	SHLLI	r7,r7,16
 	ORI		r7,r7,0x0000
@@ -281,7 +294,7 @@ _TIMER_LOOP:
 	BNE		r0,r7,_TIMER_LOOP
 	ANDR	r0,r0,r0
 
-	;7ƒZƒO‚Ì’l‚ð“Ç‚Þ
+	;7ï¿½Zï¿½Oï¿½Ì’lï¿½ï¿½Ç‚ï¿½
 	CALL	r4
 	ANDR	r0,r0,r0
 
@@ -296,11 +309,11 @@ _TIMER_LOOP:
 	BE		r0,r0,_TIMER_LOOP
 	ANDR	r0,r0,r0
 
-;;; 2‚Â‚ÌLED“_–Å
+;;; 2ï¿½Â‚ï¿½LEDï¿½_ï¿½ï¿½
 _SET_LED:
-	ORI		r0,r7,TIMER_BASE_ADDR_H			;Timer Base AddressãˆÊ16ƒrƒbƒg‚ðr7‚ÉƒZƒbƒg
+	ORI		r0,r7,TIMER_BASE_ADDR_H			;Timer Base Addressï¿½ï¿½ï¿½16ï¿½rï¿½bï¿½gï¿½ï¿½r7ï¿½ÉƒZï¿½bï¿½g
 	SHLLI	r7,r7,16
-	STW		r7,r0,TIMER_CTRL_OFFSET			;Timer Control Register‚ðÝ’è
+	STW		r7,r0,TIMER_CTRL_OFFSET			;Timer Control Registerï¿½ï¿½Ý’ï¿½
 
 	ORI		r0,r7,1
 	SHLLI	r7,r7,16
@@ -308,7 +321,7 @@ _SET_LED:
 _SET_LED2:
 	ORI		r0,r10,0xFFFF
 
-	;7ƒZƒO‚Ì’l‚ð“Ç‚Þ
+	;7ï¿½Zï¿½Oï¿½Ì’lï¿½ï¿½Ç‚ï¿½
 	CALL	r4
 	ANDR	r0,r0,r0
 
@@ -317,13 +330,13 @@ _SET_LED2:
 	CALL	r2
 	ANDR	r0,r0,r0						;NOP
 
-;;; ƒvƒbƒVƒ…ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½
+;;; ï¿½vï¿½bï¿½Vï¿½ï¿½ï¿½{ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½
 
-	;ƒ{ƒ^ƒ“1‚Íbit16‚Æ‚·‚é
-	ORI		r0,r7,GPIO_BASE_ADDR_H			;GPIO Base AddressãˆÊ16ƒrƒbƒg‚ðr7‚ÉƒZƒbƒg
+	;ï¿½{ï¿½^ï¿½ï¿½1ï¿½ï¿½bit16ï¿½Æ‚ï¿½ï¿½ï¿½
+	ORI		r0,r7,GPIO_BASE_ADDR_H			;GPIO Base Addressï¿½ï¿½ï¿½16ï¿½rï¿½bï¿½gï¿½ï¿½r7ï¿½ÉƒZï¿½bï¿½g
 	SHLLI	r7,r7,16
 _DETECT_PUSH_BUTTON_2:
-	LDW		r7,r8,GPIO_IN_OFFSET			;GPIO Input Port Register‚Ì’l‚ðŽæ“¾
+	LDW		r7,r8,GPIO_IN_OFFSET			;GPIO Input Port Registerï¿½Ì’lï¿½ï¿½ï¿½æ“¾
 	BNE		r0,r8,_GOTO_TIMER_SETTING_LOOP
 
 	ANDR	r0,r0,r0						;NOP
@@ -340,28 +353,28 @@ _DETECT_PUSH_BUTTON_2:
 	ANDR	r0,r0,r0
 
 _GOTO_TIMER_SETTING_LOOP:
-	LDW		r7,r8,GPIO_IN_OFFSET			;GPIO Input Port Register‚Ì’l‚ðŽæ“¾
+	LDW		r7,r8,GPIO_IN_OFFSET			;GPIO Input Port Registerï¿½Ì’lï¿½ï¿½ï¿½æ“¾
 	BNE		r0,r8,_GOTO_TIMER_SETTING_LOOP
 	ANDR	r0,r0,r0
 	BE		r0,r0,_RESET_TIMER
 	ANDR	r0,r0,r0
 
 
-;;; 7ƒZƒO“_“”ƒ‹[ƒ`ƒ“
+;;; 7ï¿½Zï¿½Oï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½`ï¿½ï¿½
 CONV_NUM_TO_7SEG_DATA:
-	;; ‰ºˆÊ‚ÌŒ…‚©‚ç”Žš‚ð’Šo
-	ORR		r0,r16,r18						;r16‚ðr18‚ÉƒRƒs[
-	XORR	r17,r17,r17						;Return Value‚ÌƒNƒŠƒA
-	XORR	r19,r19,r19						;0:1Œ…–Ú(7SEG2), 1:2Œ…–Ú(7SEG1)
-	XORR	r20,r20,r20						;2Œ…–Ú‚Ì’l
-	;; 10‚ÌˆÊ‚Ì’l‚ð‹‚ß‚é
-	ORI		r0,r21,10						;r21‚É10‚ð‚¢‚ê‚é
+	;; ï¿½ï¿½ï¿½Ê‚ÌŒï¿½ï¿½ï¿½ï¿½ç”ï¿½ï¿½ï¿½ð’Šo
+	ORR		r0,r16,r18						;r16ï¿½ï¿½r18ï¿½ÉƒRï¿½sï¿½[
+	XORR	r17,r17,r17						;Return Valueï¿½ÌƒNï¿½ï¿½ï¿½A
+	XORR	r19,r19,r19						;0:1ï¿½ï¿½ï¿½ï¿½(7SEG2), 1:2ï¿½ï¿½ï¿½ï¿½(7SEG1)
+	XORR	r20,r20,r20						;2ï¿½ï¿½ï¿½Ú‚Ì’l
+	;; 10ï¿½ÌˆÊ‚Ì’lï¿½ï¿½ï¿½ï¿½ï¿½ß‚ï¿½
+	ORI		r0,r21,10						;r21ï¿½ï¿½10ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 _SUB10:
-	BUGT	r18,r21,_CHECK_0				;r18<r21(r18<10)‚È‚ç‚Î_CHECK_0‚É‚Æ‚Ô
+	BUGT	r18,r21,_CHECK_0				;r18<r21(r18<10)ï¿½È‚ï¿½ï¿½_CHECK_0ï¿½É‚Æ‚ï¿½
 	ANDR	r0,r0,r0						;NOP
 	ADDUI	r18,r18,-10
 	ADDUI	r20,r20,1
-	BE		r0,r0,_SUB10					;r21<r18‚È‚ç‚ÎSUB10‚É‚Æ‚Ô
+	BE		r0,r0,_SUB10					;r21<r18ï¿½È‚ï¿½ï¿½SUB10ï¿½É‚Æ‚ï¿½
 	ANDR	r0,r0,r0						;NOP
 
 _CHECK_0:
@@ -371,7 +384,7 @@ _CHECK_0:
 	ORI		r0,r22,7SEG_DATA_0
 	BNE		r0,r19,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0						;NOP
-	SHLLI	r22,r22,8						;7SEG2—p‚Ì8ƒrƒbƒgƒVƒtƒg
+	SHLLI	r22,r22,8						;7SEG2ï¿½pï¿½ï¿½8ï¿½rï¿½bï¿½gï¿½Vï¿½tï¿½g
 	BE		r0,r0,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0						;NOP
 
@@ -382,7 +395,7 @@ _CHECK_1:
 	ORI		r0,r22,7SEG_DATA_1
 	BNE		r0,r19,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0						;NOP
-	SHLLI	r22,r22,8						;7SEG2—p‚Ì8ƒrƒbƒgƒVƒtƒg
+	SHLLI	r22,r22,8						;7SEG2ï¿½pï¿½ï¿½8ï¿½rï¿½bï¿½gï¿½Vï¿½tï¿½g
 	BE		r0,r0,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0						;NOP
 
@@ -393,7 +406,7 @@ _CHECK_2:
 	ORI		r0,r22,7SEG_DATA_2
 	BNE		r0,r19,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0						;NOP
-	SHLLI	r22,r22,8						;7SEG2—p‚Ì8ƒrƒbƒgƒVƒtƒg
+	SHLLI	r22,r22,8						;7SEG2ï¿½pï¿½ï¿½8ï¿½rï¿½bï¿½gï¿½Vï¿½tï¿½g
 	BE		r0,r0,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0						;NOP
 
@@ -404,7 +417,7 @@ _CHECK_3:
 	ORI		r0,r22,7SEG_DATA_3
 	BNE		r0,r19,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0						;NOP
-	SHLLI	r22,r22,8						;7SEG2—p‚Ì8ƒrƒbƒgƒVƒtƒg
+	SHLLI	r22,r22,8						;7SEG2ï¿½pï¿½ï¿½8ï¿½rï¿½bï¿½gï¿½Vï¿½tï¿½g
 	BE		r0,r0,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0						;NOP
 
@@ -415,7 +428,7 @@ _CHECK_4:
 	ORI		r0,r22,7SEG_DATA_4
 	BNE		r0,r19,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0						;NOP
-	SHLLI	r22,r22,8						;7SEG2—p‚Ì8ƒrƒbƒgƒVƒtƒg
+	SHLLI	r22,r22,8						;7SEG2ï¿½pï¿½ï¿½8ï¿½rï¿½bï¿½gï¿½Vï¿½tï¿½g
 	BE		r0,r0,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0						;NOP
 
@@ -426,7 +439,7 @@ _CHECK_5:
 	ORI		r0,r22,7SEG_DATA_5
 	BNE		r0,r19,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0						;NOP
-	SHLLI	r22,r22,8						;7SEG2—p‚Ì8ƒrƒbƒgƒVƒtƒg
+	SHLLI	r22,r22,8						;7SEG2ï¿½pï¿½ï¿½8ï¿½rï¿½bï¿½gï¿½Vï¿½tï¿½g
 	BE		r0,r0,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0						;NOP
 
@@ -437,7 +450,7 @@ _CHECK_6:
 	ORI		r0,r22,7SEG_DATA_6
 	BNE		r0,r19,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0						;NOP
-	SHLLI	r22,r22,8						;7SEG2—p‚Ì8ƒrƒbƒgƒVƒtƒg
+	SHLLI	r22,r22,8						;7SEG2ï¿½pï¿½ï¿½8ï¿½rï¿½bï¿½gï¿½Vï¿½tï¿½g
 	BE		r0,r0,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0						;NOP
 
@@ -448,7 +461,7 @@ _CHECK_7:
 	ORI		r0,r22,7SEG_DATA_7
 	BNE		r0,r19,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0						;NOP
-	SHLLI	r22,r22,8						;7SEG2—p‚Ì8ƒrƒbƒgƒVƒtƒg
+	SHLLI	r22,r22,8						;7SEG2ï¿½pï¿½ï¿½8ï¿½rï¿½bï¿½gï¿½Vï¿½tï¿½g
 	BE		r0,r0,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0						;NOP
 
@@ -459,7 +472,7 @@ _CHECK_8:
 	ORI		r0,r22,7SEG_DATA_8
 	BNE		r0,r19,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0						;NOP
-	SHLLI	r22,r22,8						;7SEG2—p‚Ì8ƒrƒbƒgƒVƒtƒg
+	SHLLI	r22,r22,8						;7SEG2ï¿½pï¿½ï¿½8ï¿½rï¿½bï¿½gï¿½Vï¿½tï¿½g
 	BE		r0,r0,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0						;NOP
 
@@ -467,7 +480,7 @@ _CHECK_9:
 	ORI		r0,r22,7SEG_DATA_9
 	BNE		r0,r19,_SET_RETURN_VALUE
 	ANDR	r0,r0,r0						;NOP
-	SHLLI	r22,r22,8						;7SEG2—p‚Ì8ƒrƒbƒgƒVƒtƒg
+	SHLLI	r22,r22,8						;7SEG2ï¿½pï¿½ï¿½8ï¿½rï¿½bï¿½gï¿½Vï¿½tï¿½g
 
 _SET_RETURN_VALUE:
 	ORR		r17,r22,r17
@@ -475,7 +488,7 @@ _SET_RETURN_VALUE:
 	ANDR	r0,r0,r0						;NOP
 _NEXT_DIGIT:
 	ORR		r0,r20,r18
-	ORI		r19,r19,1						;0:1Œ…–Ú(7SEG2), 1:2Œ…–Ú(7SEG1)
+	ORI		r19,r19,1						;0:1ï¿½ï¿½ï¿½ï¿½(7SEG2), 1:2ï¿½ï¿½ï¿½ï¿½(7SEG1)
 	BE		r0,r0,_CHECK_0
 	ANDR	r0,r0,r0						;NOP
 _CONV_NUM_TO_7SEG_DATA_RETURN:
@@ -534,31 +547,31 @@ _DETECT_PUSH_SW_NUM_RETURN:
 	JMP		r31
 	ANDR	r0,r0,r0						;NOP
 
-;;; Š„‚èž‚Ýƒnƒ“ƒhƒ‰
+;;; ï¿½ï¿½ï¿½èžï¿½Ýƒnï¿½ï¿½ï¿½hï¿½ï¿½
 EXCEPT_HANDLER:
-	;; Š„‚èž‚ÝƒXƒe[ƒ^ƒXƒNƒŠƒA
-	ORI		r0,r24,TIMER_BASE_ADDR_H		;Timer Base AddressãˆÊ16ƒrƒbƒg‚ðr24‚ÉƒZƒbƒg
+	;; ï¿½ï¿½ï¿½èžï¿½ÝƒXï¿½eï¿½[ï¿½^ï¿½Xï¿½Nï¿½ï¿½ï¿½A
+	ORI		r0,r24,TIMER_BASE_ADDR_H		;Timer Base Addressï¿½ï¿½ï¿½16ï¿½rï¿½bï¿½gï¿½ï¿½r24ï¿½ÉƒZï¿½bï¿½g
 	SHLLI	r24,r24,16
-	STW		r24,r0,TIMER_INTR_OFFSET		;Interrupt‚ðƒNƒŠƒA
-	STW		r24,r0,TIMER_CTRL_OFFSET		;ƒ^ƒCƒ}‚ð’âŽ~
+	STW		r24,r0,TIMER_INTR_OFFSET		;Interruptï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½A
+	STW		r24,r0,TIMER_CTRL_OFFSET		;ï¿½^ï¿½Cï¿½}ï¿½ï¿½ï¿½~
 
-	;; •ª‚Ì’l‚ð1Œ¸‚ç‚·
+	;; ï¿½ï¿½ï¿½Ì’lï¿½ï¿½1ï¿½ï¿½ï¿½ç‚·
 	ADDUI	r5,r5,-1
 	ADDUI	r0,r25,-1
 	BE		r5,r25,_END_OF_INTR_HANDLER
 	ANDR	r0,r0,r0
 
-	;; ƒ^ƒCƒ}‚ð1•ª‚ÉÝ’è
+	;; ï¿½^ï¿½Cï¿½}ï¿½ï¿½1ï¿½ï¿½ï¿½ÉÝ’ï¿½
 	ORI		r0,r25,0x23C3
 	SHLLI	r25,r25,16
 	ADDUI	r25,r25,0x4600
-	STW		r24,r25,TIMER_EXPIRE_OFFSET		;–ž—¹’l‚ðÝ’è
+	STW		r24,r25,TIMER_EXPIRE_OFFSET		;ï¿½ï¿½ï¿½ï¿½ï¿½lï¿½ï¿½Ý’ï¿½
 	ORI		r0,r8,0x3						;Periodic:1, Start:1
-	STW		r24,r8,TIMER_CTRL_OFFSET		;Timer Control Register‚ðÝ’è
+	STW		r24,r8,TIMER_CTRL_OFFSET		;Timer Control Registerï¿½ï¿½Ý’ï¿½
 
-	;; •ª‚ð•\Ž¦
+	;; ï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½
 	ORR		r0,r5,r16
-	CALL	r1								;CONV_NUM_TO_7SEG_DATAŒÄ‚Ño‚µ
+	CALL	r1								;CONV_NUM_TO_7SEG_DATAï¿½Ä‚Ñoï¿½ï¿½
 	ANDR	r0,r0,r0						;NOP
 	ORI		r0,r24,3
 	SHLLI	r24,r24,16
@@ -567,7 +580,7 @@ EXCEPT_HANDLER:
 	ANDR	r0,r0,r0						;NOP
 
 _END_OF_INTR_HANDLER:
-	;; ’x‰„ƒXƒƒbƒgŠm”F
+	;; ï¿½xï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½bï¿½gï¿½mï¿½F
 	RDCR	c5,r24
 	ANDI	r24,r24,0x8
 	BE		r0,r24,_GOTO_EXRT
@@ -577,6 +590,6 @@ _END_OF_INTR_HANDLER:
 	WRCR	r24,c3
 
 _GOTO_EXRT:
-	;; Š„‚èž‚Ý‚ª”­¶‚µ‚½ƒAƒhƒŒƒX‚É–ß‚é
+	;; ï¿½ï¿½ï¿½èžï¿½Ý‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½hï¿½ï¿½ï¿½Xï¿½É–ß‚ï¿½
 	EXRT
 	ANDR	r0,r0,r0						;NOP
