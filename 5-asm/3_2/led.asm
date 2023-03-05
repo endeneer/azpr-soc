@@ -1,17 +1,17 @@
-;;; ƒVƒ“ƒ{ƒ‹‚Ì’è‹`
+;;; ï¿½Vï¿½ï¿½ï¿½{ï¿½ï¿½ï¿½Ì’ï¿½`
 GPIO_BASE_ADDR_H	EQU	0x8000		;GPIO Base Address High
 GPIO_OUT_OFFSET		EQU	0x4			;GPIO Output Port Register Offset
 
-;;; LED“_“”
+;;; LEDï¿½_ï¿½ï¿½
 	XORR	r0,r0,r0
-	ORI		r0,r1,GPIO_BASE_ADDR_H	;GPIO Base AddressãˆÊ16ƒrƒbƒg‚ðr1‚ÉƒZƒbƒg
-	SHLLI	r1,r1,16				;16ƒrƒbƒg¶ƒVƒtƒg
-	ORI		r0,r2,0x2				;o—Íƒf[ƒ^‚ðãˆÊ16ƒrƒbƒg‚ðr2‚ÉƒZƒbƒg
-	SHLLI	r2,r2,16				;16ƒrƒbƒg¶ƒVƒtƒg
-	ORI		r2,r2,0xFFFF			;o—Íƒf[ƒ^‚ð‰ºˆÊ16ƒrƒbƒg‚ðr2‚ÉƒZƒbƒg
-	STW		r1,r2,GPIO_OUT_OFFSET	;GPIO Output Port‚Éo—Íƒf[ƒ^‚ð‘‚«ž‚Þ
+	ORI		r0,r1,GPIO_BASE_ADDR_H	;GPIO Base Addressï¿½ï¿½ï¿½16ï¿½rï¿½bï¿½gï¿½ï¿½r1ï¿½ÉƒZï¿½bï¿½g
+	SHLLI	r1,r1,16				;16ï¿½rï¿½bï¿½gï¿½ï¿½ï¿½Vï¿½tï¿½g
+	ORI		r0,r2,0x1				;ï¿½oï¿½Íƒfï¿½[ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½16ï¿½rï¿½bï¿½gï¿½ï¿½r2ï¿½ÉƒZï¿½bï¿½g
+	SHLLI	r2,r2,16				;16ï¿½rï¿½bï¿½gï¿½ï¿½ï¿½Vï¿½tï¿½g
+	ORI		r2,r2,0x0000			;ï¿½oï¿½Íƒfï¿½[ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½16ï¿½rï¿½bï¿½gï¿½ï¿½r2ï¿½ÉƒZï¿½bï¿½g
+	STW		r1,r2,GPIO_OUT_OFFSET	;GPIO Output Portï¿½Éoï¿½Íƒfï¿½[ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-;;; –³ŒÀƒ‹[ƒv
+;;; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½v
 LOOP:
-	BE		r0,r0,LOOP				;LOOP‚É–ß‚é
+	BE		r0,r0,LOOP				;LOOPï¿½É–ß‚ï¿½
 	ANDR	r0,r0,r0				;NOP
