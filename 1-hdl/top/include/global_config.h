@@ -27,8 +27,8 @@
 	`define NEGATIVE_RESET_SW			// Active Low Reset Switch
 
 	/********** �ڴ�����źż���ѡ�� **********/
-//  `define POSITIVE_MEMORY				// Active High
-	`define NEGATIVE_MEMORY				// Active Low
+    `define POSITIVE_MEMORY				// Active High
+//	`define NEGATIVE_MEMORY				// Active Low
 
 	/********** I/O �豸ѡ��**********/
 	`define IMPLEMENT_TIMER				// ��ʱ��
