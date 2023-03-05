@@ -1,7 +1,7 @@
-;;; ƒƒP[ƒVƒ‡ƒ“ƒAƒhƒŒƒX‚ÌÝ’è
+;;; ï¿½ï¿½ï¿½Pï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½hï¿½ï¿½ï¿½Xï¿½ÌÝ’ï¿½
 	LOCATE	0x20000000
 
-;;; ƒVƒ“ƒ{ƒ‹‚Ì’è‹`
+;;; ï¿½Vï¿½ï¿½ï¿½{ï¿½ï¿½ï¿½Ì’ï¿½`
 TIMER_BASE_ADDR_H			EQU	0x4000	;Timer Base Address High
 TIMER_CTRL_OFFSET			EQU	0x0		;Timer Control Register Offset
 TIMER_INTR_OFFSET			EQU	0x4		;Timer Interrupt Register Offset
@@ -10,53 +10,53 @@ GPIO_BASE_ADDR_H			EQU	0x8000	;GPIO Base Address High
 GPIO_OUT_OFFSET				EQU	0x4		;GPIO Data Register Offset
 
 
-	XORR	r0,r0,r0					;r0‚ðƒNƒŠƒA
+	XORR	r0,r0,r0					;r0ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½A
 
-	ORI		r0,r1,high(SET_GPIO_OUT)	;SET_GPIO_OUT‚ÌãˆÊ16ƒrƒbƒg‚ðr1‚ÉƒZƒbƒg
+	ORI		r0,r1,high(SET_GPIO_OUT)	;SET_GPIO_OUTï¿½Ìï¿½ï¿½16ï¿½rï¿½bï¿½gï¿½ï¿½r1ï¿½ÉƒZï¿½bï¿½g
 	SHLLI	r1,r1,16
-	ORI		r1,r1,low(SET_GPIO_OUT)		;SET_GPIO_OUT‚Ì‰ºˆÊ16ƒrƒbƒg‚ðr1‚ÉƒZƒbƒg
+	ORI		r1,r1,low(SET_GPIO_OUT)		;SET_GPIO_OUTï¿½Ì‰ï¿½ï¿½ï¿½16ï¿½rï¿½bï¿½gï¿½ï¿½r1ï¿½ÉƒZï¿½bï¿½g
 
-	ORI		r0,r2,high(GET_GPIO_OUT)	;GET_GPIO_OUT‚ÌãˆÊ16ƒrƒbƒg‚ðr2‚ÉƒZƒbƒg
+	ORI		r0,r2,high(GET_GPIO_OUT)	;GET_GPIO_OUTï¿½Ìï¿½ï¿½16ï¿½rï¿½bï¿½gï¿½ï¿½r2ï¿½ÉƒZï¿½bï¿½g
 	SHLLI	r2,r2,16
-	ORI		r2,r2,low(GET_GPIO_OUT)		;GET_GPIO_OUT‚Ì‰ºˆÊ16ƒrƒbƒg‚ðr2‚ÉƒZƒbƒg
+	ORI		r2,r2,low(GET_GPIO_OUT)		;GET_GPIO_OUTï¿½Ì‰ï¿½ï¿½ï¿½16ï¿½rï¿½bï¿½gï¿½ï¿½r2ï¿½ÉƒZï¿½bï¿½g
 
-;;; LEDÁ“”
-	ORI		r0,r16,0x3
+;;; LEDï¿½ï¿½ï¿½ï¿½
+	ORI		r0,r16,0x1
 	SHLLI	r16,r16,16
-	ORI		r16,r16,0xFFFF
+	ORI		r16,r16,0x0
 	CALL	r1
 	ANDR	r0,r0,r0
 
-;;; —áŠOƒxƒNƒ^‚ÌÝ’è
+;;; ï¿½ï¿½Oï¿½xï¿½Nï¿½^ï¿½ÌÝ’ï¿½
 	ORI		r0,r3,high(EXCEPT_HANDLER)
 	SHLLI	r3,r3,16
 	ORI		r3,r3,low(EXCEPT_HANDLER)
 	WRCR	r3,c4
 
-;;; Š„‚èž‚Ý‚Ì‰ŠúÝ’è
+;;; ï¿½ï¿½ï¿½èžï¿½Ý‚Ìï¿½ï¿½ï¿½ï¿½Ý’ï¿½
 	;; Mask
-	ORI		r0,r3,0xFE					;Interrupt Mask‚ÉƒZƒbƒg‚·‚é’l‚ðr3‚É“ü‚ê‚é
+	ORI		r0,r3,0xFE					;Interrupt Maskï¿½ÉƒZï¿½bï¿½gï¿½ï¿½ï¿½ï¿½lï¿½ï¿½r3ï¿½É“ï¿½ï¿½ï¿½ï¿½
 	WRCR	r3,c6
 
 	;; Status
-	ORI		r0,r3,0x2					;Status‚ÉƒZƒbƒg‚·‚é’l‚ðr3‚É“ü‚ê‚é(IE:1,EM:0)
+	ORI		r0,r3,0x2					;Statusï¿½ÉƒZï¿½bï¿½gï¿½ï¿½ï¿½ï¿½lï¿½ï¿½r3ï¿½É“ï¿½ï¿½ï¿½ï¿½(IE:1,EM:0)
 	WRCR	r3,c0
 
-;;; ƒ^ƒCƒ}‚Ì‰ŠúÝ’è
+;;; ï¿½^ï¿½Cï¿½}ï¿½Ìï¿½ï¿½ï¿½ï¿½Ý’ï¿½
 	;; Expiration Register
-	ORI		r0,r3,TIMER_BASE_ADDR_H		;Timer Base AddressãˆÊ16ƒrƒbƒg‚ðr3‚ÉƒZƒbƒg
+	ORI		r0,r3,TIMER_BASE_ADDR_H		;Timer Base Addressï¿½ï¿½ï¿½16ï¿½rï¿½bï¿½gï¿½ï¿½r3ï¿½ÉƒZï¿½bï¿½g
 	SHLLI	r3,r3,16
-	ORI		r0,r4,0x4C					;–ž—¹’l‚Ì’l
+	ORI		r0,r4,0x4C					;ï¿½ï¿½ï¿½ï¿½ï¿½lï¿½Ì’l
 	SHLLI	r4,r4,16
-	ORI		r4,r4,0x4B40				;–ž—¹’l‚Ì’l
-	STW		r3,r4,TIMER_EXPIRE_OFFSET	;–ž—¹’l‚ðÝ’è
+	ORI		r4,r4,0x4B40				;ï¿½ï¿½ï¿½ï¿½ï¿½lï¿½Ì’l
+	STW		r3,r4,TIMER_EXPIRE_OFFSET	;ï¿½ï¿½ï¿½ï¿½ï¿½lï¿½ï¿½Ý’ï¿½
 	;; Control Register
 	ORI		r0,r4,0x3					;Periodic:1, Start:1
-	STW		r3,r4,TIMER_CTRL_OFFSET		;Timer Control Register‚ðÝ’è
+	STW		r3,r4,TIMER_CTRL_OFFSET		;Timer Control Registerï¿½ï¿½Ý’ï¿½
 
-;; –³ŒÀ‘Ò‚¿
+;; ï¿½ï¿½ï¿½ï¿½ï¿½Ò‚ï¿½
 LOOP:
-	BE		r0,r0,LOOP					;–³ŒÀƒ‹[ƒv
+	BE		r0,r0,LOOP					;ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½v
 	ANDR	r0,r0,r0					;NOP
 
 
@@ -77,14 +77,14 @@ _GET_GPIO_OUT_RETURN:
 	ANDR	r0,r0,r0					;NOP
 
 
-;; Š„‚èž‚Ýƒnƒ“ƒhƒ‰
+;; ï¿½ï¿½ï¿½èžï¿½Ýƒnï¿½ï¿½ï¿½hï¿½ï¿½
 EXCEPT_HANDLER:
-	;; Š„‚èž‚ÝƒXƒe[ƒ^ƒXƒNƒŠƒA
-	ORI		r0,r24,TIMER_BASE_ADDR_H	;Timer Base AddressãˆÊ16ƒrƒbƒg‚ðr24‚ÉƒZƒbƒg
+	;; ï¿½ï¿½ï¿½èžï¿½ÝƒXï¿½eï¿½[ï¿½^ï¿½Xï¿½Nï¿½ï¿½ï¿½A
+	ORI		r0,r24,TIMER_BASE_ADDR_H	;Timer Base Addressï¿½ï¿½ï¿½16ï¿½rï¿½bï¿½gï¿½ï¿½r24ï¿½ÉƒZï¿½bï¿½g
 	SHLLI	r24,r24,16
-	STW		r24,r0,TIMER_INTR_OFFSET	;Interrupt‚ðƒNƒŠƒA
+	STW		r24,r0,TIMER_INTR_OFFSET	;Interruptï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½A
 
-	;;  LEDo—Íƒf[ƒ^‚ð”½“]
+	;;  LEDï¿½oï¿½Íƒfï¿½[ï¿½^ï¿½ð”½“]
 	CALL	r2
 	ANDR	r0,r0,r0
 	ORI		r0,r24,1
@@ -93,7 +93,7 @@ EXCEPT_HANDLER:
 	CALL	r1
 	ANDR	r0,r0,r0
 
-	;; ’x‰„ƒXƒƒbƒgŠm”F
+	;; ï¿½xï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½bï¿½gï¿½mï¿½F
 	RDCR	c5,r24
 	ANDI	r24,r24,0x8
 	BE		r0,r24,GOTO_EXRT
@@ -102,6 +102,6 @@ EXCEPT_HANDLER:
 	ADDUI	r24,r24,-4
 	WRCR	r24,c3
 GOTO_EXRT:
-	;; Š„‚èž‚Ý‚ª”­¶‚µ‚½ƒAƒhƒŒƒX‚É–ß‚é
+	;; ï¿½ï¿½ï¿½èžï¿½Ý‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½hï¿½ï¿½ï¿½Xï¿½É–ß‚ï¿½
 	EXRT
 	ANDR	r0,r0,r0					;NOP
