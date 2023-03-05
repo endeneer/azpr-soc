@@ -5,6 +5,8 @@ python azprbin2mif\azprbin2mif.py 3_2\led.bin
 
 azprasm\azprasm.exe 3_3\serial.asm -o 3_3\serial.bin
 python azprbin2mif\azprbin2mif.py 3_3\serial.bin
+azprasm\azprasm.exe 3_3\serial_prog.asm -o 3_3\serial_prog.bin
+python azprbin2mif\azprbin2mif.py 3_3\serial_prog.bin
 
 azprasm\azprasm.exe 3_4\loader.asm -o 3_4\loader.bin
 python azprbin2mif\azprbin2mif.py 3_4\loader.bin
