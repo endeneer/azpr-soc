@@ -1,7 +1,7 @@
-;;; ƒƒP[ƒVƒ‡ƒ“ƒAƒhƒŒƒX‚ÌÝ’è
+;;; ï¿½ï¿½ï¿½Pï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½hï¿½ï¿½ï¿½Xï¿½ÌÝ’ï¿½
 	LOCATE	0x20000000
 
-;;; ƒVƒ“ƒ{ƒ‹‚Ì’è‹`
+;;; ï¿½Vï¿½ï¿½ï¿½{ï¿½ï¿½ï¿½Ì’ï¿½`
 UART_BASE_ADDR_H		EQU	0x6000		;UART Base Address High
 UART_STATUS_OFFSET		EQU	0x0			;UART Status Register Offset
 UART_DATA_OFFSET		EQU	0x4			;UART Data Register Offset
@@ -11,91 +11,91 @@ GPIO_BASE_ADDR_H		EQU	0x8000		;GPIO Base Address High
 GPIO_OUT_OFFSET			EQU	0x4			;GPIO Data Register Offset
 
 
-	XORR	r0,r0,r0					;r0‚ð0ƒNƒŠƒA
+	XORR	r0,r0,r0					;r0ï¿½ï¿½0ï¿½Nï¿½ï¿½ï¿½A
 
-	ORI		r0,r1,high(CLEAR_BUFFER)	;CLEAR_BUFFER‚ÌãˆÊ16ƒrƒbƒg‚ðr1‚ÉƒZƒbƒg
+	ORI		r0,r1,high(CLEAR_BUFFER)	;CLEAR_BUFFERï¿½Ìï¿½ï¿½16ï¿½rï¿½bï¿½gï¿½ï¿½r1ï¿½ÉƒZï¿½bï¿½g
 	SHLLI	r1,r1,16
-	ORI		r1,r1,low(CLEAR_BUFFER)		;CLEAR_BUFFER‚Ì‰ºˆÊ16ƒrƒbƒg‚ðr1‚ÉƒZƒbƒg
+	ORI		r1,r1,low(CLEAR_BUFFER)		;CLEAR_BUFFERï¿½Ì‰ï¿½ï¿½ï¿½16ï¿½rï¿½bï¿½gï¿½ï¿½r1ï¿½ÉƒZï¿½bï¿½g
 
-	ORI		r0,r2,high(SEND_CHAR)		;SEND_CHAR‚ÌãˆÊ16ƒrƒbƒg‚ðr2‚ÉƒZƒbƒg
+	ORI		r0,r2,high(SEND_CHAR)		;SEND_CHARï¿½Ìï¿½ï¿½16ï¿½rï¿½bï¿½gï¿½ï¿½r2ï¿½ÉƒZï¿½bï¿½g
 	SHLLI	r2,r2,16
-	ORI		r2,r2,low(SEND_CHAR)		;SEND_CHAR‚Ì‰ºˆÊ16ƒrƒbƒg‚ðr2‚ÉƒZƒbƒg
+	ORI		r2,r2,low(SEND_CHAR)		;SEND_CHARï¿½Ì‰ï¿½ï¿½ï¿½16ï¿½rï¿½bï¿½gï¿½ï¿½r2ï¿½ÉƒZï¿½bï¿½g
 
-	ORI		r0,r3,high(SET_GPIO_OUT)	;SET_GPIO_OUT‚ÌãˆÊ16ƒrƒbƒg‚ðr3‚ÉƒZƒbƒg
+	ORI		r0,r3,high(SET_GPIO_OUT)	;SET_GPIO_OUTï¿½Ìï¿½ï¿½16ï¿½rï¿½bï¿½gï¿½ï¿½r3ï¿½ÉƒZï¿½bï¿½g
 	SHLLI	r3,r3,16
-	ORI		r3,r3,low(SET_GPIO_OUT)		;SET_GPIO_OUT‚Ì‰ºˆÊ16ƒrƒbƒg‚ðr3‚ÉƒZƒbƒg
+	ORI		r3,r3,low(SET_GPIO_OUT)		;SET_GPIO_OUTï¿½Ì‰ï¿½ï¿½ï¿½16ï¿½rï¿½bï¿½gï¿½ï¿½r3ï¿½ÉƒZï¿½bï¿½g
 
 
-;;; —áŠOƒxƒNƒ^‚ÌÝ’è
+;;; ï¿½ï¿½Oï¿½xï¿½Nï¿½^ï¿½ÌÝ’ï¿½
 	ORI		r0,r4,high(EXCEPT_HANDLER)
 	SHLLI	r4,r4,16
 	ORI		r4,r4,low(EXCEPT_HANDLER)
 	WRCR	r4,c4
 
-;;; UARTƒoƒbƒtƒ@ƒNƒŠƒA
-	CALL	r1							;CLEAR_BUFFERŒÄ‚Ño‚µ
+;;; UARTï¿½oï¿½bï¿½tï¿½@ï¿½Nï¿½ï¿½ï¿½A
+	CALL	r1							;CLEAR_BUFFERï¿½Ä‚Ñoï¿½ï¿½
 	ANDR	r0,r0,r0					;NOP
 
-;;; ŽZpƒI[ƒo[ƒtƒ[‚ð”­¶‚³‚¹‚é
+;;; ï¿½Zï¿½pï¿½Iï¿½[ï¿½oï¿½[ï¿½tï¿½ï¿½ï¿½[ï¿½ð”­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	ORI		r0,r4,0x7FFF
 	SHLLI	r4,r4,16
 	ORI		r4,r4,0xFFFF
 	ADDSI	r4,r4,1
 
-;;; LED“_“”
+;;; LEDï¿½_ï¿½ï¿½
 	ORI		r0,r16,0x2
 	SHLLI	r16,r16,16
-	ORI		r16,r16,0xFFFF				;o—Íƒf[ƒ^‚ðr16‚ÉƒZƒbƒg
+	ORI		r16,r16,0xFFFF				;ï¿½oï¿½Íƒfï¿½[ï¿½^ï¿½ï¿½r16ï¿½ÉƒZï¿½bï¿½g
 	CALL	r3
 	ANDR	r0,r0,r0					;NOP
 
-;; –³ŒÀƒ‹[ƒv
+;; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½v
 LOOP:
-	BE		r0,r0,LOOP					;–³ŒÀƒ‹[ƒv
+	BE		r0,r0,LOOP					;ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½v
 	ANDR	r0,r0,r0					;NOP
 
 
 CLEAR_BUFFER:
-	ORI		r0,r16,UART_BASE_ADDR_H		;UART Base AddressãˆÊ16ƒrƒbƒg‚ðr2‚ÉƒZƒbƒg
+	ORI		r0,r16,UART_BASE_ADDR_H		;UART Base Addressï¿½ï¿½ï¿½16ï¿½rï¿½bï¿½gï¿½ï¿½r2ï¿½ÉƒZï¿½bï¿½g
 	SHLLI	r16,r16,16
 
 _CHECK_UART_STATUS:
-	LDW		r16,r17,UART_STATUS_OFFSET	;STATUS‚ðŽæ“¾
+	LDW		r16,r17,UART_STATUS_OFFSET	;STATUSï¿½ï¿½ï¿½æ“¾
 
 	ANDI	r17,r17,UART_RX_INTR_MASK
-	BE		r0,r17,_CLEAR_BUFFER_RETURN	;Receive Interrupt bit‚ª—§‚Á‚Ä‚¢‚È‚¯‚ê‚Î_CLEAR_BUFFER_RETURN‚ðŽÀs
+	BE		r0,r17,_CLEAR_BUFFER_RETURN	;Receive Interrupt bitï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½_CLEAR_BUFFER_RETURNï¿½ï¿½ï¿½ï¿½ï¿½s
 	ANDR	r0,r0,r0					;NOP
 
 _RECEIVE_DATA:
-	LDW		r16,r17,UART_DATA_OFFSET	;ŽóMƒf[ƒ^‚ð“Ç‚ñ‚Åƒoƒbƒtƒ@‚ðƒNƒŠƒA‚·‚é
+	LDW		r16,r17,UART_DATA_OFFSET	;ï¿½ï¿½Mï¿½fï¿½[ï¿½^ï¿½ï¿½Ç‚ï¿½Åƒoï¿½bï¿½tï¿½@ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½
 
-	LDW		r16,r17,UART_STATUS_OFFSET	;STATUS‚ðŽæ“¾
+	LDW		r16,r17,UART_STATUS_OFFSET	;STATUSï¿½ï¿½ï¿½æ“¾
 	XORI	r17,r17,UART_RX_INTR_MASK
-	STW		r16,r17,UART_STATUS_OFFSET	;Receive Interrupt bit‚ðƒNƒŠƒA
+	STW		r16,r17,UART_STATUS_OFFSET	;Receive Interrupt bitï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½A
 
-	BNE		r0,r0,_CHECK_UART_STATUS	;_CHECK_UART_STATUS‚É–ß‚é
+	BNE		r0,r0,_CHECK_UART_STATUS	;_CHECK_UART_STATUSï¿½É–ß‚ï¿½
 	ANDR	r0,r0,r0					;NOP
 _CLEAR_BUFFER_RETURN:
-	JMP		r31							;ŒÄ‚Ño‚µŒ³‚É–ß‚é
+	JMP		r31							;ï¿½Ä‚Ñoï¿½ï¿½ï¿½ï¿½ï¿½É–ß‚ï¿½
 	ANDR	r0,r0,r0					;NOP
 
 
 SEND_CHAR:
-	ORI		r0,r17,UART_BASE_ADDR_H		;UART Base AddressãˆÊ16ƒrƒbƒg‚ðr17‚ÉƒZƒbƒg
+	ORI		r0,r17,UART_BASE_ADDR_H		;UART Base Addressï¿½ï¿½ï¿½16ï¿½rï¿½bï¿½gï¿½ï¿½r17ï¿½ÉƒZï¿½bï¿½g
 	SHLLI	r17,r17,16
-	STW		r17,r16,UART_DATA_OFFSET	;r16‚ð‘—M‚·‚é
+	STW		r17,r16,UART_DATA_OFFSET	;r16ï¿½ð‘—Mï¿½ï¿½ï¿½ï¿½
 
 _WAIT_SEND_DONE:
-	LDW		r17,r18,UART_STATUS_OFFSET	;STATUS‚ðŽæ“¾
+	LDW		r17,r18,UART_STATUS_OFFSET	;STATUSï¿½ï¿½ï¿½æ“¾
 	ANDI	r18,r18,UART_TX_INTR_MASK
 	BE		r0,r18,_WAIT_SEND_DONE
 	ANDR	r0,r0,r0
 
 	LDW		r17,r18,UART_STATUS_OFFSET
 	XORI	r18,r18,UART_TX_INTR_MASK
-	STW		r17,r18,UART_STATUS_OFFSET	;Transmit Interrupt bit‚ðƒNƒŠƒA
+	STW		r17,r18,UART_STATUS_OFFSET	;Transmit Interrupt bitï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½A
 
-	JMP		r31							;ŒÄ‚Ño‚µŒ³‚É–ß‚é
+	JMP		r31							;ï¿½Ä‚Ñoï¿½ï¿½ï¿½ï¿½ï¿½É–ß‚ï¿½
 	ANDR	r0,r0,r0					;NOP
 
 SET_GPIO_OUT:
@@ -107,8 +107,8 @@ _SET_GPIO_OUT_RETURN:
 	ANDR	r0,r0,r0					;NOP
 
 
-;;; —áŠOƒnƒ“ƒhƒ‰
-;; —áŠOƒR[ƒh‚ðƒVƒŠƒAƒ‹‚É•\Ž¦‚·‚é
+;;; ï¿½ï¿½Oï¿½nï¿½ï¿½ï¿½hï¿½ï¿½
+;; ï¿½ï¿½Oï¿½Rï¿½[ï¿½hï¿½ï¿½ï¿½Vï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½É•\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 EXCEPT_HANDLER:
 	RDCR	c5,r24
 	ANDI	r24,r24,0x7
@@ -116,17 +116,17 @@ EXCEPT_HANDLER:
 	ADDUI	r24,r24,48
 
 	ORR		r0,r24,r16
-	CALL	r2							;SEND_CHARŒÄ‚Ño‚µ
+	CALL	r2							;SEND_CHARï¿½Ä‚Ñoï¿½ï¿½
 	ANDR	r0,r0,r0					;NOP
 
-;;; LED“_“”
-	ORI		r0,r16,0x1
+;;; LEDï¿½_ï¿½ï¿½
+	ORI		r0,r16,0x2
 	SHLLI	r16,r16,16
-	ORI		r16,r16,0xFFFF				;o—Íƒf[ƒ^‚ðr16‚ÉƒZƒbƒg
+	ORI		r16,r16,0x0 				;ï¿½oï¿½Íƒfï¿½[ï¿½^ï¿½ï¿½r16ï¿½ÉƒZï¿½bï¿½g
 	CALL	r3
 	ANDR	r0,r0,r0					;NOP
 
-;;; –³ŒÀƒ‹[ƒv
+;;; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½v
 EXCEPT_LOOP:
-	BE		r0,r0,EXCEPT_LOOP			;–³ŒÀƒ‹[ƒv
+	BE		r0,r0,EXCEPT_LOOP			;ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½v
 	ANDR	r0,r0,r0					;NOP
