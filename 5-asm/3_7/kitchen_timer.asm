@@ -543,6 +543,14 @@ _CHECK_PUSH_SW_4:
 	ANDR	r0,r0,r0						;NOP
 _SET_RETURN_VALUE_PUSH_SW:
 	ORR		r0,r19,r16
+_SOFTWARE_DEBOUNCE_SETUP:
+	ORI		r0,r14,0x9
+	SHLLI	r14,r14,16
+	ORI		r14,r14,0x27C0					;0.12s delay, R14=dec2hex(10M*0.12/2)=0x927C0, divide 2 because, decrement and BNE check below takes two cycles.
+_SOFTWARE_DEBOUNCE_DELAY:
+	ADDUI	r14,r14,-1
+	BNE		r0,r14,_SOFTWARE_DEBOUNCE_DELAY	;while( (--R14) != 0);
+	ANDR	r0,r0,r0						;NOP
 _DETECT_PUSH_SW_NUM_RETURN:
 	JMP		r31
 	ANDR	r0,r0,r0						;NOP
