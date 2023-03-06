@@ -23,6 +23,33 @@ UART_TX_INTR_MASK	EQU	0x2				;UART Transmit Interrupt Mask
 
 ;;; �����\��
 
+;;;; Bel
+	ORI 	r0,r16,0x07
+	CALL	r2
+	ANDR 	r0,r0,r0
+
+;;;; ANSI: foreground: bright red 
+	ORI 	r0,r16,0x1b
+	CALL	r2
+	ANDR 	r0,r0,r0
+
+	ORI 	r0,r16,'['
+	CALL	r2
+	ANDR 	r0,r0,r0
+	
+	ORI 	r0,r16,'9'
+	CALL	r2
+	ANDR 	r0,r0,r0
+
+	ORI 	r0,r16,'1'
+	CALL	r2
+	ANDR 	r0,r0,r0
+	
+	ORI 	r0,r16,'m'
+	CALL	r2
+	ANDR 	r0,r0,r0
+
+;;;; Text: "Aloha,"
 	ORI		r0,r16,'A'					;r16��'H'���Z�b�g
 	CALL	r2							;SEND_CHAR�Ăяo��
 	ANDR	r0,r0,r0					;NOP
@@ -47,6 +74,54 @@ UART_TX_INTR_MASK	EQU	0x2				;UART Transmit Interrupt Mask
 	CALL	r2							;SEND_CHAR�Ăяo��
 	ANDR	r0,r0,r0					;NOP
 
+;;;; ANSI: foreground: black 
+	ORI 	r0,r16,0x1b
+	CALL	r2
+	ANDR 	r0,r0,r0
+
+	ORI 	r0,r16,'['
+	CALL	r2
+	ANDR 	r0,r0,r0
+	
+	ORI 	r0,r16,'3'
+	CALL	r2
+	ANDR 	r0,r0,r0
+
+	ORI 	r0,r16,'0'
+	CALL	r2
+	ANDR 	r0,r0,r0
+	
+	ORI 	r0,r16,'m'
+	CALL	r2
+	ANDR 	r0,r0,r0
+
+
+;;;; ANSI: background: bright yellow
+	ORI 	r0,r16,0x1b
+	CALL	r2
+	ANDR 	r0,r0,r0
+
+	ORI 	r0,r16,'['
+	CALL	r2
+	ANDR 	r0,r0,r0
+	
+	ORI 	r0,r16,'1'
+	CALL	r2
+	ANDR 	r0,r0,r0
+
+	ORI 	r0,r16,'0'
+	CALL	r2
+	ANDR 	r0,r0,r0
+	
+	ORI 	r0,r16,'3'
+	CALL	r2
+	ANDR 	r0,r0,r0
+	
+	ORI 	r0,r16,'m'
+	CALL	r2
+	ANDR 	r0,r0,r0
+
+;;;; Text: "En De"
 	ORI		r0,r16,'E'					;r16��'w'���Z�b�g
 	CALL	r2							;SEND_CHAR�Ăяo��
 	ANDR	r0,r0,r0					;NOP
@@ -70,6 +145,23 @@ UART_TX_INTR_MASK	EQU	0x2				;UART Transmit Interrupt Mask
 	ORI		r0,r16,'!'					;r16��'.'���Z�b�g
 	CALL	r2							;SEND_CHAR�Ăяo��
 	ANDR	r0,r0,r0					;NOP
+
+;;;; ANSI: reset
+	ORI 	r0,r16,0x1b
+	CALL	r2
+	ANDR 	r0,r0,r0
+
+	ORI 	r0,r16,'['
+	CALL	r2
+	ANDR 	r0,r0,r0
+	
+	ORI 	r0,r16,'0'
+	CALL	r2
+	ANDR 	r0,r0,r0
+
+	ORI 	r0,r16,'m'
+	CALL	r2
+	ANDR 	r0,r0,r0
 
 ;;; �������[�v
 LOOP:
