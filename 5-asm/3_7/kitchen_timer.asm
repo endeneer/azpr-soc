@@ -10,6 +10,13 @@ GPIO_BASE_ADDR_H	EQU	0x8000			;GPIO Base Address High
 GPIO_IN_OFFSET		EQU	0x0				;GPIO Input Port Register Offset
 GPIO_OUT_OFFSET		EQU	0x4				;GPIO Data Register Offset
 
+;;;; Extra
+UART_BASE_ADDR_H	EQU 0x6000
+UART_STATUS_OFFSET	EQU 0x0
+UART_DATA_OFFSET	EQU 0x4
+UART_RX_INTR_MASK	EQU 0x1
+UART_TX_INTR_MASK	EQU 0x2
+
 ;;; Common-anode
 ;;; 7SEG_DATA_0			EQU	0xC0
 ;;; 7SEG_DATA_1			EQU	0xF9
@@ -58,6 +65,17 @@ PUSH_SW_DATA_4		EQU	0x8
 	ORI		r0,r4,high(GET_GPIO_OUT)			;���x��GET_GPIO_OUT�̏��16�r�b�g��r4�ɃZ�b�g
 	SHLLI	r4,r4,16
 	ORI		r4,r4,low(GET_GPIO_OUT)				;���x��GET_GPIO_OUT�̉���16�r�b�g��r4�ɃZ�b�g
+
+	ORI		r0,r26,high(SEND_CHAR)
+	SHLLI	r26,r26,16
+	ORI		r26,r26,low(SEND_CHAR)
+
+	ORI		r0,r29,high(CLEAR_BUFFER)
+	SHLLI	r29,r29,16
+	ORI		r29,r29,low(CLEAR_BUFFER)
+
+	CALL	r29
+	ANDR	r0,r0,r0
 
 ;;; ��O�x�N�^�̐ݒ�
 	ORI		r0,r7,high(EXCEPT_HANDLER)
@@ -330,6 +348,15 @@ _SET_LED2:
 	CALL	r2
 	ANDR	r0,r0,r0						;NOP
 
+;;;; Send Bel to terminal as alert
+;	ORI 	r0,r15,0x07
+;	CALL 	r26
+;	ANDR	r0,r0,r0						;NOP
+;
+;	ORI 	r0,r15,'D'						;Debug print
+;	CALL 	r26
+;	ANDR	r0,r0,r0						;NOP
+
 ;;; �v�b�V���{�^���������ꂽ
 
 	;�{�^��1��bit16�Ƃ���
@@ -601,3 +628,39 @@ _GOTO_EXRT:
 	;; ���荞�݂����������A�h���X�ɖ߂�
 	EXRT
 	ANDR	r0,r0,r0						;NOP
+
+;;;; Extra: UART
+CLEAR_BUFFER:
+	ORI		r0,r27,UART_BASE_ADDR_H
+	SHLLI 	r27,r27,16
+_CHECK_UART_STATUS:
+	LDW		r27,r28,UART_STATUS_OFFSET
+	ANDI	r28,r28,UART_RX_INTR_MASK
+	BE		r0,r28,_CLEAR_BUFFER_RETURN
+	ANDR	r0,r0,r0
+_RECEIVE_DATA:
+	LDW		r27,r28,UART_DATA_OFFSET
+	LDW		r27,r28,UART_STATUS_OFFSET
+	XORI	r28,r28,UART_RX_INTR_MASK
+	STW		r27,r28,UART_STATUS_OFFSET
+	BNE		r0,r0,_CHECK_UART_STATUS
+_CLEAR_BUFFER_RETURN:
+	JMP		r31
+	ANDR	r0,r0,r0
+
+SEND_CHAR:
+	ORI		r0,r27,UART_BASE_ADDR_H
+	SHLLI 	r27,r27,16
+	STW		r27,r15,UART_DATA_OFFSET
+_WAIT_SEND_DONE:
+	LDW		r27,r23,UART_STATUS_OFFSET
+	ANDI	r23,r23,UART_TX_INTR_MASK
+	BE		r0,r23,_WAIT_SEND_DONE
+	ANDR	r0,r0,r0
+
+	LDW		r27,r23,UART_STATUS_OFFSET
+	XORI	r23,r23,UART_TX_INTR_MASK
+	STW		r27,r23,UART_STATUS_OFFSET
+
+	JMP		r31
+	ANDR	r0,r0,r0
