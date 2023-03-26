@@ -154,7 +154,7 @@ module chip_top_test;
 
 	/********** 波形の出力 **********/	
 	initial begin
-		$dumpfile("chip_top.vcd");
+		$dumpfile("chip_top_test.vcd");
 		$dumpvars(0, chip_top.chip.rom);
 		// this is to demonstrate not only can we capture by module, but also down to single signal
 		$dumpvars(0, chip_top.clk_gen.x_s3e_dcm.locked);

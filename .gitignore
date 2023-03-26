@@ -1,8 +1,6 @@
 # ModelSim
-## ignore everything
-3-sim/*
-## except .do file
-!3-sim/*.do
+3-sim/*.mti
+3-sim/work/
 
 # Quartus
 *.bak
