@@ -1,234 +1,74 @@
 <session jtag_chain="USB-Blaster [USB-1]" jtag_device="@1: EP2C5 (0x020B10DD)" sof_file="azpr.sof">
   <display_tree gui_logging_enabled="0">
-    <display_branch instance="auto_signaltap_0" log="USE_GLOBAL_TEMP" signal_set="USE_GLOBAL_TEMP" trigger="USE_GLOBAL_TEMP"/>
+    <display_branch instance="auto_signaltap_0" signal_set="USE_GLOBAL_TEMP" trigger="USE_GLOBAL_TEMP"/>
   </display_tree>
   <instance entity_name="sld_signaltap" is_auto_node="yes" is_expanded="true" name="auto_signaltap_0" source_file="sld_signaltap.vhd">
     <node_ip_info instance_id="0" mfg_id="110" node_id="0" version="6"/>
-    <signal_set global_temp="1" is_expanded="true" name="signal_set: 2023/03/05 20:49:09  #0">
-      <clock name="clk_ref" polarity="posedge" tap_mode="classic"/>
+    <signal_set global_temp="1" is_expanded="true" name="signal_set: 2023/03/25 12:17:55  #0">
+      <clock name="clk_gen:clk_gen|clk" polarity="posedge" tap_mode="classic"/>
       <config ram_type="M4K" reserved_data_nodes="0" reserved_storage_qualifier_nodes="0" reserved_trigger_nodes="0" sample_depth="64" trigger_in_enable="no" trigger_out_enable="no"/>
       <top_entity/>
       <signal_vec>
         <trigger_input_vec>
-          <wire name="chip:chip|cpu:cpu|id_stage:id_stage|decoder:decoder|br_taken" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[0]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[10]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[11]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[12]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[13]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[14]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[15]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[16]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[17]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[18]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[19]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[1]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[20]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[21]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[22]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[23]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[24]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[25]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[26]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[27]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[28]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[29]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[2]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[3]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[4]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[5]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[6]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[7]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[8]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[9]" tap_mode="classic"/>
+          <wire name="chip:chip|gpio:gpio|gpio_in[0]" tap_mode="classic"/>
+          <wire name="chip:chip|gpio:gpio|gpio_in[1]" tap_mode="classic"/>
+          <wire name="chip:chip|gpio:gpio|gpio_in[2]" tap_mode="classic"/>
+          <wire name="chip:chip|gpio:gpio|gpio_in[3]" tap_mode="classic"/>
         </trigger_input_vec>
         <data_input_vec>
-          <wire name="chip:chip|cpu:cpu|id_stage:id_stage|decoder:decoder|br_taken" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[0]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[10]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[11]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[12]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[13]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[14]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[15]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[16]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[17]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[18]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[19]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[1]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[20]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[21]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[22]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[23]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[24]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[25]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[26]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[27]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[28]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[29]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[2]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[3]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[4]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[5]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[6]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[7]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[8]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[9]" tap_mode="classic"/>
+          <wire name="chip:chip|gpio:gpio|gpio_in[0]" tap_mode="classic"/>
+          <wire name="chip:chip|gpio:gpio|gpio_in[1]" tap_mode="classic"/>
+          <wire name="chip:chip|gpio:gpio|gpio_in[2]" tap_mode="classic"/>
+          <wire name="chip:chip|gpio:gpio|gpio_in[3]" tap_mode="classic"/>
         </data_input_vec>
         <storage_qualifier_input_vec>
-          <wire name="chip:chip|cpu:cpu|id_stage:id_stage|decoder:decoder|br_taken" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[0]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[10]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[11]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[12]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[13]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[14]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[15]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[16]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[17]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[18]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[19]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[1]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[20]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[21]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[22]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[23]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[24]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[25]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[26]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[27]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[28]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[29]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[2]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[3]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[4]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[5]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[6]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[7]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[8]" tap_mode="classic"/>
-          <wire name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[9]" tap_mode="classic"/>
+          <wire name="chip:chip|gpio:gpio|gpio_in[0]" tap_mode="classic"/>
+          <wire name="chip:chip|gpio:gpio|gpio_in[1]" tap_mode="classic"/>
+          <wire name="chip:chip|gpio:gpio|gpio_in[2]" tap_mode="classic"/>
+          <wire name="chip:chip|gpio:gpio|gpio_in[3]" tap_mode="classic"/>
         </storage_qualifier_input_vec>
       </signal_vec>
       <presentation>
         <unified_setup_data_view>
-          <node data_index="0" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="chip:chip|cpu:cpu|id_stage:id_stage|decoder:decoder|br_taken" storage_index="0" tap_mode="classic" trigger_index="0" type="combinatorial"/>
-          <node name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc" order="msb_to_lsb" type="combinatorial">
-            <node data_index="22" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="high" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[29]" storage_index="22" tap_mode="classic" trigger_index="22" type="combinatorial"/>
-            <node data_index="21" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[28]" storage_index="21" tap_mode="classic" trigger_index="21" type="combinatorial"/>
-            <node data_index="20" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[27]" storage_index="20" tap_mode="classic" trigger_index="20" type="combinatorial"/>
-            <node data_index="19" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[26]" storage_index="19" tap_mode="classic" trigger_index="19" type="combinatorial"/>
-            <node data_index="18" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[25]" storage_index="18" tap_mode="classic" trigger_index="18" type="combinatorial"/>
-            <node data_index="17" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[24]" storage_index="17" tap_mode="classic" trigger_index="17" type="combinatorial"/>
-            <node data_index="16" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[23]" storage_index="16" tap_mode="classic" trigger_index="16" type="combinatorial"/>
-            <node data_index="15" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[22]" storage_index="15" tap_mode="classic" trigger_index="15" type="combinatorial"/>
-            <node data_index="14" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[21]" storage_index="14" tap_mode="classic" trigger_index="14" type="combinatorial"/>
-            <node data_index="13" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[20]" storage_index="13" tap_mode="classic" trigger_index="13" type="combinatorial"/>
-            <node data_index="11" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[19]" storage_index="11" tap_mode="classic" trigger_index="11" type="combinatorial"/>
-            <node data_index="10" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[18]" storage_index="10" tap_mode="classic" trigger_index="10" type="combinatorial"/>
-            <node data_index="9" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[17]" storage_index="9" tap_mode="classic" trigger_index="9" type="combinatorial"/>
-            <node data_index="8" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[16]" storage_index="8" tap_mode="classic" trigger_index="8" type="combinatorial"/>
-            <node data_index="7" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[15]" storage_index="7" tap_mode="classic" trigger_index="7" type="combinatorial"/>
-            <node data_index="6" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[14]" storage_index="6" tap_mode="classic" trigger_index="6" type="combinatorial"/>
-            <node data_index="5" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[13]" storage_index="5" tap_mode="classic" trigger_index="5" type="combinatorial"/>
-            <node data_index="4" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[12]" storage_index="4" tap_mode="classic" trigger_index="4" type="combinatorial"/>
-            <node data_index="3" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[11]" storage_index="3" tap_mode="classic" trigger_index="3" type="combinatorial"/>
-            <node data_index="2" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[10]" storage_index="2" tap_mode="classic" trigger_index="2" type="combinatorial"/>
-            <node data_index="30" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[9]" storage_index="30" tap_mode="classic" trigger_index="30" type="combinatorial"/>
-            <node data_index="29" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[8]" storage_index="29" tap_mode="classic" trigger_index="29" type="combinatorial"/>
-            <node data_index="28" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[7]" storage_index="28" tap_mode="classic" trigger_index="28" type="combinatorial"/>
-            <node data_index="27" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[6]" storage_index="27" tap_mode="classic" trigger_index="27" type="combinatorial"/>
-            <node data_index="26" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[5]" storage_index="26" tap_mode="classic" trigger_index="26" type="combinatorial"/>
-            <node data_index="25" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[4]" storage_index="25" tap_mode="classic" trigger_index="25" type="combinatorial"/>
-            <node data_index="24" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[3]" storage_index="24" tap_mode="classic" trigger_index="24" type="combinatorial"/>
-            <node data_index="23" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[2]" storage_index="23" tap_mode="classic" trigger_index="23" type="combinatorial"/>
-            <node data_index="12" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[1]" storage_index="12" tap_mode="classic" trigger_index="12" type="combinatorial"/>
-            <node data_index="1" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[0]" storage_index="1" tap_mode="classic" trigger_index="1" type="combinatorial"/>
+          <node name="chip:chip|gpio:gpio|gpio_in" order="msb_to_lsb" state="expand" type="combinatorial">
+            <node data_index="3" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="rising edge" name="chip:chip|gpio:gpio|gpio_in[3]" storage_index="3" tap_mode="classic" trigger_index="3" type="combinatorial"/>
+            <node data_index="2" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="rising edge" name="chip:chip|gpio:gpio|gpio_in[2]" storage_index="2" tap_mode="classic" trigger_index="2" type="combinatorial"/>
+            <node data_index="1" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="rising edge" name="chip:chip|gpio:gpio|gpio_in[1]" storage_index="1" tap_mode="classic" trigger_index="1" type="combinatorial"/>
+            <node data_index="0" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="rising edge" name="chip:chip|gpio:gpio|gpio_in[0]" storage_index="0" tap_mode="classic" trigger_index="0" type="combinatorial"/>
           </node>
         </unified_setup_data_view>
         <data_view>
-          <net data_index="0" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="chip:chip|cpu:cpu|id_stage:id_stage|decoder:decoder|br_taken" storage_index="0" tap_mode="classic" trigger_index="0" type="combinatorial"/>
-          <bus name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc" order="msb_to_lsb" type="combinatorial">
-            <net data_index="22" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="high" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[29]" storage_index="22" tap_mode="classic" trigger_index="22" type="combinatorial"/>
-            <net data_index="21" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[28]" storage_index="21" tap_mode="classic" trigger_index="21" type="combinatorial"/>
-            <net data_index="20" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[27]" storage_index="20" tap_mode="classic" trigger_index="20" type="combinatorial"/>
-            <net data_index="19" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[26]" storage_index="19" tap_mode="classic" trigger_index="19" type="combinatorial"/>
-            <net data_index="18" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[25]" storage_index="18" tap_mode="classic" trigger_index="18" type="combinatorial"/>
-            <net data_index="17" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[24]" storage_index="17" tap_mode="classic" trigger_index="17" type="combinatorial"/>
-            <net data_index="16" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[23]" storage_index="16" tap_mode="classic" trigger_index="16" type="combinatorial"/>
-            <net data_index="15" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[22]" storage_index="15" tap_mode="classic" trigger_index="15" type="combinatorial"/>
-            <net data_index="14" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[21]" storage_index="14" tap_mode="classic" trigger_index="14" type="combinatorial"/>
-            <net data_index="13" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[20]" storage_index="13" tap_mode="classic" trigger_index="13" type="combinatorial"/>
-            <net data_index="11" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[19]" storage_index="11" tap_mode="classic" trigger_index="11" type="combinatorial"/>
-            <net data_index="10" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[18]" storage_index="10" tap_mode="classic" trigger_index="10" type="combinatorial"/>
-            <net data_index="9" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[17]" storage_index="9" tap_mode="classic" trigger_index="9" type="combinatorial"/>
-            <net data_index="8" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[16]" storage_index="8" tap_mode="classic" trigger_index="8" type="combinatorial"/>
-            <net data_index="7" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[15]" storage_index="7" tap_mode="classic" trigger_index="7" type="combinatorial"/>
-            <net data_index="6" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[14]" storage_index="6" tap_mode="classic" trigger_index="6" type="combinatorial"/>
-            <net data_index="5" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[13]" storage_index="5" tap_mode="classic" trigger_index="5" type="combinatorial"/>
-            <net data_index="4" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[12]" storage_index="4" tap_mode="classic" trigger_index="4" type="combinatorial"/>
-            <net data_index="3" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[11]" storage_index="3" tap_mode="classic" trigger_index="3" type="combinatorial"/>
-            <net data_index="2" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[10]" storage_index="2" tap_mode="classic" trigger_index="2" type="combinatorial"/>
-            <net data_index="30" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[9]" storage_index="30" tap_mode="classic" trigger_index="30" type="combinatorial"/>
-            <net data_index="29" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[8]" storage_index="29" tap_mode="classic" trigger_index="29" type="combinatorial"/>
-            <net data_index="28" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[7]" storage_index="28" tap_mode="classic" trigger_index="28" type="combinatorial"/>
-            <net data_index="27" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[6]" storage_index="27" tap_mode="classic" trigger_index="27" type="combinatorial"/>
-            <net data_index="26" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[5]" storage_index="26" tap_mode="classic" trigger_index="26" type="combinatorial"/>
-            <net data_index="25" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[4]" storage_index="25" tap_mode="classic" trigger_index="25" type="combinatorial"/>
-            <net data_index="24" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[3]" storage_index="24" tap_mode="classic" trigger_index="24" type="combinatorial"/>
-            <net data_index="23" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[2]" storage_index="23" tap_mode="classic" trigger_index="23" type="combinatorial"/>
-            <net data_index="12" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[1]" storage_index="12" tap_mode="classic" trigger_index="12" type="combinatorial"/>
-            <net data_index="1" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[0]" storage_index="1" tap_mode="classic" trigger_index="1" type="combinatorial"/>
+          <bus name="chip:chip|gpio:gpio|gpio_in" order="msb_to_lsb" state="expand" type="combinatorial">
+            <net data_index="3" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="rising edge" name="chip:chip|gpio:gpio|gpio_in[3]" storage_index="3" tap_mode="classic" trigger_index="3" type="combinatorial"/>
+            <net data_index="2" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="rising edge" name="chip:chip|gpio:gpio|gpio_in[2]" storage_index="2" tap_mode="classic" trigger_index="2" type="combinatorial"/>
+            <net data_index="1" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="rising edge" name="chip:chip|gpio:gpio|gpio_in[1]" storage_index="1" tap_mode="classic" trigger_index="1" type="combinatorial"/>
+            <net data_index="0" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="rising edge" name="chip:chip|gpio:gpio|gpio_in[0]" storage_index="0" tap_mode="classic" trigger_index="0" type="combinatorial"/>
           </bus>
         </data_view>
         <setup_view>
-          <net data_index="0" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="chip:chip|cpu:cpu|id_stage:id_stage|decoder:decoder|br_taken" storage_index="0" tap_mode="classic" trigger_index="0" type="combinatorial"/>
-          <bus name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc" order="msb_to_lsb" type="combinatorial">
-            <net data_index="22" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="high" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[29]" storage_index="22" tap_mode="classic" trigger_index="22" type="combinatorial"/>
-            <net data_index="21" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[28]" storage_index="21" tap_mode="classic" trigger_index="21" type="combinatorial"/>
-            <net data_index="20" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[27]" storage_index="20" tap_mode="classic" trigger_index="20" type="combinatorial"/>
-            <net data_index="19" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[26]" storage_index="19" tap_mode="classic" trigger_index="19" type="combinatorial"/>
-            <net data_index="18" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[25]" storage_index="18" tap_mode="classic" trigger_index="18" type="combinatorial"/>
-            <net data_index="17" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[24]" storage_index="17" tap_mode="classic" trigger_index="17" type="combinatorial"/>
-            <net data_index="16" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[23]" storage_index="16" tap_mode="classic" trigger_index="16" type="combinatorial"/>
-            <net data_index="15" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[22]" storage_index="15" tap_mode="classic" trigger_index="15" type="combinatorial"/>
-            <net data_index="14" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[21]" storage_index="14" tap_mode="classic" trigger_index="14" type="combinatorial"/>
-            <net data_index="13" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[20]" storage_index="13" tap_mode="classic" trigger_index="13" type="combinatorial"/>
-            <net data_index="11" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[19]" storage_index="11" tap_mode="classic" trigger_index="11" type="combinatorial"/>
-            <net data_index="10" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[18]" storage_index="10" tap_mode="classic" trigger_index="10" type="combinatorial"/>
-            <net data_index="9" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[17]" storage_index="9" tap_mode="classic" trigger_index="9" type="combinatorial"/>
-            <net data_index="8" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[16]" storage_index="8" tap_mode="classic" trigger_index="8" type="combinatorial"/>
-            <net data_index="7" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[15]" storage_index="7" tap_mode="classic" trigger_index="7" type="combinatorial"/>
-            <net data_index="6" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[14]" storage_index="6" tap_mode="classic" trigger_index="6" type="combinatorial"/>
-            <net data_index="5" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[13]" storage_index="5" tap_mode="classic" trigger_index="5" type="combinatorial"/>
-            <net data_index="4" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[12]" storage_index="4" tap_mode="classic" trigger_index="4" type="combinatorial"/>
-            <net data_index="3" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[11]" storage_index="3" tap_mode="classic" trigger_index="3" type="combinatorial"/>
-            <net data_index="2" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[10]" storage_index="2" tap_mode="classic" trigger_index="2" type="combinatorial"/>
-            <net data_index="30" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[9]" storage_index="30" tap_mode="classic" trigger_index="30" type="combinatorial"/>
-            <net data_index="29" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[8]" storage_index="29" tap_mode="classic" trigger_index="29" type="combinatorial"/>
-            <net data_index="28" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[7]" storage_index="28" tap_mode="classic" trigger_index="28" type="combinatorial"/>
-            <net data_index="27" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[6]" storage_index="27" tap_mode="classic" trigger_index="27" type="combinatorial"/>
-            <net data_index="26" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[5]" storage_index="26" tap_mode="classic" trigger_index="26" type="combinatorial"/>
-            <net data_index="25" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[4]" storage_index="25" tap_mode="classic" trigger_index="25" type="combinatorial"/>
-            <net data_index="24" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[3]" storage_index="24" tap_mode="classic" trigger_index="24" type="combinatorial"/>
-            <net data_index="23" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[2]" storage_index="23" tap_mode="classic" trigger_index="23" type="combinatorial"/>
-            <net data_index="12" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[1]" storage_index="12" tap_mode="classic" trigger_index="12" type="combinatorial"/>
-            <net data_index="1" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="low" name="chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[0]" storage_index="1" tap_mode="classic" trigger_index="1" type="combinatorial"/>
+          <bus name="chip:chip|gpio:gpio|gpio_in" order="msb_to_lsb" state="expand" type="combinatorial">
+            <net data_index="3" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="rising edge" name="chip:chip|gpio:gpio|gpio_in[3]" storage_index="3" tap_mode="classic" trigger_index="3" type="combinatorial"/>
+            <net data_index="2" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="rising edge" name="chip:chip|gpio:gpio|gpio_in[2]" storage_index="2" tap_mode="classic" trigger_index="2" type="combinatorial"/>
+            <net data_index="1" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="rising edge" name="chip:chip|gpio:gpio|gpio_in[1]" storage_index="1" tap_mode="classic" trigger_index="1" type="combinatorial"/>
+            <net data_index="0" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="rising edge" name="chip:chip|gpio:gpio|gpio_in[0]" storage_index="0" tap_mode="classic" trigger_index="0" type="combinatorial"/>
           </bus>
         </setup_view>
         <trigger_in_editor/>
         <trigger_out_editor/>
       </presentation>
-      <trigger CRC="4F88A846" attribute_mem_mode="false" gap_record="true" global_temp="1" is_expanded="true" name="trigger: 2023/03/05 21:02:08  #0" position="pre" power_up_trigger_mode="false" record_data_gap="true" segment_size="64" storage_mode="off" storage_qualifier_disabled="no" storage_qualifier_port_is_pin="false" storage_qualifier_port_name="auto_stp_external_storage_qualifier" storage_qualifier_port_tap_mode="classic" trigger_type="circular">
+      <trigger CRC="C92C523F" attribute_mem_mode="false" gap_record="true" global_temp="1" is_expanded="true" name="trigger: 2023/03/26 10:08:26  #0" position="pre" power_up_trigger_mode="false" record_data_gap="true" segment_size="64" storage_mode="off" storage_qualifier_disabled="no" storage_qualifier_port_is_pin="true" storage_qualifier_port_name="auto_stp_external_storage_qualifier" storage_qualifier_port_tap_mode="classic" trigger_type="circular">
         <power_up_trigger position="pre" storage_qualifier_disabled="no"/>
         <events use_custom_flow_control="no">
-          <level enabled="yes" name="condition1" type="basic">'chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[0]' == low &amp;&amp; 'chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[10]' == low &amp;&amp; 'chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[11]' == low &amp;&amp; 'chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[12]' == low &amp;&amp; 'chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[13]' == low &amp;&amp; 'chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[14]' == low &amp;&amp; 'chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[15]' == low &amp;&amp; 'chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[16]' == low &amp;&amp; 'chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[17]' == low &amp;&amp; 'chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[18]' == low &amp;&amp; 'chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[19]' == low &amp;&amp; 'chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[1]' == low &amp;&amp; 'chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[20]' == low &amp;&amp; 'chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[21]' == low &amp;&amp; 'chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[22]' == low &amp;&amp; 'chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[23]' == low &amp;&amp; 'chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[24]' == low &amp;&amp; 'chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[25]' == low &amp;&amp; 'chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[26]' == low &amp;&amp; 'chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[27]' == low &amp;&amp; 'chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[28]' == low &amp;&amp; 'chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[29]' == high &amp;&amp; 'chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[2]' == low &amp;&amp; 'chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[3]' == low &amp;&amp; 'chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[4]' == low &amp;&amp; 'chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[5]' == low &amp;&amp; 'chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[6]' == low &amp;&amp; 'chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[7]' == low &amp;&amp; 'chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[8]' == low &amp;&amp; 'chip:chip|cpu:cpu|if_stage:if_stage|if_reg:if_reg|if_pc[9]' == low
-            <power_up enabled="yes">
-            </power_up><op_node/>
+          <level editor="basic_or" enabled="yes" name="condition1" type="advanced"><power_up enabled="yes">
+              <power_up_expression><![CDATA[(('chip:chip|gpio:gpio|gpio_in':({'chip:chip|gpio:gpio|gpio_in[3]','chip:chip|gpio:gpio|gpio_in[2]','chip:chip|gpio:gpio|gpio_in[1]','chip:chip|gpio:gpio|gpio_in[0]'}) == variable(b0000)) && variable(0)) || (mbpm('X',{'chip:chip|gpio:gpio|gpio_in[3]'}) && variable(1)) || (mbpm('X',{'chip:chip|gpio:gpio|gpio_in[2]'}) && variable(1)) || (mbpm('X',{'chip:chip|gpio:gpio|gpio_in[1]'}) && variable(1)) || (mbpm('X',{'chip:chip|gpio:gpio|gpio_in[0]'}) && variable(1))]]>
+              </power_up_expression>
+            </power_up><expression><![CDATA[(('chip:chip|gpio:gpio|gpio_in':({'chip:chip|gpio:gpio|gpio_in[3]','chip:chip|gpio:gpio|gpio_in[2]','chip:chip|gpio:gpio|gpio_in[1]','chip:chip|gpio:gpio|gpio_in[0]'}) == variable(b0000)) && variable(0)) || (mbpm('R',{'chip:chip|gpio:gpio|gpio_in[3]'}) && variable(1)) || (mbpm('R',{'chip:chip|gpio:gpio|gpio_in[2]'}) && variable(1)) || (mbpm('R',{'chip:chip|gpio:gpio|gpio_in[1]'}) && variable(1)) || (mbpm('R',{'chip:chip|gpio:gpio|gpio_in[0]'}) && variable(1))]]>
+            </expression><op_node/>
           </level>
         </events>
         <storage_qualifier_events>
-          <transitional>1111111111111111111111111111111
-            <pwr_up_transitional>1111111111111111111111111111111</pwr_up_transitional>
+          <transitional>1111
+            <pwr_up_transitional>1111</pwr_up_transitional>
           </transitional>
           <storage_qualifier_level type="basic">
             <power_up>
@@ -246,10 +86,6 @@
             <op_node/>
           </storage_qualifier_level>
         </storage_qualifier_events>
-        <log>
-          <data global_temp="1" name="log: 2023/03/05 21:02:11  #0"/>
-          <extradata/>
-        </log>
       </trigger>
     </signal_set>
     <position_info>
@@ -261,7 +97,7 @@
       <single attribute="zoom level denominator" value="1"/>
       <single attribute="zoom level numerator" value="1"/>
       <single attribute="zoom offset denominator" value="1"/>
-      <single attribute="zoom offset numerator" value="130944"/>
+      <single attribute="zoom offset numerator" value="131008"/>
     </position_info>
   </instance>
   <static_plugin_mnemonics/>
@@ -1947,18 +1783,19 @@ Wfx58TeLb1h8dcmd8CHE4O9e+n9q/1Nj3RFCvfL/+Ce/y/xX+Onq1VfMB/47
 jGyItj/kUv09ls/n/2Qkn986sjv/2Mj2HdsDoP2/v///ApODMKo=
 
     
+    
     </embedded_sof_file>
   </embedded_sof_files>
   <global_info>
     <single attribute="active instance" value="0"/>
     <single attribute="config widget visible" value="1"/>
     <single attribute="data log widget visible" value="1"/>
-    <single attribute="hierarchy widget height" value="233"/>
+    <single attribute="hierarchy widget height" value="141"/>
     <single attribute="hierarchy widget visible" value="1"/>
     <single attribute="instance widget visible" value="1"/>
     <single attribute="jtag widget visible" value="1"/>
-    <multi attribute="column width" size="23" value="34,34,538,74,68,70,88,88,98,98,88,88,110,101,101,101,101,101,101,101,101,107,342"/>
+    <multi attribute="column width" size="23" value="34,34,494,74,68,70,88,88,98,98,88,88,300,101,101,101,101,101,101,101,101,107,78"/>
     <multi attribute="frame size" size="2" value="2880,1541"/>
-    <multi attribute="jtag widget size" size="2" value="456,161"/>
+    <multi attribute="jtag widget size" size="2" value="972,161"/>
   </global_info>
 </session>
