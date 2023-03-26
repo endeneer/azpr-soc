@@ -344,6 +344,7 @@ _SET_LED2:
 	ANDR	r0,r0,r0
 
 	XORR	r16,r7,r16
+	ORI 	r16,r16,0x80
 
 	CALL	r2
 	ANDR	r0,r0,r0						;NOP
