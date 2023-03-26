@@ -4,23 +4,14 @@
 # since we are using verilog, use -L altera_mf_ver, and no need -L altera_mf (which is for vhdl)
 vsim -onfinish stop -L altera_mf_ver -wlf chip_top_test.wlf -voptargs=+acc work.chip_top_test 
 
-add wave -position end  sim:/chip_top_test/chip_top/clk_gen/reset_sw
-add wave -position end  sim:/chip_top_test/chip_top/clk_gen/dcm_reset
-add wave -position end  sim:/chip_top_test/chip_top/clk_gen/chip_reset
-
-add wave -position end  sim:/chip_top_test/chip_top/clk_gen/x_s3e_dcm/areset
-add wave -position end  sim:/chip_top_test/chip_top/clk_gen/x_s3e_dcm/inclk0
-add wave -position end  sim:/chip_top_test/chip_top/clk_gen/x_s3e_dcm/c0
-add wave -position end  sim:/chip_top_test/chip_top/clk_gen/x_s3e_dcm/c1
-add wave -position end  sim:/chip_top_test/chip_top/clk_gen/x_s3e_dcm/locked
-
-add wave -position end  sim:/chip_top_test/chip_top/chip/rom/x_s3e_sprom/address
-add wave -position end  sim:/chip_top_test/chip_top/chip/rom/x_s3e_sprom/clock
-add wave -position end  sim:/chip_top_test/chip_top/chip/rom/x_s3e_sprom/q
+# Setup Wave window
+source chip_top_test_waveform.do
 
 run -all
 # script below run -all will not be run, since in the testbench there is already stop in $finish;
 
-# To convert and view the .vcd recorded in chip_top_test.v
-# vcd2wlf chip_top.vcd chip_top.wlf
-# File menu -> Open -> chip_top.wlf
+# To convert and view (without re-simulation) the .wlf logged after run -all:
+## File menu -> Open -> chip_top_test.wlf
+## or vsim -view chip_top_test.wlf
+## Then can drag n drop which instance to inspect in Wave window.
+## $display, $monitor, $write, $strobe, etc. won't be recorded in .wlf or .vcd file.
